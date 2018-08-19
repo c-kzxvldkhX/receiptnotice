@@ -28,3 +28,8 @@
 - 打开软件自动跳转到获取通知权限页面，允许本应用监控通知
 
 - 返回到软件主页，填写你要接受收款信息通知的url,软件在接到收款通知后，会用post的方法，发送json信息.
+
+
+
+####  本软件从NLservice修改而来
+[NLservice](https://github.com/WHD597312/NLservice)
