@@ -17,78 +17,101 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.support.design.widget.FloatingActionButton;
 
+import com.tao.admin.loglib.Logger;
+import com.github.pedrovgs.lynx.LynxConfig;
+import com.github.pedrovgs.lynx.LynxActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "MainActivity";
-    private Button btnsetposturl;
-    private EditText posturl;
-    private SharedPreferences sp ;
-   
+        private static final String TAG = "MainActivity";
+        private Button btnsetposturl;
+        private FloatingActionButton btnshowlog;
+        private EditText posturl;
+        private SharedPreferences sp ;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-    }
 
-    private void initView() {
-
-        btnsetposturl=(Button) findViewById(R.id.btnsetposturl);
-        btnsetposturl.setOnClickListener(this);
-        posturl = (EditText) findViewById(R.id.posturl);
-	sp = getSharedPreferences("url", Context.MODE_PRIVATE);
-        
-        
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        boolean isAuthor=isNotificationServiceEnable();
-        if (!isAuthor){
-            //直接跳转通知授权界面
-            //android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS是API 22才加入到Settings里，这里直接写死
-            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
+                initView();
         }
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+        private void initView() {
 
-    /**
-     * 是否已授权
-     *
-     * @return
-     */
-    private boolean isNotificationServiceEnable() {
-        return NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName());
-    }
+                btnsetposturl=(Button) findViewById(R.id.btnsetposturl);
+                btnsetposturl.setOnClickListener(this);
+                btnshowlog=(FloatingActionButton) findViewById(R.id.floatingshowlog);
+                btnshowlog.setOnClickListener(this);
+                posturl = (EditText) findViewById(R.id.posturl);
+                sp = getSharedPreferences("url", Context.MODE_PRIVATE);
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnsetposturl:
-                setPostUrl();
-                break;
+
         }
-    }
 
-    private void setPostUrl() {
-       SharedPreferences.Editor edit = sp.edit();
+        @Override
+        protected void onResume() {
+                super.onResume();
+                boolean isAuthor=isNotificationServiceEnable();
+                if (!isAuthor){
+                        //直接跳转通知授权界面
+                        //android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS是API 22才加入到Settings里，这里直接写死
+                        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                }
+        }
+
+        @Override
+        protected void onDestroy() {
+                super.onDestroy();
+        }
+
+        /**
+         * 是否已授权
+         *
+         * @return
+         */
+        private boolean isNotificationServiceEnable() {
+                return NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName());
+        }
+
+        @Override
+        public void onClick(View v) {
+                switch (v.getId()) {
+                        case R.id.btnsetposturl:
+                                setPostUrl();
+                                break;
+                        case R.id.floatingshowlog:
+                                showLog();
+                                break;
+                }
+        }
+
+        private void setPostUrl() {
+                SharedPreferences.Editor edit = sp.edit();
                 //通过editor对象写入数据
                 edit.putString("posturl",posturl.getText().toString());
                 //提交数据存入到xml文件中
                 edit.commit();
-		Toast.makeText(getApplicationContext(), "已经设置posturl为："+posturl.getText().toString(),
-     Toast.LENGTH_SHORT).show();
-    }
+                Toast.makeText(getApplicationContext(), "已经设置posturl为："+posturl.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+        }
 
-   
+        private void showLog() {
+                //startActivity(new Intent(this, LogActivity.class));
+                openLynxActivity();
+        }
+        private void openLynxActivity() {
+                LynxConfig lynxConfig = new LynxConfig();
+                lynxConfig.setMaxNumberOfTracesToShow(4000)
+                        .setFilter("NLService");
+
+                Intent lynxActivityIntent = LynxActivity.getIntent(this, lynxConfig);
+                startActivity(lynxActivityIntent);
+        }
+
+
 
 
 }

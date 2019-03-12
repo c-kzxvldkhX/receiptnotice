@@ -31,5 +31,10 @@
 ##### 这个可搭配服务端getreceipt-server
 才刚刚开始写……
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
-####  本软件从NLservice修改而来
+
+#### 引用项目
+
+#####  本软件从NLservice修改而来
 [NLservice](https://github.com/WHD597312/NLservice)
+##### 实时logcat
+[pedrovgs/Lynx](https://github.com/pedrovgs/Lynx)
