@@ -27,5 +27,6 @@
                                 <action android:name="android.service.notification.NotificationListenerService" />
                         </intent-filter>
                 </service>
+                <service android:name=".NotificationCollectorMonitorService"/>
         </application>
 </manifest>
