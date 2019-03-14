@@ -1,5 +1,4 @@
 package com.weihuagu.receiptnotice;
-
 import android.content.Intent;
 import android.service.notification.NotificationListenerService;
 import android.app.Notification;
@@ -17,11 +16,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NLService extends NotificationListenerService implements AsyncResponse {
-        public String TAG="NLService";
-        public String posturl=null;
+public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost {
+        private String TAG="NLService";
+        private String posturl=null;
 
-        public String getPostUrl(){
+        private String getPostUrl(){
                 SharedPreferences sp=getSharedPreferences("url", 0);
                 this.posturl =sp.getString("posturl", "");
                 if (posturl==null)
@@ -30,9 +29,6 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         return posturl;
         }
 
-        public void infoLog(String info){
-                Log.i(TAG,info);
-        }
 
         @Override
         public void onNotificationPosted(StatusBarNotification sbn) {
