@@ -2,13 +2,13 @@ package com.weihuagu.receiptnotice;
 
 import android.os.Bundle;
 import android.app.Notification;
-public abstract class NotificationHandel{
+public abstract class NotificationHandle{
         private String pkgtype;
         private Bundle extras;
         private String title;
         private String content;
         private IDoPost postpush;
-        public NotificationHandel(String pkgtype,Bundle extras,IDoPost postpush){
+        public NotificationHandle(String pkgtype,Bundle extras,IDoPost postpush){
                 this.pkgtype=pkgtype;
                 this.extras=extras;
                 this.postpush=postpush;

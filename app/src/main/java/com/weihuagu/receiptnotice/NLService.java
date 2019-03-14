@@ -145,7 +145,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 Log.d(TAG,content);
         }
 
-        private void doPost(String url,Map<String, String> params){
+        public void doPost(String url,Map<String, String> params){
                 Log.d(TAG,"开始准备进行post");
                 PostTask mtask = new PostTask();
                 mtask.setOnAsyncResponse(this);
