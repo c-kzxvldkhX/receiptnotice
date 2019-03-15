@@ -41,12 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         private void initView() {
 
+                sp = getSharedPreferences("url", Context.MODE_PRIVATE);
                 btnsetposturl=(Button) findViewById(R.id.btnsetposturl);
                 btnsetposturl.setOnClickListener(this);
                 btnshowlog=(FloatingActionButton) findViewById(R.id.floatingshowlog);
                 btnshowlog.setOnClickListener(this);
                 posturl = (EditText) findViewById(R.id.posturl);
-                sp = getSharedPreferences("url", Context.MODE_PRIVATE);
+                if(getPostUrl()!=null)
+                        posturl.setHint(getPostUrl());
+
 
 
         }
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onClick(View v) {
                 switch (v.getId()) {
                         case R.id.btnsetposturl:
+                                posturl.setHint(null);
                                 setPostUrl();
                                 break;
                         case R.id.floatingshowlog:
@@ -97,6 +101,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "已经设置posturl为："+posturl.getText().toString(),
                                 Toast.LENGTH_SHORT).show();
         }
+
+        private String getPostUrl(){
+                String posturlpath;
+                posturlpath =sp.getString("posturl", "");
+                if (posturlpath==null)
+                        return null;
+                else
+                        return posturlpath;
+        }
+
 
         private void showLog() {
                 //startActivity(new Intent(this, LogActivity.class));
