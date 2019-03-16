@@ -12,7 +12,7 @@ public class AlipayNotificationHandle extends NotificationHandle{
 
         public void handleNotification(){
                 if(title.contains("支付宝")){
-                        if(content.contains("成功收款")){
+                        if(content.contains("成功收款") | content.contains("向你付款")){
                                 Map<String,String> postmap=new HashMap<String,String>();
                                 postmap.put("time",notitime);
                                 postmap.put("title","支付宝支付");
