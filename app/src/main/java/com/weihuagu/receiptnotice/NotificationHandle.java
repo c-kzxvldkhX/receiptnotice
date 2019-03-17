@@ -29,7 +29,7 @@ public abstract class NotificationHandle{
                 content = extras.getString(Notification.EXTRA_TEXT, "");
                 long when=notification.when;
                 Date date=new Date(when);
-                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 notitime=format.format(date);
 
 
