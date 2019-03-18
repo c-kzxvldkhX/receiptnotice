@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //通过editor对象写入数据
                 edit.putString("posturl",posturl.getText().toString());
                 //提交数据存入到xml文件中
-                edit.commit();
+                edit.apply();
                 Toast.makeText(getApplicationContext(), "已经设置posturl为："+posturl.getText().toString(),
                                 Toast.LENGTH_SHORT).show();
         }

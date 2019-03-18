@@ -84,6 +84,11 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         }
 
+        @Override
+        public void onNotificationRemoved(StatusBarNotification sbn) {
+                super.onNotificationRemoved(sbn);
+        }
+
         private void sendBroadcast(String msg) {
                 Intent intent = new Intent(getPackageName());
                 intent.putExtra("text", msg);
@@ -101,14 +106,14 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         }
 
         private String getNotiTitle(Bundle extras){
-                 String title=null;
+                String title=null;
                 // 获取通知标题
                 title = extras.getString(Notification.EXTRA_TITLE, "");
                 return title;
         }
 
         private String getNotiContent(Bundle extras){
-                  String content=null;
+                String content=null;
                 // 获取通知内容
                 content = extras.getString(Notification.EXTRA_TEXT, "");
                 return content;
@@ -129,6 +134,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 PostTask mtask = new PostTask();
                 mtask.setOnAsyncResponse(this);
                 params.put("url",this.posturl);
+                params.put("deviceid",DeviceInfoUtil.getUniquePsuedoID());
                 mtask.execute(params);
 
         }
