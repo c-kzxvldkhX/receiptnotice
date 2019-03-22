@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.os.Bundle;
 import android.content.SharedPreferences;
+import android.content.Context;
 
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost {
         private String TAG="NLService";
         private String posturl=null;
-
+        private Context context=null;
         private String getPostUrl(){
                 SharedPreferences sp=getSharedPreferences("url", 0);
                 this.posturl =sp.getString("posturl", "");
@@ -129,14 +130,34 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void doPost(Map<String, String> params){
                 if(this.posturl==null)
                         return;
-
+                Map<String, String> tmpmap=params;
+                Map<String, String> postmap=null;
                 Log.d(TAG,"开始准备进行post");
                 PostTask mtask = new PostTask();
                 mtask.setOnAsyncResponse(this);
-                params.put("url",this.posturl);
-                params.put("deviceid",DeviceInfoUtil.getUniquePsuedoID());
-                mtask.execute(params);
+                tmpmap.put("url",this.posturl);
+                tmpmap.put("deviceid",DeviceInfoUtil.getUniquePsuedoID());
 
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                if(preference.isEncrypt()){
+                       String encrypt_type=preference.getEncryptMethod();
+                        if(encrypt_type!=null){
+                                    String key=preference.getPasswd();
+                                    EncryptFactory encryptfactory=new EncryptFactory(key);
+                                    Log.d(TAG,"加密方法"+encrypt_type);
+                                    Log.d(TAG,"加密秘钥"+key);
+                                    Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
+                                    if(encrypter!=null&&key!=null){
+                                            postmap=encrypter.transferMapValue(tmpmap);
+                                            postmap.put("url",this.posturl);
+                                    }
+                                
+                        }
+                }
+                if(postmap!=null)
+                mtask.execute(postmap);
+                else
+                 mtask.execute(tmpmap);
         }
 
 

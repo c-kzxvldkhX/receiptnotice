@@ -1,12 +1,10 @@
 <resources>
         <string name="app_name">receiptnotice</string>
         <string-array name="pref_entries_encryptmethod">
-                <item>rsa</item>
                 <item>des</item>
         </string-array>
 
         <string-array name="pref_entryvalues_encryptmethod">
-                <item>rsa</item>
                 <item>des</item>
         </string-array>
 </resources>

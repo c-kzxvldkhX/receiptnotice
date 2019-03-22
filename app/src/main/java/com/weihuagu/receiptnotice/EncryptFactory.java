@@ -5,8 +5,11 @@ public class EncryptFactory{
                 this.key=key;
         }
         public Encrypter getEncrypter(String encrypt_type){
-                if(encrypt_type=="des")
+                if(encrypt_type.equals("des"))
                         return new DES(key);
+                if(encrypt_type.equals("aes"))
+                        return new AES(key);
+                LogUtil.debugLog("没有匹配到合适的Encrypter");
                 return null;
 
 
