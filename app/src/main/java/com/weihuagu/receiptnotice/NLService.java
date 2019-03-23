@@ -130,15 +130,18 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void doPost(Map<String, String> params){
                 if(this.posturl==null)
                         return;
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Map<String, String> tmpmap=params;
                 Map<String, String> postmap=null;
                 Log.d(TAG,"开始准备进行post");
                 PostTask mtask = new PostTask();
                 mtask.setOnAsyncResponse(this);
+                tmpmap.put("encrypt","0");
                 tmpmap.put("url",this.posturl);
-                tmpmap.put("deviceid",DeviceInfoUtil.getUniquePsuedoID());
+                String deviceid=preference.getDeviceid();
+                tmpmap.put("deviceid",deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
 
-                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                
                 if(preference.isEncrypt()){
                        String encrypt_type=preference.getEncryptMethod();
                         if(encrypt_type!=null){

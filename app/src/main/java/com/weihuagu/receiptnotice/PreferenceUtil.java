@@ -13,7 +13,9 @@ public class PreferenceUtil{
                 sharedPref=PreferenceManager.getDefaultSharedPreferences(this.context);
 
         }
-
+        public String getDeviceid(){
+                return this.sharedPref.getString("deviceid","");
+        }
         public boolean isEncrypt(){
                 return this.sharedPref.getBoolean("isencrypt",false);
         }

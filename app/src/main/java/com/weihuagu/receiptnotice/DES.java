@@ -8,6 +8,7 @@ public class DES extends Encrypter{
  public DES(String key){
 super(key);
 }
+
  public Map<String,String> transferMapValue(Map<String, String> params){
  Map<String,String> postmap=new HashMap<String,String>();
 Iterator entries = params.entrySet().iterator();

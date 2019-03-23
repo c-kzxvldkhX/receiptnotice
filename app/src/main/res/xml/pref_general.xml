@@ -38,6 +38,13 @@
                                 android:category="android.intent.category.DEFAULT"
                                 android:data="https://github.com/WeihuaGu/receiptnotice"/>
                 </Preference>
+                <Preference
+                        android:title="捐助">
+                        <intent
+                                android:action="android.intent.action.VIEW"
+                                android:category="android.intent.category.DEFAULT"
+                                android:data="https://weihuagu.github.io/donate/"/>
+                </Preference>
         </PreferenceCategory>
 
 
