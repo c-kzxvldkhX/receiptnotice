@@ -1,3 +1,7 @@
+def keystorePropertiesFile = rootProject.file("./app/key.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
@@ -5,32 +9,30 @@ android {
         applicationId "com.weihuagu.receiptnotice"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName "0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
 
 signingConfigs{
-        debug {
-
-    }
         release {
+        keyAlias keystoreProperties['keyAlias']
+        keyPassword keystoreProperties['keyPassword']
+        storeFile file(keystoreProperties['storeFile'])
+        storePassword keystoreProperties['storePassword']
     }
 }
 
 buildTypes {
-        debug {
-
-        }
         release {
+            signingConfig signingConfigs.release
         }
     }
         lintOptions {
       	    abortOnError false
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.0.2'
