@@ -7,8 +7,8 @@
                 <EditTextPreference
                         android:defaultValue=""
                         android:key="deviceid"
-                        android:title="设备deviceid"
-                        android:summary="设备deviceid,可以自己设置任意字符串用以标识设备"/>
+                        android:title="deviceid"
+                        android:summary="设置deviceid来标识设备,如果不设置使用系统的Serial号码的UUID"/>
                 <CheckBoxPreference
                         android:title="加密"
                         android:defaultValue="false"
