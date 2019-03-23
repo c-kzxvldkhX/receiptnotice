@@ -29,7 +29,7 @@ public abstract class NotificationHandle{
                 content = extras.getString(Notification.EXTRA_TEXT, "");
                 long when=notification.when;
                 Date date=new Date(when);
-                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 notitime=format.format(date);
 
 
@@ -38,7 +38,7 @@ public abstract class NotificationHandle{
         
         public  abstract void handleNotification();
         protected  String extractMoney(String content){
-                Pattern pattern = Pattern.compile("收款(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
+                Pattern pattern = Pattern.compile("(收款|向你付款)(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
                 Matcher matcher = pattern.matcher(content);
                 if(matcher.find()){
                         String tmp=matcher.group();

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.os.Bundle;
 import android.content.SharedPreferences;
+import android.content.Context;
 
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost {
         private String TAG="NLService";
         private String posturl=null;
-
+        private Context context=null;
         private String getPostUrl(){
                 SharedPreferences sp=getSharedPreferences("url", 0);
                 this.posturl =sp.getString("posturl", "");
@@ -84,6 +85,11 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         }
 
+        @Override
+        public void onNotificationRemoved(StatusBarNotification sbn) {
+                super.onNotificationRemoved(sbn);
+        }
+
         private void sendBroadcast(String msg) {
                 Intent intent = new Intent(getPackageName());
                 intent.putExtra("text", msg);
@@ -101,14 +107,14 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         }
 
         private String getNotiTitle(Bundle extras){
-                 String title=null;
+                String title=null;
                 // 获取通知标题
                 title = extras.getString(Notification.EXTRA_TITLE, "");
                 return title;
         }
 
         private String getNotiContent(Bundle extras){
-                  String content=null;
+                String content=null;
                 // 获取通知内容
                 content = extras.getString(Notification.EXTRA_TEXT, "");
                 return content;
@@ -124,13 +130,37 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void doPost(Map<String, String> params){
                 if(this.posturl==null)
                         return;
-
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                Map<String, String> tmpmap=params;
+                Map<String, String> postmap=null;
                 Log.d(TAG,"开始准备进行post");
                 PostTask mtask = new PostTask();
                 mtask.setOnAsyncResponse(this);
-                params.put("url",this.posturl);
-                mtask.execute(params);
+                tmpmap.put("encrypt","0");
+                tmpmap.put("url",this.posturl);
+                String deviceid=preference.getDeviceid();
+                tmpmap.put("deviceid",deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
 
+                
+                if(preference.isEncrypt()){
+                       String encrypt_type=preference.getEncryptMethod();
+                        if(encrypt_type!=null){
+                                    String key=preference.getPasswd();
+                                    EncryptFactory encryptfactory=new EncryptFactory(key);
+                                    Log.d(TAG,"加密方法"+encrypt_type);
+                                    Log.d(TAG,"加密秘钥"+key);
+                                    Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
+                                    if(encrypter!=null&&key!=null){
+                                            postmap=encrypter.transferMapValue(tmpmap);
+                                            postmap.put("url",this.posturl);
+                                    }
+                                
+                        }
+                }
+                if(postmap!=null)
+                mtask.execute(postmap);
+                else
+                 mtask.execute(tmpmap);
         }
 
 

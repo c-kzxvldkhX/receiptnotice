@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+        <PreferenceCategory
+                android:key="settings"
+                android:summary="设置"
+                android:title="设置">
+                <EditTextPreference
+                        android:defaultValue=""
+                        android:key="deviceid"
+                        android:title="deviceid"
+                        android:summary="设置deviceid来标识设备,如果不设置使用系统的Serial号码的UUID"/>
+                <CheckBoxPreference
+                        android:title="加密"
+                        android:defaultValue="false"
+                        android:key="isencrypt" />
+                <ListPreference
+                        android:summary="加密方法"
+                        android:key="encryptmethod"
+                        android:title="加密方法"
+                        android:entries="@array/pref_entries_encryptmethod"
+                        android:entryValues="@array/pref_entryvalues_encryptmethod"
+                        >
+                </ListPreference>
+                <EditTextPreference
+                        android:defaultValue=""
+                        android:key="passwd"
+                        android:summary="密钥"
+                        android:title="密钥" />
+        </PreferenceCategory>
+        <PreferenceCategory
+                android:key="about"
+                android:summary="关于"
+                android:title="关于">
+                <Preference
+                        android:title="github地址">
+                        <intent
+                                android:action="android.intent.action.VIEW"
+                                android:category="android.intent.category.DEFAULT"
+                                android:data="https://github.com/WeihuaGu/receiptnotice"/>
+                </Preference>
+                <Preference
+                        android:title="捐助">
+                        <intent
+                                android:action="android.intent.action.VIEW"
+                                android:category="android.intent.category.DEFAULT"
+                                android:data="https://weihuagu.github.io/donate/"/>
+                </Preference>
+        </PreferenceCategory>
+
+
+</PreferenceScreen>
