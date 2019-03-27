@@ -16,7 +16,7 @@ while (entries.hasNext()) {
     Map.Entry entry = (Map.Entry) entries.next();
     String paramkey = (String)entry.getKey();
     String paramvalue = (String)entry.getValue();
-    String desStr = DESUtil.des(paramvalue, key, Cipher.ENCRYPT_MODE);
+    String desStr = DESUtilWithIV.des(paramvalue, key, Cipher.ENCRYPT_MODE);
     postmap.put(paramkey,desStr);
  
 }
