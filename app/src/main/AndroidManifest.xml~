@@ -18,12 +18,7 @@
                                 <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>
                 </activity>
-                <activity android:name=".LogActivity"/>
-                <activity android:name=".IllustrateDecryptActivity">
-                        <intent-filter>
-                                    <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod"/>
-                                    <category android:name="android.intent.category.DEFAULT"/>
-                         </intent-filter>  
+                <activity android:name=".LogActivity">
                 </activity>
                 <activity android:name="com.github.pedrovgs.lynx.LynxActivity"/>
                 <activity android:name=".PreferenceActivity"/>

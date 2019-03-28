@@ -26,12 +26,6 @@
                         android:key="passwd"
                         android:summary="密钥"
                         android:title="密钥" />
-                 <Preference
-                        android:title="解密说明">
-                        <intent
-                                android:action="com.weihuagu.receiptnotice.illustratedecryptmethod"
-                                android:category="android.intent.category.DEFAULT"/>
-                </Preference>
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="about"
