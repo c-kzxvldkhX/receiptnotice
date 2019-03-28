@@ -5,6 +5,7 @@ import java.util.List;
 import android.os.AsyncTask;
 import java.util.Map;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -21,22 +22,28 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
         OkHttpClient client = new OkHttpClient();
         String httppost(String url, String json) throws IOException {
                 RequestBody body = RequestBody.create(JSON, json);
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(body)
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
+                        .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
                         .build();
-                try (Response response = client.newCall(request).execute()) {
+                Request.Builder request = new Request.Builder()
+                        .url(url)
+                        .post(body);
+                try (Response response = client.newCall(request.build()).execute()) {
                         return response.body().string();
                 }
         }
 
         String httpspost(String url, String json) throws IOException {
                 RequestBody body = RequestBody.create(JSON, json);
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(body)
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
+                        .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
                         .build();
-                try (Response response = client.newCall(request).execute()) {
+                Request.Builder request = new Request.Builder()
+                        .url(url)
+                        .post(body);
+                try (Response response = client.newCall(request.build()).execute()) {
                         return response.body().string();
                 }
         }
