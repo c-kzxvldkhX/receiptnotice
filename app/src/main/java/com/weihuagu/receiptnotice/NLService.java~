@@ -87,7 +87,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         @Override
         public void onNotificationRemoved(StatusBarNotification sbn) {
-                //super.onNotificationRemoved(sbn);
+                super.onNotificationRemoved(sbn);
         }
 
         private void sendBroadcast(String msg) {
