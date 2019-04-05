@@ -19,6 +19,12 @@ public class PreferenceUtil{
         public boolean isEncrypt(){
                 return this.sharedPref.getBoolean("isencrypt",false);
         }
+        public boolean isEcho(){
+                return this.sharedPref.getBoolean("isecho",false);
+        }
+        public String getEchoServer(){
+                return this.sharedPref.getString("echoserver",null);
+        }
         public String getEncryptMethod(){
                 return this.sharedPref.getString("encryptmethod",null);
         }
