@@ -38,13 +38,13 @@
                 android:summary="报告连接"
                 android:title="报告连接">
           <CheckBoxPreference
-                        android:title="是否echo server"
+                        android:title="是否使用socket.io echo server"
                         android:defaultValue="false"
                         android:key="isecho" />
         <EditTextPreference
                         android:defaultValue=""
                         android:key="echoserver"
-                        android:summary="echo 服务器"
+                        android:summary="echo socket.io 服务器"
                         android:title="echo 服务器" />
         </PreferenceCategory>
         <PreferenceCategory

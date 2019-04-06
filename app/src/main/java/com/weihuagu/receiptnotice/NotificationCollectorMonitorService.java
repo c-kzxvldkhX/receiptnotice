@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import io.socket.emitter.Emitter;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by xinghui on 9/20/16.
@@ -42,13 +44,23 @@ public class NotificationCollectorMonitorService extends Service {
          * IllegalArgumentException is thrown if the tag.length() > 23.
          */
         private static final String TAG = "NotifiCollectorMonitor";
+        private Timer timer=null;
 
         @Override
         public void onCreate() {
                 super.onCreate();
                 Log.d(TAG, "onCreate() called");
                 ensureCollectorRunning();
-                echoServer();
+                this.timer=new Timer();
+                TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+               boolean flag= echoServer();
+               if(!flag)
+                    ;
+            }
+        };
+                timer.schedule(timerTask, 600*1000,5000*100);
         }
 
         @Override
@@ -56,10 +68,10 @@ public class NotificationCollectorMonitorService extends Service {
                 return START_STICKY;
         }
 
-        private void echoServer(){
+        private boolean echoServer(){
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Gson gson = new Gson();
-                if(preference.isEncrypt()&&(preference.getEchoServer()!=null)){
+                if(preference. isEcho()&&(preference.getEchoServer()!=null)){
                // AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                // Intent myIntent = new Intent();
                // myIntent.setAction("com.weihuagu.receiptnotice.echo");
@@ -86,13 +98,18 @@ public class NotificationCollectorMonitorService extends Service {
                                 public void call(Object... args) {echoServer();}
                         });
                         LogUtil.debugLog(gson.toJson(device));
-                } catch (URISyntaxException e) {StringWriter sw = new StringWriter();
+                        return true;
+                } catch (URISyntaxException e) {
+                        StringWriter sw = new StringWriter();
                         PrintWriter pw = new PrintWriter(sw);
                         e.printStackTrace(pw);
-                        LogUtil.debugLog(sw.toString()); }
+                        LogUtil.debugLog(sw.toString()); 
+                        return true;
+                    }
 
                  }
-
+                else
+                        return false;
 
         }
         private void ensureCollectorRunning() {
