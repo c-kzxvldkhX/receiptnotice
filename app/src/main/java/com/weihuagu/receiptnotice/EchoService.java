@@ -5,8 +5,8 @@ import java.util.Date;
 import java.lang.System;
 import android.app.IntentService;
 import android.content.Intent;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 public class EchoService extends IntentService {
 private String echoserver=null;
 public EchoService () {
