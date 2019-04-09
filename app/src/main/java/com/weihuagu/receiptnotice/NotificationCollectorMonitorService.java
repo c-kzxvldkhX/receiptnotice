@@ -15,6 +15,9 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import java.util.List;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.lang.System;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -45,6 +48,15 @@ public class NotificationCollectorMonitorService extends Service {
          */
         private static final String TAG = "NotifiCollectorMonitor";
         private Timer timer=null;
+        private TimerTask echotimertask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        LogUtil.debugLog("once socketio timer task run");
+                        boolean flag= echoServer();
+                        if(!flag)
+                                LogUtil.debugLog("socketio timer task not have a server");
+                    }
+                };
 
         @Override
         public void onCreate() {
@@ -52,15 +64,7 @@ public class NotificationCollectorMonitorService extends Service {
                 Log.d(TAG, "onCreate() called");
                 ensureCollectorRunning();
                 this.timer=new Timer();
-                TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-               boolean flag= echoServer();
-               if(!flag)
-                    ;
-            }
-        };
-                timer.schedule(timerTask, 600*1000,5000*100);
+                timer.schedule(echotimertask,1*1000,600*1000);
         }
 
         @Override
@@ -72,15 +76,6 @@ public class NotificationCollectorMonitorService extends Service {
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Gson gson = new Gson();
                 if(preference. isEcho()&&(preference.getEchoServer()!=null)){
-               // AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-               // Intent myIntent = new Intent();
-               // myIntent.setAction("com.weihuagu.receiptnotice.echo");
-               // myIntent.setPackage("com.weihuagu.receiptnotice");
-                //  PendingIntent sender = PendingIntent.getService(getBaseContext(),0,myIntent,0);
-                //    LogUtil.debugLog("start to echo alarm");
-                //  alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5 * 1000,  5 * 1000,sender);
-                //startService(myIntent);
-                try{
                         Date date=new Date(System.currentTimeMillis());
                         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String time=format.format(date);
@@ -89,8 +84,8 @@ public class NotificationCollectorMonitorService extends Service {
                         deviceid=(deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
                         device.setDeviceid(deviceid);
                         device.setTime(time);
-                        LogUtil.debugLog("start socketio");
-                        Socket mSocket= IO.socket(preference.getEchoServer());
+                        LogUtil.debugLog("start connect socketio");
+                        Socket mSocket= EchoSocket.getInstance(preference.getEchoServer());
                         mSocket.connect();
                         mSocket.emit("echo",gson.toJson(device));
                         mSocket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
@@ -99,14 +94,6 @@ public class NotificationCollectorMonitorService extends Service {
                         });
                         LogUtil.debugLog(gson.toJson(device));
                         return true;
-                } catch (URISyntaxException e) {
-                        StringWriter sw = new StringWriter();
-                        PrintWriter pw = new PrintWriter(sw);
-                        e.printStackTrace(pw);
-                        LogUtil.debugLog(sw.toString()); 
-                        return true;
-                    }
-
                  }
                 else
                         return false;
@@ -163,6 +150,49 @@ public class NotificationCollectorMonitorService extends Service {
                         this.connectedtime=time;
                 }
 
+        }
+
+        public static class EchoSocket{
+            private static Socket instance1=null;
+            private static Socket instance2=null;
+            private static Socket instance3=null;
+            private static final int maxCount = 3;
+            private EchoSocket(){
+            }
+            public static Socket getThisInstance(int i){
+                    if(i==1)
+                            return EchoSocket.instance1;
+                    if(i==2)
+                            return EchoSocket.instance2;
+                    if(i==3)
+                            return EchoSocket.instance3;
+                    else
+                            return null;
+            }
+
+            public static Socket getInstance(String socketserverurl){
+                    Random random = new Random();
+		            int current = random.nextInt(maxCount)+1;
+                    if(getThisInstance(current)==null){
+                        synchronized(EchoSocket.class){
+                            try{
+                            if(current==1)
+                            instance1=IO.socket(socketserverurl);
+                            if(current==2)
+                            instance2=IO.socket(socketserverurl);
+                            if(current==3)
+                            instance3=IO.socket(socketserverurl);
+                            }catch(URISyntaxException e) {
+                                StringWriter sw = new StringWriter();
+                                PrintWriter pw = new PrintWriter(sw);
+                                e.printStackTrace(pw);
+                                LogUtil.debugLog(sw.toString()); 
+                                return null;
+                            }       
+                        }
+                    }
+                    return getThisInstance(current);
+            }
         }
 
 }
