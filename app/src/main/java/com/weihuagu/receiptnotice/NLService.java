@@ -9,6 +9,7 @@ import android.util.Log;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.content.Context;
+import android.os.Build;
 
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
@@ -87,7 +88,8 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         @Override
         public void onNotificationRemoved(StatusBarNotification sbn) {
-                super.onNotificationRemoved(sbn);
+                if (Build.VERSION.SDK_INT >19)
+                        super.onNotificationRemoved(sbn);
         }
 
         private void sendBroadcast(String msg) {
