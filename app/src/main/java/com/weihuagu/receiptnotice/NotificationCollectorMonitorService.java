@@ -223,7 +223,6 @@ public class NotificationCollectorMonitorService extends Service {
                                                 .sslSocketFactory(factory)
                                                 .connectionSpecs(specs)
                                                 .build();
-
                                         IO.setDefaultOkHttpWebSocketFactory(client);
                                         IO.setDefaultOkHttpCallFactory(client);
                                         // set as an option
