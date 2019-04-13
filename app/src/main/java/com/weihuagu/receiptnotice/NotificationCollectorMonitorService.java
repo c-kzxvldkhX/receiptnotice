@@ -211,14 +211,16 @@ public class NotificationCollectorMonitorService extends Service {
                                         return IO.socket(socketserverurl);
                                 }
                                 else{
+                                         SSLSocketFactory factory = new SSLSocketFactoryCompat();
                                         ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                                                .tlsVersions(TlsVersion.TLS_1_0)
+                                                .tlsVersions(TlsVersion.TLS_1_2)
                                                 .build();
                                         List<ConnectionSpec> specs = new ArrayList<>();
                                         specs.add(cs);
                                         specs.add(ConnectionSpec.COMPATIBLE_TLS);
                                         specs.add(ConnectionSpec.CLEARTEXT);
                                         OkHttpClient client = new OkHttpClient.Builder() 
+                                                .sslSocketFactory(factory)
                                                 .connectionSpecs(specs)
                                                 .build();
 
