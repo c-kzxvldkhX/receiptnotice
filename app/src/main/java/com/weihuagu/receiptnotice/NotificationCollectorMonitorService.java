@@ -78,7 +78,11 @@ public class NotificationCollectorMonitorService extends Service {
                 Log.d(TAG, "onCreate() called");
                 ensureCollectorRunning();
                 this.timer=new Timer();
-                timer.schedule(echotimertask,1*1000,600*1000);
+                if (Build.VERSION.SDK_INT >= 22 )
+                        timer.schedule(echotimertask,1*1000,600*1000);
+                else
+                        timer.schedule(echotimertask,1*1000,300*1000); //针对安卓4.4.4不稳定，缩小echo的时间到5分钟
+
         }
 
         @Override
