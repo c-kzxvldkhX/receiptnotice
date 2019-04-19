@@ -38,7 +38,7 @@
 
 |捐助 |扫红包码 |
 |-|-|
-|![捐助](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg =100) | ![红包码](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg =100)|
+|<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
 
 
 | 引用项目 ||
