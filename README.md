@@ -30,11 +30,15 @@
 
 ##### 这个可搭配服务端getreceipt-server
 才刚刚开始写……
+
+
+
+
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
-|捐助/扫红包码 | |
+|捐助 |扫红包码 |
 |-|-|
-|![捐助](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg) | ![红包码](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg)|
+|![捐助](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg =100) | ![红包码](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg =100)|
 
 
 | 引用项目 ||
