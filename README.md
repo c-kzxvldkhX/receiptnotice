@@ -16,11 +16,11 @@
 
 
 
-##### 实在是没有法子的办法
+#### 实在是没有法子的办法
 
 - 手机安装一个app,然后这个服务监听手机收到的通知，如果是收到收款的通知，就把信息推送到指定的url去。
 
-##### 本软件使用方法
+#### 本软件使用方法
 
 - 安装后先将软件加入系统白名单，各个安卓系统的方法各有不同
 
@@ -30,7 +30,7 @@
 
 - 详细使用方法，参考[wiki](https://github.com/WeihuaGu/receiptnotice/wiki)
 
-##### 这个可搭配服务端getreceipt-server
+#### 这个可搭配服务端getreceipt-server
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
 ##### 捐助
