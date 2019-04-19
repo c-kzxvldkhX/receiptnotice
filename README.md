@@ -32,9 +32,12 @@
 才刚刚开始写……
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
-#### 引用项目
+|捐助/扫红包码 | |
+|-|-|
+|![捐助](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg) | ![红包码](https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg)|
 
-#####  本软件从NLservice修改而来
-[NLservice](https://github.com/WHD597312/NLservice)
-##### 实时logcat
-[pedrovgs/Lynx](https://github.com/pedrovgs/Lynx)
+
+| 引用项目 ||
+|-|-|
+|本软件从NLservice修改而来| [NLservice](https://github.com/WHD597312/NLservice)|
+|实时logcat | [Lynx](https://github.com/pedrovgs/Lynx) |
