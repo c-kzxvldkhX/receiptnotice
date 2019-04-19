@@ -28,15 +28,13 @@
 
 - 返回到软件主页，填写你要接受收款信息通知的url,软件在接到收款通知后，会用post的方法，发送json信息.
 
+- 详细使用方法，参考wiki
+
 ##### 这个可搭配服务端getreceipt-server
-才刚刚开始写……
+才刚刚开始写…… [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
-
-
-
-[getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
-
-|捐助 |扫红包码 |
+##### 捐助
+|支付宝 |扫红包码 |
 |-|-|
 |<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
 
