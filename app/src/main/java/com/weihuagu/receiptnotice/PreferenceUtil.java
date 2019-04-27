@@ -25,6 +25,9 @@ public class PreferenceUtil{
         public String getEchoServer(){
                 return this.sharedPref.getString("echoserver",null);
         }
+        public String getEchoInterval(){
+                return this.sharedPref.getString("echointerval","");
+        }
         public String getEncryptMethod(){
                 return this.sharedPref.getString("encryptmethod",null);
         }

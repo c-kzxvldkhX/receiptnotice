@@ -5,8 +5,8 @@ android {
         applicationId "com.weihuagu.receiptnotice"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 6
-        versionName "0.5.5"
+        versionCode 7
+        versionName "0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
