@@ -91,24 +91,16 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
         }
         //fuck 竟然不导包找不到个好的map转json的
         public String map2Json(Map<String,String> map){
-
-
                 String mapjson="";
                 Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
                 while (entries.hasNext()) {
-
                         Map.Entry<String, String> entry = entries.next();
-
                         mapjson=mapjson+'"'+entry.getKey()+'"' + ":"+'"'+entry.getValue()+'"'+",";
-
-
                 }
                 int strlength=(int)mapjson.length();
                 mapjson=mapjson.substring(0,(strlength-1));
                 mapjson="{"+mapjson+"}";
                 return mapjson;
-
-
         }
         public void setOnAsyncResponse(AsyncResponse asyncResponse)
         {

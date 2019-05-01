@@ -6,6 +6,7 @@
 
 package com.weihuagu.receiptnotice;
 import android.util.Log;
+import com.tao.admin.loglib.Logger;
 
 public class LogUtil {
         public static String TAG="NLService";
@@ -21,6 +22,10 @@ public class LogUtil {
 
         public static void debugLogWithJava(String info){
                 System.out.println(DEBUGTAG+":"+info);
+        }
+
+        public static void postRecordLog(String post){
+                Logger.i("推送记录", post);
         }
 
 }

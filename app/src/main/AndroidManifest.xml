@@ -18,8 +18,14 @@
                                 <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>
                 </activity>
-                <activity android:name=".LogActivity"/>
-                <activity android:name=".IllustrateDecryptActivity">
+                <activity android:name=".FileLogActivity"
+                android:label="@string/filelog_title">
+                         <intent-filter >
+                                <action android:name="com.weihuagu.receiptnotice.showfilelog"/>
+                        </intent-filter>
+                </activity>
+                <activity android:name=".IllustrateDecryptActivity"
+                android:label="@string/illustratedecrypt_title">
                         <intent-filter>
                                     <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod"/>
                                     <category android:name="android.intent.category.DEFAULT"/>

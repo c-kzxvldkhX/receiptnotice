@@ -30,22 +30,14 @@ public class IllustrateDecryptActivity extends AppCompatActivity {
                 if(encrypt_type==null)
                         text_method.setText("您没有设置加密方法");
                 if(encrypt_type.equals("des")){
-
                         String method="DES/CBC/PKCS5Padding";
                         text_method.setText("解密的方法为:"+method);
                         String key=preference.getPasswd();
                         if(key!=null){
                                 text_passwd.setText("解密秘钥为:"+key+"(des秘钥必须为8位,如果你设置的不是8位，请修改)");
                                 text_iv.setText("解密的初始化向量为:"+key);
-
                         }
                 }
-
-
-
-
-
-
 
         }
 }

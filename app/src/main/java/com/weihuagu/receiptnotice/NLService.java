@@ -141,9 +141,8 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 tmpmap.put("encrypt","0");
                 tmpmap.put("url",this.posturl);
                 String deviceid=preference.getDeviceid();
-                tmpmap.put("deviceid",deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
-
-                
+                tmpmap.put("deviceid",(!deviceid.equals("")? deviceid:DeviceInfoUtil.getUniquePsuedoID()));
+    
                 if(preference.isEncrypt()){
                        String encrypt_type=preference.getEncryptMethod();
                         if(encrypt_type!=null){
@@ -162,7 +161,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if(postmap!=null)
                 mtask.execute(postmap);
                 else
-                 mtask.execute(tmpmap);
+                mtask.execute(tmpmap);
+
+                Map<String, String> recordmap=tmpmap;
+                recordmap.remove("encrypt");
+                LogUtil.postRecordLog(recordmap.toString());
+                
         }
 
 

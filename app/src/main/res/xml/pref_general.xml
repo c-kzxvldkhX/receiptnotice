@@ -53,6 +53,18 @@
                         android:title="echo 间隔" />
         </PreferenceCategory>
         <PreferenceCategory
+                android:key="record"
+                android:summary="记录"
+                android:title="记录">
+                <Preference
+                        android:title="推送记录">
+                        <intent
+                                android:action="com.weihuagu.receiptnotice.showfilelog"
+                                android:targetClass="com.weihuagu.receiptnotice.FileLogActivity"
+                                android:targetPackage="com.weihuagu.receiptnotice"/>
+                </Preference>
+        </PreferenceCategory>
+        <PreferenceCategory
                 android:key="about"
                 android:summary="关于"
                 android:title="关于">
