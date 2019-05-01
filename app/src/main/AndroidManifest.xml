@@ -34,11 +34,6 @@
                                 <action android:name="android.service.notification.NotificationListenerService" />
                         </intent-filter>
                 </service>
-                 <service android:name=".EchoService">
-                        <intent-filter>
-                                <action android:name="com.weihuagu.receiptnotice.echo" />
-                        </intent-filter>
-                </service>
                 <service android:name=".NotificationCollectorMonitorService"/>
         </application>
 </manifest>
