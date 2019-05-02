@@ -27,8 +27,10 @@ public class IllustrateDecryptActivity extends AppCompatActivity {
 
         private void setText(){
                 String encrypt_type=preference.getEncryptMethod(); 
-                if(encrypt_type==null)
+                if(encrypt_type==null){
                         text_method.setText("您没有设置加密方法");
+                        return;
+                }
                 if(encrypt_type.equals("des")){
                         String method="DES/CBC/PKCS5Padding";
                         text_method.setText("解密的方法为:"+method);

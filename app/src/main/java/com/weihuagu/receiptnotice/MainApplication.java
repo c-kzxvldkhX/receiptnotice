@@ -10,6 +10,7 @@ public class MainApplication extends Application {
         public void onCreate() {
                 super.onCreate();
                 startNotificationService();
+                initLogConfig();
         }
 
         private void initLogConfig(){

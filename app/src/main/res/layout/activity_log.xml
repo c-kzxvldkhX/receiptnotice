@@ -15,7 +15,8 @@
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/my_toolbar">
 
     <TextView
         android:id="@+id/tv_log"
