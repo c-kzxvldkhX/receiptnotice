@@ -24,11 +24,15 @@ import java.util.Iterator;
 import android.util.Log;
 import android.os.Build;
 
-public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
+public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
 
         public AsyncResponse asyncResponse;
         public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
         public String TAG="NLService";
+        public String randomtasknum;
+        public void setRandomTaskNum(String num){
+                this.randomtasknum=num;
+        }
         OkHttpClient client = new OkHttpClient();
         String httppost(String url, String json) throws IOException {
                 RequestBody body = RequestBody.create(JSON, json);
@@ -108,7 +112,7 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
         }
 
         @Override
-        protected String doInBackground(Map<String,String> ... key) {
+        protected String[] doInBackground(Map<String,String> ... key) {
                 Map<String ,String> postmap=key[0];
                 if(postmap==null)
                         return null;
@@ -117,6 +121,8 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
                 if(url==null)
                         return null;
 
+                String[] resultstr=new String[3];
+                resultstr[0]=this.randomtasknum;
                 postmap.remove("url");
                 String protocol=UrlUtil.httpOrHttps(url);
                 String postjson=map2Json(postmap);
@@ -124,14 +130,20 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
                         try{
                                 Log.d(TAG,"post task  url:"+url);
                                 Log.d(TAG,"post task postjson:"+postjson);
-                                return httppost(url,postjson);
+                                String returnstr=httppost(url,postjson);
+                                resultstr[1]="true";
+                                resultstr[2]=returnstr;
+                                return resultstr;
                         }catch(IOException e){}
                 }
                 if("https".equals(protocol)){
                         try{
                                 Log.d(TAG,"post task  url:"+url);
                                 Log.d(TAG,"post task postjson:"+postjson);
-                                return httpspost(url,postjson);
+                                String returnstr=httpspost(url,postjson);
+                                resultstr[1]="true";
+                                resultstr[2]=returnstr;
+                                return resultstr;
                         }catch(IOException e){}
 
                 }
@@ -139,14 +151,18 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String> {
         }
 
         @Override
-        protected void onPostExecute(String returnstr) {
-                super.onPostExecute(returnstr);
-                if (returnstr != null)
+        protected void onPostExecute(String[] resultstr) {
+                super.onPostExecute(resultstr);
+                if (resultstr != null)
                 {
-                        asyncResponse.onDataReceivedSuccess(returnstr);//将结果传给回调接口中的函数
+                        asyncResponse.onDataReceivedSuccess(resultstr);//将结果传给回调接口中的函数
                 }
                 else {
-                        asyncResponse.onDataReceivedFailed();
+                        String [] errstr=new String[3];
+                        errstr[0]=this.randomtasknum;
+                        errstr[1]="false";
+                        errstr[2]="";
+                        asyncResponse.onDataReceivedFailed(errstr);
                 }
 
         }

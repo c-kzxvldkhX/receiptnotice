@@ -24,8 +24,20 @@ public class LogUtil {
                 System.out.println(DEBUGTAG+":"+info);
         }
 
-        public static void postRecordLog(String post){
-                Logger.i("推送记录", post);
+        public static void postRecordLog(String tasknum,String post){
+                Logger.i("*********************************");
+                Logger.i("开始推送", "随机序列号:"+tasknum);
+                Logger.i(post);
+        }
+
+        public static void postResultLog(String tasknum,String result,String returnstr){
+
+                Logger.i("推送结果","随机序列号:"+tasknum);
+                Logger.i("推送结果",result);
+                Logger.i("返回内容",returnstr);
+                Logger.i("------------------------------------------");
+
+
         }
 
 }
