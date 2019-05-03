@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.weihuagu.receiptnotice">
         <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <application
                 android:name=".MainApplication"
@@ -18,8 +19,14 @@
                                 <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>
                 </activity>
-                <activity android:name=".LogActivity"/>
-                <activity android:name=".IllustrateDecryptActivity">
+                <activity android:name=".FileLogActivity"
+                android:label="@string/filelog_title">
+                         <intent-filter >
+                                <action android:name="com.weihuagu.receiptnotice.showfilelog"/>
+                        </intent-filter>
+                </activity>
+                <activity android:name=".IllustrateDecryptActivity"
+                android:label="@string/illustratedecrypt_title">
                         <intent-filter>
                                     <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod"/>
                                     <category android:name="android.intent.category.DEFAULT"/>
@@ -32,11 +39,6 @@
                         android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
                         <intent-filter>
                                 <action android:name="android.service.notification.NotificationListenerService" />
-                        </intent-filter>
-                </service>
-                 <service android:name=".EchoService">
-                        <intent-filter>
-                                <action android:name="com.weihuagu.receiptnotice.echo" />
                         </intent-filter>
                 </service>
                 <service android:name=".NotificationCollectorMonitorService"/>

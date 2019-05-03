@@ -46,6 +46,23 @@
                         android:key="echoserver"
                         android:summary="echo socket.io 服务器"
                         android:title="echo 服务器" />
+        <EditTextPreference
+                        android:defaultValue=""
+                        android:key="echointerval"
+                        android:summary="echo 间隔(秒),建议设置为15秒以上，如设置过大（如10分钟以上时），导致server频繁接到disconnect事件可以调小到不会频繁断开为止。"
+                        android:title="echo 间隔" />
+        </PreferenceCategory>
+        <PreferenceCategory
+                android:key="record"
+                android:summary="记录"
+                android:title="记录">
+                <Preference
+                        android:title="推送记录">
+                        <intent
+                                android:action="com.weihuagu.receiptnotice.showfilelog"
+                                android:targetClass="com.weihuagu.receiptnotice.FileLogActivity"
+                                android:targetPackage="com.weihuagu.receiptnotice"/>
+                </Preference>
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="about"

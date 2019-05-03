@@ -6,7 +6,7 @@
 
 - 原生支付宝，微信支付
 
-    - `支付宝只服务于有营业执照、个体工商户的商户。就算你有钱但没实体店铺在某宝上也是买不到的。截止目前无法以个人身份（或以个人为主体）直接申请API。网上那些 “个人申请支付宝xx接口” 的文章就不要看了，节约时间。微信同支付宝，不支付个人申请。`
+- `支付宝只服务于有营业执照、个体工商户的商户。就算你有钱但没实体店铺在某宝上也是买不到的。截止目前无法以个人身份（或以个人为主体）直接申请API。网上那些 “个人申请支付宝xx接口” 的文章就不要看了，节约时间。微信同支付宝，不支付个人申请。`
     
 ##### 原先的方法不管用了
 
@@ -16,11 +16,11 @@
 
 
 
-##### 实在是没有法子的办法
+#### 实在是没有法子的办法
 
 - 手机安装一个app,然后这个服务监听手机收到的通知，如果是收到收款的通知，就把信息推送到指定的url去。
 
-##### 本软件使用方法
+#### 本软件使用方法
 
 - 安装后先将软件加入系统白名单，各个安卓系统的方法各有不同
 
@@ -28,13 +28,18 @@
 
 - 返回到软件主页，填写你要接受收款信息通知的url,软件在接到收款通知后，会用post的方法，发送json信息.
 
-##### 这个可搭配服务端getreceipt-server
-才刚刚开始写……
+- 详细使用方法，参考[wiki](https://github.com/WeihuaGu/receiptnotice/wiki)
+
+#### 这个可搭配服务端getreceipt-server
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
-#### 引用项目
+##### 捐助
+|支付宝 |扫红包码 |
+|-|-|
+|<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
 
-#####  本软件从NLservice修改而来
-[NLservice](https://github.com/WHD597312/NLservice)
-##### 实时logcat
-[pedrovgs/Lynx](https://github.com/pedrovgs/Lynx)
+##### 引用项目
+| ||
+|-|-|
+|本软件从NLservice修改而来| [NLservice](https://github.com/WHD597312/NLservice)|
+|实时logcat | [Lynx](https://github.com/pedrovgs/Lynx) |

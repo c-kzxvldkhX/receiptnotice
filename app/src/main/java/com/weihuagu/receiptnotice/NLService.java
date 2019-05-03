@@ -135,48 +135,59 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Map<String, String> tmpmap=params;
                 Map<String, String> postmap=null;
+                String tasknum=RandomUtil.getRandomTaskNum();
                 Log.d(TAG,"开始准备进行post");
                 PostTask mtask = new PostTask();
+                mtask.setRandomTaskNum(tasknum);
                 mtask.setOnAsyncResponse(this);
                 tmpmap.put("encrypt","0");
                 tmpmap.put("url",this.posturl);
                 String deviceid=preference.getDeviceid();
-                tmpmap.put("deviceid",deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
+                tmpmap.put("deviceid",(!deviceid.equals("")? deviceid:DeviceInfoUtil.getUniquePsuedoID()));
 
-                
                 if(preference.isEncrypt()){
-                       String encrypt_type=preference.getEncryptMethod();
+                        String encrypt_type=preference.getEncryptMethod();
                         if(encrypt_type!=null){
-                                    String key=preference.getPasswd();
-                                    EncryptFactory encryptfactory=new EncryptFactory(key);
-                                    Log.d(TAG,"加密方法"+encrypt_type);
-                                    Log.d(TAG,"加密秘钥"+key);
-                                    Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
-                                    if(encrypter!=null&&key!=null){
-                                            postmap=encrypter.transferMapValue(tmpmap);
-                                            postmap.put("url",this.posturl);
-                                    }
-                                
+                                String key=preference.getPasswd();
+                                EncryptFactory encryptfactory=new EncryptFactory(key);
+                                Log.d(TAG,"加密方法"+encrypt_type);
+                                Log.d(TAG,"加密秘钥"+key);
+                                Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
+                                if(encrypter!=null&&key!=null){
+                                        postmap=encrypter.transferMapValue(tmpmap);
+                                        postmap.put("url",this.posturl);
+                                }
+
                         }
                 }
+
+                Map<String, String> recordmap=tmpmap;
+                recordmap.remove("encrypt");
+                LogUtil.postRecordLog(tasknum,recordmap.toString());
+
+
                 if(postmap!=null)
-                mtask.execute(postmap);
+                        mtask.execute(postmap);
                 else
-                 mtask.execute(tmpmap);
+                        mtask.execute(tmpmap);
+
         }
 
 
         @Override
-        public void onDataReceivedSuccess(String returnstr) {
+        public void onDataReceivedSuccess(String[] returnstr) {
                 Log.d(TAG,"Post Receive-returned post string");
-                Log.d(TAG,returnstr);
+                Log.d(TAG,returnstr[2]);
+                LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
 
 
         }
         @Override
-        public void onDataReceivedFailed() {
+        public void onDataReceivedFailed(String[] returnstr) {
                 // TODO Auto-generated method stub
                 Log.d(TAG,"Post Receive-post error");
+                LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
+
 
         }
 }

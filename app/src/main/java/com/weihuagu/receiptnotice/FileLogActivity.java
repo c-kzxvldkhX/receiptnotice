@@ -13,7 +13,7 @@ import com.tao.admin.loglib.FileUtils;
  * 邮箱：wangjintao1988@163.com
  */
 
-public class LogActivity extends AppCompatActivity {
+public class FileLogActivity extends AppCompatActivity {
     private TextView mTextView;
 
     @Override

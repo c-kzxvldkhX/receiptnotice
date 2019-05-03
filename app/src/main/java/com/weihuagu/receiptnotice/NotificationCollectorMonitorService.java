@@ -62,23 +62,14 @@ public class NotificationCollectorMonitorService extends Service {
          */
         private static final String TAG = "NotifiCollectorMonitor";
         private Timer timer=null;
-        private TimerTask echotimertask = new TimerTask() {
-                @Override
-                public void run() {
-                        LogUtil.debugLog("once socketio timer task run");
-                        boolean flag= echoServer();
-                        if(!flag)
-                                LogUtil.debugLog("socketio timer task not have a server");
-                }
-        };
+        private String echointerval=null;
+        private TimerTask echotimertask =null;
 
         @Override
         public void onCreate() {
                 super.onCreate();
-                Log.d(TAG, "onCreate() called");
                 ensureCollectorRunning();
-                this.timer=new Timer();
-                timer.schedule(echotimertask,1*1000,600*1000);
+                startEchoTimer();
         }
 
         @Override
@@ -95,6 +86,56 @@ public class NotificationCollectorMonitorService extends Service {
                 });
                 return true;
         }
+        private String getDefaultEchoInterval(){
+                if (Build.VERSION.SDK_INT >= 22 )
+                        return  "300";
+                else
+                        return  "100";
+        }
+        private void startEchoTimer(){
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());    
+                String interval=preference.getEchoInterval();
+                this.echointerval=(!interval.equals("") ?  interval:getDefaultEchoInterval());
+                this.echotimertask=returnEchoTimerTask();
+                this.timer=new Timer();
+                timer.schedule(echotimertask,1*1000,Integer.parseInt(this.echointerval)*1000);
+        }
+        private TimerTask returnEchoTimerTask(){
+                return new TimerTask() {
+                @Override
+                public void run() {
+                        if(!isIntervalMatchPreference()){
+                            restartEchoTimer();
+                            return;
+                        }
+                        LogUtil.debugLog("once socketio timer task run");
+                        boolean flag= echoServer();
+                        if(!flag)
+                                LogUtil.debugLog("socketio timer task not have a server");
+                }
+          };
+        }
+        private void restartEchoTimer(){
+                        if (this.timer != null) {  
+                            this.timer.cancel();  
+                            this.timer = null;  
+                        }  
+                        if (echotimertask != null) {  
+                            echotimertask.cancel();  
+                            echotimertask = null;  
+                        }   
+                        LogUtil.debugLog("restart echo timer task");
+                        startEchoTimer();
+        }
+        private boolean isIntervalMatchPreference(){
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                String interval=preference.getEchoInterval();
+                if(interval.equals(""))
+                    return true;
+                if(interval.equals(this.echointerval))
+                    return true;
+                return false;
+        }
         private boolean echoServer(){
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Gson gson = new Gson();
@@ -104,7 +145,7 @@ public class NotificationCollectorMonitorService extends Service {
                         String time=format.format(date);
                         DeviceBean device=new DeviceBean();
                         String deviceid=preference.getDeviceid();
-                        deviceid=(deviceid!="" ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
+                        deviceid=(!deviceid.equals("") ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
                         device.setDeviceid(deviceid);
                         device.setTime(time);
                         LogUtil.debugLog("start connect socketio");
@@ -211,7 +252,7 @@ public class NotificationCollectorMonitorService extends Service {
                                         return IO.socket(socketserverurl);
                                 }
                                 else{
-                                        SSLSocketFactory factory = new SSLSocketFactoryCompat();
+                                         SSLSocketFactory factory = new SSLSocketFactoryCompat();
                                         ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                                                 .tlsVersions(TlsVersion.TLS_1_2)
                                                 .build();
@@ -219,13 +260,10 @@ public class NotificationCollectorMonitorService extends Service {
                                         specs.add(cs);
                                         specs.add(ConnectionSpec.COMPATIBLE_TLS);
                                         specs.add(ConnectionSpec.CLEARTEXT);
-                                        OkHttpClient client = new OkHttpClient.Builder()
-                                                .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
-                                                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                                        OkHttpClient client = new OkHttpClient.Builder() 
                                                 .sslSocketFactory(factory)
                                                 .connectionSpecs(specs)
                                                 .build();
-
                                         IO.setDefaultOkHttpWebSocketFactory(client);
                                         IO.setDefaultOkHttpCallFactory(client);
                                         // set as an option
