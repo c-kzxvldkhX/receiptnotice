@@ -98,7 +98,7 @@ public class NotificationCollectorMonitorService extends Service {
                 this.echointerval=(!interval.equals("") ?  interval:getDefaultEchoInterval());
                 this.echotimertask=returnEchoTimerTask();
                 this.timer=new Timer();
-                timer.schedule(echotimertask,1*1000,Integer.parseInt(this.echointerval)*1000);
+                timer.schedule(echotimertask,5*1000,Integer.parseInt(this.echointerval)*1000);
         }
         private TimerTask returnEchoTimerTask(){
                 return new TimerTask() {
