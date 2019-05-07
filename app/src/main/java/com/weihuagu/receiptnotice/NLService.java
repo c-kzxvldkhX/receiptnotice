@@ -76,6 +76,10 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         new WechatNotificationHandle("com.tencent.mm",notification,this).handleNotification();
 
                 }
+                //收钱吧
+                if("com.wosai.cashbar".equals(pkg)){
+                        new CashbarNotificationHandle("com.wosai.cashbar",notification,this).handleNotification();
+                }
 
                 Log.d(TAG,"这是检测之外的其它通知");
                 Log.d(TAG,"包名是"+pkg);
