@@ -22,7 +22,7 @@ public abstract class NotificationHandle{
                 this.notification=notification;
                 this.postpush=postpush;
 
-                this.extras=notification.extras;;
+                this.extras=notification.extras;
                 // 获取通知标题
                 title = extras.getString(Notification.EXTRA_TITLE, "");
                 // 获取通知内容
