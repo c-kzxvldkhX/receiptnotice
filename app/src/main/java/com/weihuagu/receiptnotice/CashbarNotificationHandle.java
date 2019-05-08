@@ -48,7 +48,7 @@ public class CashbarNotificationHandle extends NotificationHandle{
                 if(chinesetype.equals("微信"))
                         return "wechat";
                 if(chinesetype.equals("支付宝"))
-                        return "alipa";
+                        return "alipay";
                 else return chinesetype;
         }
 
