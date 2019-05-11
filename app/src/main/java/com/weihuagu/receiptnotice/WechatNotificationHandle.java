@@ -13,6 +13,7 @@ public class WechatNotificationHandle extends NotificationHandle{
         public void handleNotification(){
                 if((title.contains("微信支付")|title.contains("微信收款"))&&content.contains("收款")){
                         Map<String,String> postmap=new HashMap<String,String>();
+                                postmap.put("type","wechat");
                                 postmap.put("time",notitime);
                                 postmap.put("title",title);
                                 postmap.put("money",extractMoney(content));

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.lang.System;
+import java.lang.Thread;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
@@ -82,7 +83,15 @@ public class NotificationCollectorMonitorService extends Service {
                 mSocket.emit("echo",echojson);
                 mSocket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                         @Override
-                        public void call(Object... args) {echoServer();}
+                        public void call(Object... args) {
+                            LogUtil.infoLog("socket disconnected,try start echo in 5 secend"); 
+                            try{
+					                Thread.sleep(5000);
+				                }catch(InterruptedException e){
+					                    e.printStackTrace();
+				                }
+                            echoServer();
+                        }
                 });
                 return true;
         }
@@ -98,7 +107,9 @@ public class NotificationCollectorMonitorService extends Service {
                 this.echointerval=(!interval.equals("") ?  interval:getDefaultEchoInterval());
                 this.echotimertask=returnEchoTimerTask();
                 this.timer=new Timer();
-                timer.schedule(echotimertask,5*1000,Integer.parseInt(this.echointerval)*1000);
+                int intervalmilliseconds = Integer.parseInt(this.echointerval)*1000;
+                LogUtil.infoLog("now socketio timer milliseconds:"+intervalmilliseconds);
+                timer.schedule(echotimertask,5*1000,intervalmilliseconds);
         }
         private TimerTask returnEchoTimerTask(){
                 return new TimerTask() {

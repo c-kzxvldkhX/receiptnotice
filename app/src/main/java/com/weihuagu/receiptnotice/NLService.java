@@ -50,33 +50,11 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
                 Log.d(TAG,"-----------------");
 
-                //mipush
-                if("com.xiaomi.xmsf".equals(pkg)){
-                        if(getNotiTitle(extras).contains("支付宝")){
-                                //printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
-                                new MipushNotificationHandle("com.xiaomi.xmsf",notification,this).handleNotification();
-
-                        }
-
-                }
-                //支付宝
-                if("com.eg.android.AlipayGphone".equals(pkg)){
-
-                        new AlipayNotificationHandle("com.eg.android.AlipayGphone",notification,this).handleNotification();
-
-                }
-                //应用管理GCM代收
-                if("android".equals(pkg)){
-
-                        new XposedmoduleNotificationHandle("github.tornaco.xposedmoduletest",notification,this).handleNotification();
-                }
-                //微信
-                if("com.tencent.mm".equals(pkg)){
-
-                        new WechatNotificationHandle("com.tencent.mm",notification,this).handleNotification();
-
-                }
-
+                //接受推送处理
+                NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
+                if(notihandle!=null)
+                            notihandle.handleNotification();
+                
                 Log.d(TAG,"这是检测之外的其它通知");
                 Log.d(TAG,"包名是"+pkg);
                 printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));

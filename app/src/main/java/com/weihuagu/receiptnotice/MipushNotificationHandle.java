@@ -11,17 +11,18 @@ public class MipushNotificationHandle extends NotificationHandle{
         }
 
         public void handleNotification(){
+             if(title.contains("支付宝")){
                 if(content.contains("成功收款")){
                                 Map<String,String> postmap=new HashMap<String,String>();
+                                postmap.put("type","alipay");
                                 postmap.put("time",notitime);
                                 postmap.put("title","支付宝支付");
                                 postmap.put("money",extractMoney(content));
                                 postmap.put("content",content);
-
                                 postpush.doPost(postmap);
                                 return ;
                         }
-
+                }
 
 
         }
