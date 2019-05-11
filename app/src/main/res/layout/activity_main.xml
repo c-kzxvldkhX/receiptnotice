@@ -30,7 +30,7 @@
                         android:id="@+id/btnsetposturl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="设置post地址" />
+                        android:text="@string/buttontext_setposturl" />
         </LinearLayout>
         <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floatingshowlog"
