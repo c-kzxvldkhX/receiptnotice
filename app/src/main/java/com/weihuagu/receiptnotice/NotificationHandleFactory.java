@@ -27,6 +27,11 @@ public  class NotificationHandleFactory{
                 if("com.unionpay".equals(pkg)){
                         return new UnionpayNotificationHandle("com.unionpay",notification,postpush);
                 }
+                //工银商户之家
+                if("com.icbc.biz.elife".equals(pkg)){
+                        return new IcbcelifeNotificationHandle("com.icbc.biz.elife",notification,postpush);
+                }
+
 
                 return null;
 
