@@ -40,7 +40,6 @@ dependencies {
                 implementation 'com.squareup.okhttp3:okhttp:3.12.1'
                 implementation 'com.github.wangjintao:TLog:v1.0.1'
                 implementation 'com.github.pedrovgs:lynx:1.1.0'
-                implementation 'com.gcssloop.util:encrypt:1.0.2'
                 implementation 'io.socket:socket.io-client:1.0.0'
                 implementation 'com.google.code.gson:gson:2.8.5'
                 testImplementation 'junit:junit:4.12'
