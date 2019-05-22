@@ -4,4 +4,5 @@
         <string name="illustratedecrypt_title">解密说明</string>
         <string name="buttontext_setposturl">设置post地址</string>
         <string name="text_setting">设置</string>
+        <string name="text_clearlog">清空记录</string>
 </resources>
