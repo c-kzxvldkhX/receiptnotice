@@ -1,18 +1,26 @@
 package com.weihuagu.receiptnotice;
 
+import java.util.ArrayList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import com.tao.admin.loglib.FileUtils;
 
 public class FileLogActivity extends AppCompatActivity {
+        private RecyclerView recyclerView;
+        private LogListAdapter mAdapter;
+        private RecyclerView.LayoutManager layoutManager;
+
         private TextView mTextView;
         private Toolbar myToolbar;
+        private boolean loglist_is_a_wholetext=true;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,11 +34,37 @@ public class FileLogActivity extends AppCompatActivity {
                 myToolbar= (Toolbar) findViewById(R.id.my_toolbar);
                 setSupportActionBar(myToolbar);
                 mTextView = (TextView) findViewById(R.id.tv_log);
+
         }
-        
+
+        private void initLoglistView(){
+                recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+                //recyclerView.setHasFixedSize(true);
+                // use a linear layout manager
+                layoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(layoutManager);
+                // specify an adapter (see also next example)
+                mAdapter = new LogListAdapter(getApplicationContext());
+                ArrayList loglist=FileLogUtil.getLogList();
+                //LogUtil.debugLogWithDeveloper("打印通过filelogutil获取到的file log list");
+                if(loglist!=null&&loglist.size()>0)
+                    loglist_is_a_wholetext=false;
+                else{
+                        loglist_is_a_wholetext=true;
+                        return;
+                }
+                mAdapter.setLoglist(loglist);
+                recyclerView.setAdapter(mAdapter);
+        }
+
+
         private void setLogText(){
-                String log = FileLogUtil.readLogText();
-                mTextView.setText(log);
+                initLoglistView();
+                if(loglist_is_a_wholetext){
+                    String log = FileLogUtil.readLogText();
+                    mTextView.setText(log);
+                }
+                
         }
 
         private void clearLog(){

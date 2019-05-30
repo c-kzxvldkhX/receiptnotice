@@ -19,6 +19,10 @@ public class LogUtil {
         public static void debugLog(String info){
                 Log.d(TAG,info);
         }
+        
+        public static void debugLogWithDeveloper(String info){
+                Log.d(DEBUGTAG,info);
+        }
 
         public static void debugLogWithJava(String info){
                 System.out.println(DEBUGTAG+":"+info);

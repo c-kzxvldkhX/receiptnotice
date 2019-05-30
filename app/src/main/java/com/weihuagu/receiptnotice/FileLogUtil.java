@@ -33,32 +33,17 @@ public class FileLogUtil extends FileUtils{
 
         }
         public static ArrayList getLogList(){
-                FileReader fr = null;
-                try{
                         File file = new File(TLogApplication.getAPP().getFilesDir(), IConfig.fileName);
                         if (!file.exists())
                                 return null;
 
-                        fr = new FileReader(file);
-                        BufferedReader bf = new BufferedReader(fr);
-                        String str;
-                        while ((str = bf.readLine()) != null) {
-                                //按行处理
-                        }
-                        return null;
+                        OneFileUtil fileutil = new OneFileUtil(file);
+                        ArrayList filelist=fileutil.getFileList();
+                        String startflag="*********************************";
+                        String endflag="------------------------------------------";
+                        ArrayList filemergelist=fileutil.mergeByFlagline(startflag,endflag,filelist);
+                        return filemergelist;
 
-
-                } catch (Throwable ex) {
-                        ex.printStackTrace();
-                } finally {
-                        try {
-                                if (fr != null)
-                                        fr.close();
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                }
-                return null;
         }
 
 }

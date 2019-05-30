@@ -37,7 +37,7 @@ public class OneFileUtil{
                 while (fileiterator.hasNext()) {
                     String o = (String)fileiterator.next();
                     onegroup.offerLast(o);
-                    if(startflagline.equals(onegroup.peekFirst())&&endflagline.equals(onegroup.peekLast())){
+                    if(onegroup.peekFirst().contains(startflagline)&&onegroup.peekLast().contains(endflagline)){
                         merge.add(clearOnegroup(onegroup));
                     
                     }
