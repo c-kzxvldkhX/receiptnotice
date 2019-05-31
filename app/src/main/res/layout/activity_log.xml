@@ -13,6 +13,12 @@
                 android:background="?attr/colorPrimary"
                 android:elevation="4dp"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+                <android.support.v7.widget.RecyclerView
+    android:id="@+id/my_recycler_view"
+    android:scrollbars="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/my_toolbar"/>
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

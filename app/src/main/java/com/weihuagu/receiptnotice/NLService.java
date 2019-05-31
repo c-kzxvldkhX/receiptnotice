@@ -34,7 +34,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void onNotificationPosted(StatusBarNotification sbn) {
                 //        super.onNotificationPosted(sbn);
                 //这里只是获取了包名和通知提示信息，其他数据可根据需求取，注意空指针就行
-                Log.d(TAG,"接受到通知消息");
+                
                 if(getPostUrl()==null)
                         return;
 
@@ -48,18 +48,18 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if(extras==null)
                         return;
 
-                Log.d(TAG,"-----------------");
-
                 //接受推送处理
                 NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
-                if(notihandle!=null)
+                if(notihandle!=null){
                             notihandle.handleNotification();
-                
-                Log.d(TAG,"这是检测之外的其它通知");
-                Log.d(TAG,"包名是"+pkg);
+                            return;
+                }
+                LogUtil.debugLog("-----------------");
+                LogUtil.debugLog("接受到通知消息");
+                LogUtil.debugLog("这是检测之外的其它通知");
+                LogUtil.debugLog("包名是"+pkg);
                 printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
-
-                Log.d(TAG,"**********************");
+                LogUtil.debugLog("**********************");
 
 
         }

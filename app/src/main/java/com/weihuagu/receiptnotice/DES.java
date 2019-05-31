@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.crypto.Cipher;
-import com.gcssloop.encrypt.symmetric.DESUtil;
+
 public class DES extends Encrypter{
  public DES(String key){
 super(key);

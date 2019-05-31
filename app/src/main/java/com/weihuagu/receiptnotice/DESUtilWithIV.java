@@ -16,10 +16,6 @@ import  java.security.InvalidAlgorithmParameterException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
-
-import static com.gcssloop.encrypt.base.BaseUtils.parseByte2HexStr;
-import static com.gcssloop.encrypt.base.BaseUtils.parseHexStr2Byte;
-import com.gcssloop.encrypt.symmetric.DESUtil;
 public class DESUtilWithIV{
 @IntDef({Cipher.ENCRYPT_MODE, Cipher.DECRYPT_MODE})
 @interface DESType {}
@@ -43,9 +39,9 @@ public class DESUtilWithIV{
 
             if (type == Cipher.ENCRYPT_MODE) {
                 byte[] byteContent = content.getBytes("utf-8");
-                return parseByte2HexStr(cipher.doFinal(byteContent));
+                return ByteUtil.parseByte2HexStr(cipher.doFinal(byteContent));
             } else {
-                byte[] byteContent = parseHexStr2Byte(content);
+                byte[] byteContent = ByteUtil.parseHexStr2Byte(content);
                 return new String(cipher.doFinal(byteContent));
             }
         } catch (InvalidAlgorithmParameterException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException |

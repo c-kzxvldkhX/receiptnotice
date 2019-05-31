@@ -34,9 +34,9 @@
 [getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
 
 ##### 捐助
-|支付宝 |扫红包码 |
-|-|-|
-|<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
+|支付宝 |云闪付红包码 |支付宝红包码|
+|-|-|-|
+|<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://weihuagu.github.io/donate/unionpayredcode.jpg" width="100" /> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
 
 ##### 引用项目
 | ||
