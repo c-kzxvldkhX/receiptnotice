@@ -9,8 +9,8 @@ android {
         applicationId "com.weihuagu.receiptnotice"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 8
-        versionName "0.7"
+        versionCode 9
+        versionName "0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -33,17 +33,16 @@ buildTypes {
       	    abortOnError false
     }
 }
-
 dependencies {
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
                 implementation 'com.android.support:appcompat-v7:27.0.2'
                 implementation 'com.android.support:design:27.0.2'
                 implementation 'com.android.support:cardview-v7:27.0.2'
+                implementation 'com.android.support:recyclerview-v7:27.0.2'
                 implementation 'com.android.support.constraint:constraint-layout:1.0.2'
                 implementation 'com.squareup.okhttp3:okhttp:3.12.1'
                 implementation 'com.github.wangjintao:TLog:v1.0.1'
                 implementation 'com.github.pedrovgs:lynx:1.1.0'
-                implementation 'com.gcssloop.util:encrypt:1.0.2'
                 implementation 'io.socket:socket.io-client:1.0.0'
                 implementation 'com.google.code.gson:gson:2.8.5'
                 testImplementation 'junit:junit:4.12'
@@ -52,3 +51,4 @@ dependencies {
                 androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
                 androidTestImplementation 'org.mockito:mockito-android:+'
 }
+
