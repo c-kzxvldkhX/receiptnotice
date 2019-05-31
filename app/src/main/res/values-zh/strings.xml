@@ -5,4 +5,5 @@
         <string name="buttontext_setposturl">设置post地址</string>
         <string name="text_setting">设置</string>
         <string name="text_clearlog">清空记录</string>
+        <string name="text_reverseshow">逆序显示</string>
 </resources>

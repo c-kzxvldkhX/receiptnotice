@@ -1,6 +1,7 @@
 package com.weihuagu.receiptnotice;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 import com.tao.admin.loglib.FileUtils;
 
 public class FileLogActivity extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class FileLogActivity extends AppCompatActivity {
 
         }
 
-        private void initLoglistView(){
+        private void initLoglistView(boolean reverseorder){
                 recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
                 //recyclerView.setHasFixedSize(true);
                 // use a linear layout manager
@@ -47,8 +49,11 @@ public class FileLogActivity extends AppCompatActivity {
                 mAdapter = new LogListAdapter(getApplicationContext());
                 ArrayList loglist=FileLogUtil.getLogList();
                 //LogUtil.debugLogWithDeveloper("打印通过filelogutil获取到的file log list");
-                if(loglist!=null&&loglist.size()>0)
+                if(loglist!=null&&loglist.size()>0){
                     loglist_is_a_wholetext=false;
+                    if(reverseorder)
+                    Collections.reverse(loglist);
+                }
                 else{
                         loglist_is_a_wholetext=true;
                         return;
@@ -59,7 +64,7 @@ public class FileLogActivity extends AppCompatActivity {
 
 
         private void setLogText(){
-                initLoglistView();
+                initLoglistView(false);
                 if(loglist_is_a_wholetext){
                     String log = FileLogUtil.readLogText();
                     mTextView.setText(log);
@@ -70,7 +75,10 @@ public class FileLogActivity extends AppCompatActivity {
         private void clearLog(){
                 FileLogUtil.clearLogFile();
                 setLogText();
-
+                Toast.makeText(getApplicationContext(), "已经清空日志",Toast.LENGTH_SHORT).show();
+        }
+        private void showReverse(){
+                initLoglistView(true); 
         }
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,6 +94,9 @@ public class FileLogActivity extends AppCompatActivity {
                         case R.id.action_clearlog:
                                 // User chose the "Settings" item, show the app settings UI...
                                 clearLog();
+                                return true;
+                        case R.id.action_reverseshow:
+                                showReverse();
                                 return true;
                         default:
                                 // If we got here, the user's action was not recognized.

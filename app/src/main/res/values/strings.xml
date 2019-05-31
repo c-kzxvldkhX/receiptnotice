@@ -2,6 +2,7 @@
         <string name="app_name">receiptnotice</string>
         <string name="text_setting">Setting</string>
         <string name="text_clearlog">clear log</string>
+        <string name="text_reverseshow">reverse display</string>
         <string name="filelog_title">post record</string>
         <string name="illustratedecrypt_title">Illustrate Decrypt</string>
         <string name="buttontext_setposturl">set the post url</string>
