@@ -53,6 +53,16 @@
                         android:title="echo 间隔" />
         </PreferenceCategory>
         <PreferenceCategory
+                android:key="action"
+                android:summary="行为"
+                android:title="行为">
+                <CheckBoxPreference
+                        android:title="是否在推送后移除通知"
+                        android:defaultValue="false"
+                        android:summary="如果勾选，会在推送完后，清除掉这条通知栏的通知"
+                        android:key="isremovenotification" />
+        </PreferenceCategory>
+        <PreferenceCategory
                 android:key="record"
                 android:summary="记录"
                 android:title="记录">
