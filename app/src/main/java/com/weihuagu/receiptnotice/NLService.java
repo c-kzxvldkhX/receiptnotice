@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
@@ -51,7 +52,9 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 //接受推送处理
                 NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
+                            notihandle.setStatusBarNotification(sbn);
                             notihandle.handleNotification();
+                            removeNotification(sbn);//本应该在handleNotification中发起post后调用移除通知的方法，这样导致被移除的多了，但懒，不想更改所有的子类。
                             return;
                 }
                 LogUtil.debugLog("-----------------");
@@ -69,11 +72,26 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if (Build.VERSION.SDK_INT >19)
                         super.onNotificationRemoved(sbn);
         }
+        
+        private void removeNotification(StatusBarNotification sbn){
+            PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+            if(preference.isRemoveNotification()){
+                if (Build.VERSION.SDK_INT >=21)
+                    cancelNotification(sbn.getKey());
+                else
+                    cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
+                sendToast("receiptnotice移除了包名为"+sbn.getPackageName()+"的通知");
+            }
+        }
 
         private void sendBroadcast(String msg) {
                 Intent intent = new Intent(getPackageName());
                 intent.putExtra("text", msg);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
+        
+        private void sendToast(String msg){
+                Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         }
 
         private String getNotitime(Notification notification){

@@ -2,7 +2,7 @@ package com.weihuagu.receiptnotice;
 
 import android.os.Bundle;
 import android.app.Notification;
-
+import android.service.notification.StatusBarNotification;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
@@ -17,6 +17,7 @@ public abstract class NotificationHandle{
         protected String content;
         protected String notitime;
         protected IDoPost postpush;
+        public StatusBarNotification sbn;
         public NotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
                 this.pkgtype=pkgtype;
                 this.notification=notification;
@@ -35,7 +36,9 @@ public abstract class NotificationHandle{
 
         }
 
-        
+        public void setStatusBarNotification(StatusBarNotification sbn){
+                this.sbn=sbn;
+        }
         public  abstract void handleNotification();
         protected  String extractMoney(String content){
                 Pattern pattern = Pattern.compile("(收款|向你付款|向您付款|入账)(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
