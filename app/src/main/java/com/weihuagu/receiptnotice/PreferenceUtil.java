@@ -34,5 +34,8 @@ public class PreferenceUtil{
         public String getPasswd(){
                 return this.sharedPref.getString("passwd",null);
         }
+        public boolean isRemoveNotification(){
+                return this.sharedPref.getBoolean("isremovenotification",false);
+        }
 
 }
