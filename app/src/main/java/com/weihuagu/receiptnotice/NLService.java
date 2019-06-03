@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost {
+public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification {
         private String TAG="NLService";
         private String posturl=null;
         private Context context=null;
@@ -53,8 +53,9 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
                             notihandle.setStatusBarNotification(sbn);
+                            notihandle.setActionStatusbar(this);
                             notihandle.handleNotification();
-                            removeNotification(sbn);//本应该在handleNotification中发起post后调用移除通知的方法，这样导致被移除的多了，但懒，不想更改所有的子类。
+                            notihandle.removeNotification();
                             return;
                 }
                 LogUtil.debugLog("-----------------");
@@ -73,7 +74,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         super.onNotificationRemoved(sbn);
         }
         
-        private void removeNotification(StatusBarNotification sbn){
+        public void removeNotification(StatusBarNotification sbn){
             PreferenceUtil preference=new PreferenceUtil(getBaseContext());
             if(preference.isRemoveNotification()){
                 if (Build.VERSION.SDK_INT >=21)
