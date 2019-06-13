@@ -30,8 +30,11 @@
 
 - 详细使用方法，参考[wiki](https://github.com/WeihuaGu/receiptnotice/wiki)
 
-#### 这个可搭配服务端getreceipt-server
-[getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)
+#### 这个可搭配服务端项目
+
+|getreceipt-server |
+|:-|
+|[getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)|
 
 ##### 捐助
 |支付宝 |云闪付红包码 |支付宝红包码|
