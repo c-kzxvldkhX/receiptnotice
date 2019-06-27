@@ -130,13 +130,13 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if(this.posturl==null|params==null)
                         return;
                 LogUtil.debugLog("开始准备进行post"); 
+                if(params.get("repeatnum")!=null){
+                        doPostTask(params,null);
+                        return;
+                }
                 Map<String, String> postmap=params;
-                Map<String, String> recordmap=new HashMap<String,String>();;
-                PostTask mtask = new PostTask();
+                Map<String, String> recordmap=new HashMap<String,String>();
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-                String tasknum=RandomUtil.getRandomTaskNum();
-                mtask.setRandomTaskNum(tasknum);
-                mtask.setOnAsyncResponse(this);
                 
                 postmap.put("encrypt","0");
                 postmap.put("url",this.posturl);
@@ -163,10 +163,24 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
                 
                 recordmap.remove("encrypt");
-                LogUtil.postRecordLog(tasknum,recordmap.toString());
-                mtask.execute(postmap);
+                doPostTask(postmap,recordmap);
                
                         
+
+        }
+
+        private void doPostTask(Map<String, String> postmap,Map<String, String> recordmap){
+                PostTask mtask = new PostTask();
+                String tasknum=RandomUtil.getRandomTaskNum();
+                mtask.setRandomTaskNum(tasknum);
+                mtask.setOnAsyncResponse(this);
+                if(recordmap!=null)
+                    LogUtil.postRecordLog(tasknum,recordmap.toString());
+                else
+                    LogUtil.postRecordLog(tasknum,postmap.toString());
+
+                mtask.execute(postmap);
+
 
         }
 
@@ -180,11 +194,19 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         }
         @Override
-        public void onDataReceivedFailed(String[] returnstr) {
+        public void onDataReceivedFailed(String[] returnstr,Map<String ,String> postedmap) {
                 // TODO Auto-generated method stub
                 Log.d(TAG,"Post Receive-post error");
                 LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
-
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                if(preference.isPostRepeat()){
+                    String repeatlimit=preference.getPostRepeatNum();
+                    int limitnum=Integer.parseInt(repeatlimit);
+                    String repeatnumstr=postedmap.get("repeatnum");
+                    int repeatnum=Integer.parseInt(repeatnumstr);
+                    if(repeatnum<=limitnum)
+                            doPost(postedmap);
+                }
 
         }
 }

@@ -61,6 +61,14 @@
                         android:defaultValue="false"
                         android:summary="如果勾选，会在推送完后，清除掉这条通知栏的通知"
                         android:key="isremovenotification" />
+                <CheckBoxPreference
+                        android:title="是否推送失败重复推送"
+                        android:defaultValue="false"
+                        android:key="ispostrepeat" />
+                <EditTextPreference
+                        android:defaultValue=""
+                        android:key="postrepeatnum"
+                        android:title="推送失败重复次数" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="record"

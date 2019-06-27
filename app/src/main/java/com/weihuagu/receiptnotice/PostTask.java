@@ -6,6 +6,7 @@ import java.io.StringWriter;
 
 import android.os.AsyncTask;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
         public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
         public String TAG="NLService";
         public String randomtasknum;
+        public Map<String ,String> recordpostmap;
         public void setRandomTaskNum(String num){
                 this.randomtasknum=num;
         }
@@ -113,7 +115,9 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
 
         @Override
         protected String[] doInBackground(Map<String,String> ... key) {
-                Map<String ,String> postmap=key[0];
+                recordpostmap=key[0];
+                Map<String ,String> postmap=new HashMap<String,String>();
+                postmap.putAll(key[0]);
                 if(postmap==null)
                         return null;
                 String url = postmap.get("url");
@@ -162,7 +166,15 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
                         errstr[0]=this.randomtasknum;
                         errstr[1]="false";
                         errstr[2]="";
-                        asyncResponse.onDataReceivedFailed(errstr);
+                        if(recordpostmap.get("repeatnum")!=null){
+                             String repeatnumstr=recordpostmap.get("repeatnum");
+                             int num=Integer.parseInt(repeatnumstr)+1;
+                             recordpostmap.put("repeatnum",String.valueOf(num));
+                            //key 存在
+                        }
+                        else
+                            recordpostmap.put("repeatnum","1");
+                        asyncResponse.onDataReceivedFailed(errstr,recordpostmap);
                 }
 
         }
