@@ -37,5 +37,11 @@ public class PreferenceUtil{
         public boolean isRemoveNotification(){
                 return this.sharedPref.getBoolean("isremovenotification",false);
         }
+        public boolean isPostRepeat(){
+                return this.sharedPref.getBoolean("ispostrepeat",false);
+        }
+        public String getPostRepeatNum(){
+                return this.sharedPref.getString("postrepeatnum","3");
+        }
 
 }
