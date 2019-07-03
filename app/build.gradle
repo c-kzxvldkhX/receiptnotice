@@ -1,34 +1,37 @@
+def keystorePropertiesFile = rootProject.file("./app/key.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 apply plugin: 'com.android.application'
 android {
-        compileSdkVersion 27
-                defaultConfig {
-                        applicationId "com.weihuagu.receiptnotice"
-                                minSdkVersion 19
-                                targetSdkVersion 25
-                                versionCode 11
-                                versionName "1.0"
-                                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-                }
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.weihuagu.receiptnotice"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 11
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
 
-        signingConfigs{
-                debug {
+signingConfigs{
+        release {
+        keyAlias keystoreProperties['keyAlias']
+        keyPassword keystoreProperties['keyPassword']
+        storeFile file(keystoreProperties['storeFile'])
+        storePassword keystoreProperties['storePassword']
+    }
+}
 
-                }
-                release {
-                }
+buildTypes {
+        release {
+            signingConfig signingConfigs.release
         }
-
-        buildTypes {
-                debug {
-
-                }
-                release {
-                }
-        }
+    }
         lintOptions {
-                abortOnError false
-        }
+      	    abortOnError false
+    }
 }
 dependencies {
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
