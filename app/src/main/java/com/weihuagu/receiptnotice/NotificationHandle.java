@@ -63,18 +63,31 @@ public abstract class NotificationHandle{
                 Pattern pattern = Pattern.compile("(收到|收款|向你付款|向您付款|入账)(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
                 Matcher matcher = pattern.matcher(content);
                 if(matcher.find())
-                    return true;
+                        return true;
                 else
-                    return false;
-       
+                        return false;
+
         }
-        
+
         protected void removeNotification(){
                 if(actionstatusbar==null|sbn==null)
-                    return ;
+                        return ;
                 if(predictIsPost(content))
-                    actionstatusbar.removeNotification(sbn);
+                        actionstatusbar.removeNotification(sbn);
         }
+
+        protected void printNotify(){
+                LogUtil.debugLog("-----------------");
+                LogUtil.debugLog("接受到支付类app消息");
+                LogUtil.debugLog("包名是"+this.pkgtype);
+                NotificationUtil.printNotify(notification);
+                LogUtil.debugLog("**********************");
+
+
+        }
+
+
+
 
 
 
