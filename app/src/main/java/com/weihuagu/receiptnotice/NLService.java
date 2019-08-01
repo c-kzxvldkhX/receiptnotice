@@ -54,6 +54,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if(notihandle!=null){
                             notihandle.setStatusBarNotification(sbn);
                             notihandle.setActionStatusbar(this);
+                            notihandle.printNotify();
                             notihandle.handleNotification();
                             notihandle.removeNotification();
                             return;
@@ -62,7 +63,8 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 LogUtil.debugLog("接受到通知消息");
                 LogUtil.debugLog("这是检测之外的其它通知");
                 LogUtil.debugLog("包名是"+pkg);
-                printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
+                NotificationUtil.printNotify(notification);
+                //printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
                 LogUtil.debugLog("**********************");
 
 
