@@ -37,9 +37,7 @@
 |[getreceipt-server](https://github.com/WeihuaGu/getreceipt-server)|
 
 ##### 捐助
-|支付宝 |云闪付红包码 |支付宝红包码|
-|-|-|-|
-|<img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/shoukuanma.jpg" width="100"/> | <img src="https://weihuagu.github.io/donate/unionpayredcode.jpg" width="100" /> | <img src="https://raw.githubusercontent.com/WeihuaGu/weihuagu.github.io/master/donate/redcode.jpg" width="100"/>|
+[![](https://img.shields.io/badge/%E6%8D%90%E5%8A%A9-%E6%94%AF%E4%BB%98%E5%AE%9D%7C%E5%BE%AE%E4%BF%A1%7C%E4%BA%91%E9%97%AA%E4%BB%98%7CPayPal-green.svg)](https://weihuagu.github.io/donate)
 
 ##### 引用项目
 | ||
