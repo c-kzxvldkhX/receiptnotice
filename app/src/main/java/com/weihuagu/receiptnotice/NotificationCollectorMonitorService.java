@@ -12,6 +12,8 @@ import android.os.IBinder;
 import android.os.Process;
 import android.os.Build;
 import android.util.Log;
+import android.os.PowerManager.WakeLock;
+import android.os.PowerManager;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import java.util.List;
@@ -65,12 +67,36 @@ public class NotificationCollectorMonitorService extends Service {
         private Timer timer=null;
         private String echointerval=null;
         private TimerTask echotimertask =null;
+        private WakeLock wl=null;
+        private void setWakelock() {
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                if(preference.isWakelock())
+                        obtainWakelock();
+        }
+
+        private void  obtainWakelock() {
+                PowerManager pm = (PowerManager)getSystemService(
+                                Context.POWER_SERVICE);
+                wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                                "receiptnoticewakelock");
+                wl.acquire();
+
+        }
+        private void releaseWakelock() {
+                if(wl!=null)
+                        wl.release();
+                else
+                        return;
+        }
+
+
 
         @Override
         public void onCreate() {
                 super.onCreate();
                 ensureCollectorRunning();
                 startEchoTimer();
+                setWakelock();
         }
 
         @Override
@@ -84,13 +110,13 @@ public class NotificationCollectorMonitorService extends Service {
                 mSocket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                         @Override
                         public void call(Object... args) {
-                            LogUtil.infoLog("socket disconnected,try start echo in 5 secend"); 
-                            try{
-					                Thread.sleep(5000);
-				                }catch(InterruptedException e){
-					                    e.printStackTrace();
-				                }
-                            echoServer();
+                                LogUtil.infoLog("socket disconnected,try start echo in 5 secend");
+                                try{
+                                        Thread.sleep(5000);
+                                }catch(InterruptedException e){
+                                        e.printStackTrace();
+                                }
+                                echoServer();
                         }
                 });
                 return true;
@@ -102,7 +128,7 @@ public class NotificationCollectorMonitorService extends Service {
                         return  "100";
         }
         private void startEchoTimer(){
-                PreferenceUtil preference=new PreferenceUtil(getBaseContext());    
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 String interval=preference.getEchoInterval();
                 this.echointerval=(!interval.equals("") ?  interval:getDefaultEchoInterval());
                 this.echotimertask=returnEchoTimerTask();
@@ -113,38 +139,38 @@ public class NotificationCollectorMonitorService extends Service {
         }
         private TimerTask returnEchoTimerTask(){
                 return new TimerTask() {
-                @Override
-                public void run() {
-                        if(!isIntervalMatchPreference()){
-                            restartEchoTimer();
-                            return;
+                        @Override
+                        public void run() {
+                                if(!isIntervalMatchPreference()){
+                                        restartEchoTimer();
+                                        return;
+                                }
+                                LogUtil.debugLog("once socketio timer task run");
+                                boolean flag= echoServer();
+                                if(!flag)
+                                        LogUtil.debugLog("socketio timer task not have a server");
                         }
-                        LogUtil.debugLog("once socketio timer task run");
-                        boolean flag= echoServer();
-                        if(!flag)
-                                LogUtil.debugLog("socketio timer task not have a server");
-                }
-          };
+                };
         }
         private void restartEchoTimer(){
-                        if (this.timer != null) {  
-                            this.timer.cancel();  
-                            this.timer = null;  
-                        }  
-                        if (echotimertask != null) {  
-                            echotimertask.cancel();  
-                            echotimertask = null;  
-                        }   
-                        LogUtil.debugLog("restart echo timer task");
-                        startEchoTimer();
+                if (this.timer != null) {
+                        this.timer.cancel();
+                        this.timer = null;
+                }
+                if (echotimertask != null) {
+                        echotimertask.cancel();
+                        echotimertask = null;
+                }
+                LogUtil.debugLog("restart echo timer task");
+                startEchoTimer();
         }
         private boolean isIntervalMatchPreference(){
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 String interval=preference.getEchoInterval();
                 if(interval.equals(""))
-                    return true;
+                        return true;
                 if(interval.equals(this.echointerval))
-                    return true;
+                        return true;
                 return false;
         }
         private boolean echoServer(){
@@ -263,7 +289,7 @@ public class NotificationCollectorMonitorService extends Service {
                                         return IO.socket(socketserverurl);
                                 }
                                 else{
-                                         SSLSocketFactory factory = new SSLSocketFactoryCompat();
+                                        SSLSocketFactory factory = new SSLSocketFactoryCompat();
                                         ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                                                 .tlsVersions(TlsVersion.TLS_1_2)
                                                 .build();
@@ -271,7 +297,7 @@ public class NotificationCollectorMonitorService extends Service {
                                         specs.add(cs);
                                         specs.add(ConnectionSpec.COMPATIBLE_TLS);
                                         specs.add(ConnectionSpec.CLEARTEXT);
-                                        OkHttpClient client = new OkHttpClient.Builder() 
+                                        OkHttpClient client = new OkHttpClient.Builder()
                                                 .sslSocketFactory(factory)
                                                 .connectionSpecs(specs)
                                                 .build();
