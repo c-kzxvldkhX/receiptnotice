@@ -32,6 +32,12 @@
                                 android:action="com.weihuagu.receiptnotice.illustratedecryptmethod"
                                 android:category="android.intent.category.DEFAULT"/>
                 </Preference>
+                <CheckBoxPreference
+                        android:title="wakelock"
+                        android:defaultValue="false"
+                        android:summary="开启wakelock能使cpu处于不休眠的状态，开启后重启手机"
+                        android:key="iswakelock" />
+
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="keep_alive"

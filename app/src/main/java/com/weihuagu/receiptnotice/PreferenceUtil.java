@@ -22,6 +22,9 @@ public class PreferenceUtil{
         public boolean isEcho(){
                 return this.sharedPref.getBoolean("isecho",false);
         }
+        public boolean isWakelock(){
+                return this.sharedPref.getBoolean("iswakelock",false);
+        }
         public String getEchoServer(){
                 return this.sharedPref.getString("echoserver",null);
         }
