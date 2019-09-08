@@ -25,6 +25,9 @@ public class PreferenceUtil{
         public boolean isWakelock(){
                 return this.sharedPref.getBoolean("iswakelock",false);
         }
+        public boolean isAppendDeviceiduuid(){
+                return this.sharedPref.getBoolean("isappenddeviceiduuid",false);
+        }
         public String getEchoServer(){
                 return this.sharedPref.getString("echoserver",null);
         }
