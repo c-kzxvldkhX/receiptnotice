@@ -10,6 +10,12 @@
                         android:title="deviceid"
                         android:summary="设置deviceid来标识设备,如果不设置使用系统的Serial号码的UUID"/>
                 <CheckBoxPreference
+                        android:title="deviceid后缀UUID"
+                        android:defaultValue="false"
+                        android:summary="开启后会在设置的deviceid后缀UUID"
+                        android:key="isappenddeviceiduuid" />
+
+                <CheckBoxPreference
                         android:title="加密"
                         android:defaultValue="false"
                         android:key="isencrypt" />
@@ -26,7 +32,7 @@
                         android:key="passwd"
                         android:summary="密钥"
                         android:title="密钥" />
-                 <Preference
+                <Preference
                         android:title="解密说明">
                         <intent
                                 android:action="com.weihuagu.receiptnotice.illustratedecryptmethod"
@@ -43,16 +49,16 @@
                 android:key="keep_alive"
                 android:summary="报告连接"
                 android:title="报告连接">
-          <CheckBoxPreference
+                <CheckBoxPreference
                         android:title="是否使用socket.io echo server"
                         android:defaultValue="false"
                         android:key="isecho" />
-        <EditTextPreference
+                <EditTextPreference
                         android:defaultValue=""
                         android:key="echoserver"
                         android:summary="echo socket.io 服务器"
                         android:title="echo 服务器" />
-        <EditTextPreference
+                <EditTextPreference
                         android:defaultValue=""
                         android:key="echointerval"
                         android:summary="echo 间隔(秒),建议设置为15秒以上，如设置过大（如10分钟以上时），导致server频繁接到disconnect事件可以调小到不会频繁断开为止。"

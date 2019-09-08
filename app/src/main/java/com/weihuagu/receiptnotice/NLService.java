@@ -35,7 +35,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void onNotificationPosted(StatusBarNotification sbn) {
                 //        super.onNotificationPosted(sbn);
                 //这里只是获取了包名和通知提示信息，其他数据可根据需求取，注意空指针就行
-                
+
                 if(getPostUrl()==null)
                         return;
 
@@ -52,12 +52,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 //接受推送处理
                 NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
-                            notihandle.setStatusBarNotification(sbn);
-                            notihandle.setActionStatusbar(this);
-                            notihandle.printNotify();
-                            notihandle.handleNotification();
-                            notihandle.removeNotification();
-                            return;
+                        notihandle.setStatusBarNotification(sbn);
+                        notihandle.setActionStatusbar(this);
+                        notihandle.printNotify();
+                        notihandle.handleNotification();
+                        notihandle.removeNotification();
+                        return;
                 }
                 LogUtil.debugLog("-----------------");
                 LogUtil.debugLog("接受到通知消息");
@@ -75,16 +75,16 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if (Build.VERSION.SDK_INT >19)
                         super.onNotificationRemoved(sbn);
         }
-        
+
         public void removeNotification(StatusBarNotification sbn){
-            PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-            if(preference.isRemoveNotification()){
-                if (Build.VERSION.SDK_INT >=21)
-                    cancelNotification(sbn.getKey());
-                else
-                    cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
-                sendToast("receiptnotice移除了包名为"+sbn.getPackageName()+"的通知");
-            }
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                if(preference.isRemoveNotification()){
+                        if (Build.VERSION.SDK_INT >=21)
+                                cancelNotification(sbn.getKey());
+                        else
+                                cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
+                        sendToast("receiptnotice移除了包名为"+sbn.getPackageName()+"的通知");
+                }
         }
 
         private void sendBroadcast(String msg) {
@@ -92,7 +92,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 intent.putExtra("text", msg);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
-        
+
         private void sendToast(String msg){
                 Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         }
@@ -131,7 +131,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void doPost(Map<String, String> params){
                 if(this.posturl==null|params==null)
                         return;
-                LogUtil.debugLog("开始准备进行post"); 
+                LogUtil.debugLog("开始准备进行post");
                 if(params.get("repeatnum")!=null){
                         doPostTask(params,null);
                         return;
@@ -139,13 +139,20 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 Map<String, String> postmap=params;
                 Map<String, String> recordmap=new HashMap<String,String>();
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-                
+
                 postmap.put("encrypt","0");
                 postmap.put("url",this.posturl);
                 String deviceid=preference.getDeviceid();
-                postmap.put("deviceid",(!deviceid.equals("")? deviceid:DeviceInfoUtil.getUniquePsuedoID()));
+                if(deviceid.equals(""))
+                        deviceid=DeviceInfoUtil.getUniquePsuedoID();
+                else
+                        if(preference.isAppendDeviceiduuid())
+                                deviceid=deviceid+'-'+DeviceInfoUtil.getUniquePsuedoID();
+                        else
+                                deviceid=deviceid;
+                postmap.put("deviceid",deviceid);
                 recordmap.putAll(postmap);
-                
+
                 if(preference.isEncrypt()){
                         String encrypt_type=preference.getEncryptMethod();
                         if(encrypt_type!=null){
@@ -155,7 +162,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                                 Log.d(TAG,"加密秘钥"+key);
                                 Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
                                 if(encrypter!=null&&key!=null){
-                                        
+
                                         postmap=encrypter.transferMapValue(postmap);
                                         postmap.put("url",this.posturl);
                                 }
@@ -163,11 +170,11 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         }
                 }
 
-                
+
                 recordmap.remove("encrypt");
                 doPostTask(postmap,recordmap);
-               
-                        
+
+
 
         }
 
@@ -177,9 +184,9 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 mtask.setRandomTaskNum(tasknum);
                 mtask.setOnAsyncResponse(this);
                 if(recordmap!=null)
-                    LogUtil.postRecordLog(tasknum,recordmap.toString());
+                        LogUtil.postRecordLog(tasknum,recordmap.toString());
                 else
-                    LogUtil.postRecordLog(tasknum,postmap.toString());
+                        LogUtil.postRecordLog(tasknum,postmap.toString());
 
                 mtask.execute(postmap);
 
@@ -202,12 +209,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 if(preference.isPostRepeat()){
-                    String repeatlimit=preference.getPostRepeatNum();
-                    int limitnum=Integer.parseInt(repeatlimit);
-                    String repeatnumstr=postedmap.get("repeatnum");
-                    int repeatnum=Integer.parseInt(repeatnumstr);
-                    if(repeatnum<=limitnum)
-                            doPost(postedmap);
+                        String repeatlimit=preference.getPostRepeatNum();
+                        int limitnum=Integer.parseInt(repeatlimit);
+                        String repeatnumstr=postedmap.get("repeatnum");
+                        int repeatnum=Integer.parseInt(repeatnumstr);
+                        if(repeatnum<=limitnum)
+                                doPost(postedmap);
                 }
 
         }
