@@ -45,8 +45,25 @@ public class ExternalInfoUtil {
                 put("1069088895568", "cmbc");
         }};
 
+        public final static Map banksname = new HashMap() {{
+                put("工商银行", "icbc");
+                put("农业银行", "abc");
+                put("中国银行", "boc");
+                put("建设银行", "ccb");
+                put("邮政储蓄银行", "psbc");
+                put("招商银行", "cbm");
+                put("浦发银行", "spdb");
+                put("兴业银行", "cib");
+                put("民生银行", "cmbc");
+                put("光大银行", "ceb");
+        }};
+
+
         public static Map getBanksMessageNum(){
                 return bankmessagenum;
+        }
+        public static Map getAllBanksNameMap(){
+                return banksname;
         }
 
 }
