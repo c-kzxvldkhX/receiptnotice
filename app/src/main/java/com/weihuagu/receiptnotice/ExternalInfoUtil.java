@@ -36,9 +36,9 @@ public class ExternalInfoUtil {
                 put("010095588", "icbc");
                 put("106573095566", "boc");
                 put("777795566", "boc");
-                put("1065795555", "cmbchina");
-                put("10657559555", "cmbchina");
-                put("1065502010095555", "cmbchina");
+                put("1065795555", "cmb");
+                put("10657559555", "cmb");
+                put("1065502010095555", "cmb");
                 put("106573095533", "ccb");
                 put("80095533", "ccb");
                 put("10657109095568000", "cmbc");
@@ -56,6 +56,7 @@ public class ExternalInfoUtil {
                 put("兴业银行", "cib");
                 put("民生银行", "cmbc");
                 put("光大银行", "ceb");
+                put("网商银行", "my");
         }};
 
 
