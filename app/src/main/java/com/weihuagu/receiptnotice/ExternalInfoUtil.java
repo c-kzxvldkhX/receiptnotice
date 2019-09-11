@@ -59,12 +59,29 @@ public class ExternalInfoUtil {
                 put("网商银行", "my");
         }};
 
+        public final static String [] maybankmessagefeature = new String[]{
+                "收入",
+                "存入",
+                "转入",
+                "入账"
+        };
+
 
         public static Map getBanksMessageNum(){
                 return bankmessagenum;
         }
         public static Map getAllBanksNameMap(){
                 return banksname;
+        }
+        public static String[] getBankmessageFeature(){
+                return maybankmessagefeature;
+        }
+        public static boolean containsBankmessageFeature(String content){
+                for(String x : maybankmessagefeature){
+                        if(content.contains(x))
+                                return true;
+                }
+                return false;
         }
 
 }

@@ -16,7 +16,7 @@ public class BanksProxy extends NotificationHandle{
                 BankDistinguisher onedistinguisher=new BankDistinguisher();
                 return onedistinguisher.distinguishByMessageContent(content);
         }
-        private  String extractMoney(String content){
+        protected  String extractMoney(String content){
                 Pattern pattern = Pattern.compile("(收入|存入|转入|入账)(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
                 Matcher matcher = pattern.matcher(content);
                 if(matcher.find()){

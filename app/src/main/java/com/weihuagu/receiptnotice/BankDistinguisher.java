@@ -22,18 +22,21 @@ public class BankDistinguisher{
         }
 
         public String distinguishByMessageContent(String content){
-                if(!content.contains("银行"))
-                        return null;
-                Stack<String> alternativebank = new Stack<String>();
-                Map <String,String> map=ExternalInfoUtil.getAllBanksNameMap();
-                for (String key : map.keySet()) {
-                        if(content.contains(key))
-                                alternativebank.push(key);
+                if(content.contains("银行")&&ExternalInfoUtil.containsBankmessageFeature(content))
+                {
+                        Stack<String> alternativebank = new Stack<String>();
+                        Map <String,String> map=ExternalInfoUtil.getAllBanksNameMap();
+                        for (String key : map.keySet()) {
+                                if(content.contains(key))
+                                        alternativebank.push(key);
+                        }
+                        if(alternativebank.isEmpty())
+                                return "";
+                        else
+                                return map.get(alternativebank.peek());
                 }
-                if(alternativebank.isEmpty())
-                        return "";
                 else
-                        return map.get(alternativebank.peek());
+                        return null;
 
 
 
