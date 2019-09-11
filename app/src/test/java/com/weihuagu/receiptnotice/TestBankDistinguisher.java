@@ -15,7 +15,7 @@ public class TestBankDistinguisher extends TestCase{
         String test1= "您尾号0345卡8月15日23:46工商银行收入(他行汇入)1,000元，余额1,000.00元。【工商银行】";
         String test2= "您尾号7865卡人民币活期07:45存入10,00.00[银联入账:（特约）京东]，可用余额1000.00。【浦发银行】";
         String test3="【网商银行】您尾号8225的账户，于08月22日 09:32通过支付宝账户（183******13）成功转入20,000.00元。";
-        String test4="没有行的胡乱测试短信";
+        String test4="不是银行正确的胡乱测试短信";
         System.out.println("test1 工商");
         if(onedistinguisher.distinguishByMessageContent(test1)!=null)
                 System.out.println(onedistinguisher.distinguishByMessageContent(test1));
