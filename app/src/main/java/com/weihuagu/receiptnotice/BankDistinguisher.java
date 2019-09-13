@@ -42,6 +42,34 @@ public class BankDistinguisher{
 
         }
 
+        public  String extractMoney(String content){
+                Pattern pattern = Pattern.compile("(收入|存入|转入|入账)(\\(.*\\))?(\\d{1,3}(,\\d{2,3})*(\\.\\d{0,2})?)元?");
+                Matcher matcher = pattern.matcher(content);
+                if(matcher.find()){
+                        String tmp=matcher.group();
+                        Pattern patternnum = Pattern.compile("((\\d{1,3}(,\\d{2,3})*(\\.\\d{0,2})?))");
+                        Matcher matchernum = patternnum.matcher(tmp);
+                        if(matchernum.find())
+                                return matchernum.group();
+                        return null;
+                }else
+                        return null;
+
+
+        }
+
+        public String extractCardNum(String content){
+                String pattern = "(尾号\\d{4}的?(卡|账号|账户))";
+                Pattern r = Pattern.compile(pattern);
+                Matcher m = r.matcher(content);
+                if(m.find())
+                        return m.group();
+                else
+                        return "";
+
+
+        }
+
 
 
 
