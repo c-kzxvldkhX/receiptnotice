@@ -32,8 +32,9 @@ public class BanksProxy extends NotificationHandle{
 
                 Map<String,String> postmap=new HashMap<String,String>();
                 postmap.put("type",type);
-                postmap.put("time",notitime);
+                postmap.put("time",onedistinguisher.extractTime(content,notitime));
                 postmap.put("title","短信银行卡入账");
+                postmap.put("phonenum",title);
                 postmap.put("money",onedistinguisher.extractMoney(content));
                 postmap.put("cardnum",onedistinguisher.extractCardNum(content));
                 postmap.put("content",content);

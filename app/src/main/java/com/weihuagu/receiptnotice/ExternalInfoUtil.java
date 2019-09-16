@@ -57,6 +57,7 @@ public class ExternalInfoUtil {
                 put("民生银行", "cmbc");
                 put("光大银行", "ceb");
                 put("网商银行", "my");
+                put("北京银行", "bob");
         }};
 
         public final static String [] maybankmessagefeature = new String[]{
