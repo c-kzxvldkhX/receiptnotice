@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Stack;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
+
 
 
 public class BankDistinguisher{
@@ -69,6 +75,35 @@ public class BankDistinguisher{
 
 
         }
+
+        public String extractTime(String content,String time){
+
+                Pattern pattern = Pattern.compile("([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])");
+                Matcher matcher = pattern.matcher(content);
+                if(matcher.find()){
+                        try {
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                                Date date = df.parse(time);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(date);
+                                calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(matcher.group(1)));
+                                calendar.set(Calendar.MINUTE,Integer.parseInt(matcher.group(2)));
+                                return df.format(calendar.getTime());
+                        } catch (ParseException e) {
+                                return time;
+                        }
+
+                }else
+                        return time;
+
+
+
+
+
+
+
+        }
+
 
 
 
