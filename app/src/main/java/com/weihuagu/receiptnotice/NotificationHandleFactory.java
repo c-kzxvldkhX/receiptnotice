@@ -1,5 +1,6 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
+import android.provider.Telephony.Sms;
 public  class NotificationHandleFactory{
     public NotificationHandle getNotificationHandle(String pkg,Notification notification,IDoPost postpush){
                 //mipush
@@ -39,6 +40,10 @@ public  class NotificationHandleFactory{
 
 
                 return null;
+
+        }
+        private String getMessageAppPkg(){
+                return Sms.getDefaultSmsPackage(MainApplication.getAppContext());
 
         }
 
