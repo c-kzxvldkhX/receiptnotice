@@ -33,8 +33,8 @@ public  class NotificationHandleFactory{
                         return new IcbcelifeNotificationHandle("com.icbc.biz.elife",notification,postpush);
                 }
                 //接到短信
-                if("com.android.messaging".equals(pkg)){
-                        return new BanksProxy("com.android.messaging",notification,postpush);
+                if(getMessageAppPkg().equals(pkg)){
+                        return new BanksProxy(getMessageAppPkg(),notification,postpush);
                 }
 
 
