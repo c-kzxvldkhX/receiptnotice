@@ -18,9 +18,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
+import android.widget.ArrayAdapter;
 
 import com.tao.admin.loglib.Logger;
 import com.github.pedrovgs.lynx.LynxConfig;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private Toolbar myToolbar;
         private Button btnsetposturl;
         private FloatingActionButton btnshowlog;
-        private EditText posturl;
+        private AutoCompleteTextView posturl;
         private SharedPreferences sp ;
 
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
                 initView();
+                posturlSuggestion();
+
         }
 
         private void initView() {
@@ -52,11 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnsetposturl.setOnClickListener(this);
                 btnshowlog=(FloatingActionButton) findViewById(R.id.floatingshowlog);
                 btnshowlog.setOnClickListener(this);
-                posturl = (EditText) findViewById(R.id.posturl);
+                posturl = (AutoCompleteTextView) findViewById(R.id.posturl);
                 if(getPostUrl()!=null)
                         posturl.setHint(getPostUrl());
 
 
+
+        }
+
+        private void setListerner(){
 
         }
 
@@ -115,6 +123,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return null;
                 else
                         return posturlpath;
+        }
+
+        private void posturlSuggestion(){
+                String[] str = new String[2];
+                str[0] = "";
+                str[1] = getPostUrl();
+                posturl.setThreshold(0);
+                ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,str);
+                posturl.setAdapter(adapter);
+                posturl.setOnFocusChangeListener (new View.OnFocusChangeListener(){
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                                AutoCompleteTextView view = (AutoCompleteTextView) v;
+                                if (hasFocus) {
+                                        view.showDropDown ();
+                                }
+                        }
+
+                });
+                Toast.makeText(getApplicationContext(), str[0],Toast.LENGTH_SHORT).show();
         }
 
 

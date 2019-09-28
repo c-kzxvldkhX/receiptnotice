@@ -1,5 +1,6 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
+import android.provider.Telephony.Sms;
 public  class NotificationHandleFactory{
     public NotificationHandle getNotificationHandle(String pkg,Notification notification,IDoPost postpush){
                 //mipush
@@ -31,9 +32,18 @@ public  class NotificationHandleFactory{
                 if("com.icbc.biz.elife".equals(pkg)){
                         return new IcbcelifeNotificationHandle("com.icbc.biz.elife",notification,postpush);
                 }
+                //接到短信
+                if(getMessageAppPkg().equals(pkg)){
+                        return new BanksProxy(getMessageAppPkg(),notification,postpush);
+                }
+
 
 
                 return null;
+
+        }
+        private String getMessageAppPkg(){
+                return Sms.getDefaultSmsPackage(MainApplication.getAppContext());
 
         }
 
