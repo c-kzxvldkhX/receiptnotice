@@ -49,5 +49,8 @@ public class PreferenceUtil{
         public String getPostRepeatNum(){
                 return this.sharedPref.getString("postrepeatnum","3");
         }
+        public String getCustomOption(){
+                return this.sharedPref.getString("custom_option","");
+        }
 
 }
