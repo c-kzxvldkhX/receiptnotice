@@ -151,6 +151,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         else
                                 deviceid=deviceid;
                 postmap.put("deviceid",deviceid);
+                if(preference.getCustomOption().equals("")==false){
+                        Map custompostoption=ExternalInfoUtil.getCustomPostOption(preference.getCustomOption());
+                        if (custompostoption!=null)
+                                postmap.putAll(custompostoption);
+                }
+
                 recordmap.putAll(postmap);
 
                 if(preference.isEncrypt()){

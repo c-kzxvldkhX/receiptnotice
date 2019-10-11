@@ -14,7 +14,6 @@
                         android:defaultValue="false"
                         android:summary="开启后会在设置的deviceid后缀UUID"
                         android:key="isappenddeviceiduuid" />
-
                 <CheckBoxPreference
                         android:title="加密"
                         android:defaultValue="false"
@@ -43,7 +42,11 @@
                         android:defaultValue="false"
                         android:summary="开启wakelock能使cpu处于不休眠的状态，开启后重启手机"
                         android:key="iswakelock" />
-
+                <EditTextPreference
+                        android:defaultValue=""
+                        android:key="custom_option"
+                        android:summary="用冒号区分键和值,多个使用分号"
+                        android:title="要推送的自定义项" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="keep_alive"

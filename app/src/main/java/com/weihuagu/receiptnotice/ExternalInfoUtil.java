@@ -85,5 +85,32 @@ public class ExternalInfoUtil {
                 }
                 return false;
         }
+        public static Map getCustomPostOption(String custom){
+                String s[] = custom.split(";");
+                Map customoption = new HashMap();
+                for(String x : s){
+                        String ss[] = getOneitemKeyandValue(x);
+                        if(ss!=null){
+                                customoption.put(ss[0],ss[1]);
+                        }
+                }
+                if(customoption.size()>0)
+                        return customoption;
+                else
+                        return null;
+
+
+
+        }
+
+       public static String[] getOneitemKeyandValue(String item){
+               String s[] = item.split(":");
+               if(s.length==2)
+                       return s;
+               else 
+                       return null;
+       }
+
+
 
 }
