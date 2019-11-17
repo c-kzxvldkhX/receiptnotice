@@ -9,11 +9,17 @@
                         android:key="deviceid"
                         android:title="deviceid"
                         android:summary="设置deviceid来标识设备,如果不设置使用系统的Serial号码的UUID"/>
+		<CheckBoxPreference
+                        android:title="跳过deviceid的加密"
+                        android:defaultValue="false"
+                        android:summary="开启后,选择加密也不会加密deviceid"
+                        android:key="isskipencryptdeviceid" />
                 <CheckBoxPreference
                         android:title="deviceid后缀UUID"
                         android:defaultValue="false"
                         android:summary="开启后会在设置的deviceid后缀UUID"
-                        android:key="isappenddeviceiduuid" />
+			android:key="isappenddeviceiduuid" />
+
                 <CheckBoxPreference
                         android:title="加密"
                         android:defaultValue="false"

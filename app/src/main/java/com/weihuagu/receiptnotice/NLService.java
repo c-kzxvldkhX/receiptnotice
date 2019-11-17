@@ -136,48 +136,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         doPostTask(params,null);
                         return;
                 }
-                Map<String, String> postmap=params;
-                Map<String, String> recordmap=new HashMap<String,String>();
+
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+		PostMapFilter mapfilter=new PostMapFilter(preference,params,this.posturl);
+                Map<String, String> recordmap=mapfilter.getLogMap();
+                Map<String, String> postmap=mapfilter.getPostMap();
 
-                postmap.put("encrypt","0");
-                postmap.put("url",this.posturl);
-                String deviceid=preference.getDeviceid();
-                if(deviceid.equals(""))
-                        deviceid=DeviceInfoUtil.getUniquePsuedoID();
-                else
-                        if(preference.isAppendDeviceiduuid())
-                                deviceid=deviceid+'-'+DeviceInfoUtil.getUniquePsuedoID();
-                        else
-                                deviceid=deviceid;
-                postmap.put("deviceid",deviceid);
-                if(preference.getCustomOption().equals("")==false){
-                        Map custompostoption=ExternalInfoUtil.getCustomPostOption(preference.getCustomOption());
-                        if (custompostoption!=null)
-                                postmap.putAll(custompostoption);
-                }
-
-                recordmap.putAll(postmap);
-
-                if(preference.isEncrypt()){
-                        String encrypt_type=preference.getEncryptMethod();
-                        if(encrypt_type!=null){
-                                String key=preference.getPasswd();
-                                EncryptFactory encryptfactory=new EncryptFactory(key);
-                                Log.d(TAG,"加密方法"+encrypt_type);
-                                Log.d(TAG,"加密秘钥"+key);
-                                Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
-                                if(encrypter!=null&&key!=null){
-
-                                        postmap=encrypter.transferMapValue(postmap);
-                                        postmap.put("url",this.posturl);
-                                }
-
-                        }
-                }
-
-
-                recordmap.remove("encrypt");
                 doPostTask(postmap,recordmap);
 
 

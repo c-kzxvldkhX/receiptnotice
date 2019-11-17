@@ -28,6 +28,9 @@ public class PreferenceUtil{
         public boolean isAppendDeviceiduuid(){
                 return this.sharedPref.getBoolean("isappenddeviceiduuid",false);
         }
+	public boolean isSkipEncryptDeviceid(){
+		return this.sharedPref.getBoolean("isskipencryptdeviceid",false);
+	}
         public String getEchoServer(){
                 return this.sharedPref.getString("echoserver",null);
         }
