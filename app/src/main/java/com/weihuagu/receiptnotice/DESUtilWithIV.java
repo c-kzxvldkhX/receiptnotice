@@ -1,6 +1,6 @@
 package com.weihuagu.receiptnotice;
 import android.annotation.SuppressLint;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

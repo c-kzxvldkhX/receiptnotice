@@ -3,8 +3,8 @@ import android.content.Intent;
 import android.service.notification.NotificationListenerService;
 import android.app.Notification;
 import android.service.notification.StatusBarNotification;
-import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 import android.os.Bundle;
 import android.content.SharedPreferences;
@@ -12,7 +12,6 @@ import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
-import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -88,9 +87,9 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         }
 
         private void sendBroadcast(String msg) {
-                Intent intent = new Intent(getPackageName());
+               Intent intent = new Intent(getPackageName());
                 intent.putExtra("text", msg);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+              LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
 
         private void sendToast(String msg){
