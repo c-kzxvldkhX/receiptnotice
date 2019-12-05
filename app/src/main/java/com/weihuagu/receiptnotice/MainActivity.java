@@ -1,30 +1,23 @@
 package com.weihuagu.receiptnotice;
 
-import android.support.v7.app.AppCompatActivity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.EditText;
 import android.widget.AutoCompleteTextView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuInflater;
 import android.widget.ArrayAdapter;
 
-import com.tao.admin.loglib.Logger;
 import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
 
