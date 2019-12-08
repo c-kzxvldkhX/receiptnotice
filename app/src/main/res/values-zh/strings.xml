@@ -7,5 +7,5 @@
         <string name="text_clearlog">清空记录</string>
         <string name="text_reverseshow">逆序显示</string>
         <string name="text_home_fragment_tip">赚你很多钱</string>
-        <string name="text_home_fragment_nexttip">左滑切换到收记录</string>
+        <string name="text_home_fragment_nexttip">左滑切换到收款记录</string>
 </resources>
