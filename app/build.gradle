@@ -43,6 +43,7 @@ dependencies {
                 implementation 'com.github.pedrovgs:lynx:1.1.0'
                 implementation 'io.socket:socket.io-client:1.0.0'
                 implementation 'com.google.code.gson:gson:2.8.5'
+                implementation 'com.jeremyliao:live-event-bus-x:1.5.7'
                 testImplementation 'junit:junit:4.12'
                 testImplementation "org.mockito:mockito-core:3.+"
                 androidTestImplementation 'androidx.test.ext:junit:1.1.1'
