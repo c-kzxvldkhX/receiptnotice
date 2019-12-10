@@ -12,6 +12,8 @@ import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -168,6 +170,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 Log.d(TAG,"Post Receive-returned post string");
                 Log.d(TAG,returnstr[2]);
                 LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
+
 
 
         }

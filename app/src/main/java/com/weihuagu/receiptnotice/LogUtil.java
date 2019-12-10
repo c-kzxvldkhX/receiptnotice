@@ -6,6 +6,8 @@
 
 package com.weihuagu.receiptnotice;
 import android.util.Log;
+
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.tao.admin.loglib.Logger;
 
 public class LogUtil {
@@ -41,7 +43,9 @@ public class LogUtil {
                 Logger.i("返回内容",returnstr);
                 Logger.i("------------------------------------------");
 
-
+                LiveEventBus
+                        .get("update_recordlist")
+                        .post("update");
         }
 
 }
