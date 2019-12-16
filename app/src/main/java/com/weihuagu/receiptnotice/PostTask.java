@@ -1,29 +1,13 @@
 package com.weihuagu.receiptnotice;
 
-import java.util.List;
-import java.io.PrintWriter;  
-import java.io.StringWriter;  
-
 import android.os.AsyncTask;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import javax.net.ssl.SSLSocketFactory;
-import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.TlsVersion;
-import okhttp3.ConnectionSpec;
 import java.util.Iterator;
 import android.util.Log;
-import android.os.Build;
 
 public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
 
@@ -32,69 +16,11 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
         public String TAG="NLService";
         public String randomtasknum;
         public Map<String ,String> recordpostmap;
+        private NetUtil netutil=new NetUtil();
         public void setRandomTaskNum(String num){
                 this.randomtasknum=num;
         }
         OkHttpClient client = new OkHttpClient();
-        String httppost(String url, String json) throws IOException {
-                RequestBody body = RequestBody.create(JSON, json);
-                OkHttpClient client = new OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
-                        .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
-                        .build();
-                Request.Builder request = new Request.Builder()
-                        .url(url)
-                        .post(body);
-                try (Response response = client.newCall(request.build()).execute()) {
-                        return response.body().string();
-                }
-        }
-
-        String httpspost(String url, String json)  throws IOException{
-            if (Build.VERSION.SDK_INT >= 22 )
-                return httppost(url, json);
-            try {
-                RequestBody body = RequestBody.create(JSON, json);
-                SSLSocketFactory factory = new SSLSocketFactoryCompat();
-                ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                    .tlsVersions(TlsVersion.TLS_1_2)
-                    .build();
-
-            List<ConnectionSpec> specs = new ArrayList<>();
-            specs.add(cs);
-            specs.add(ConnectionSpec.COMPATIBLE_TLS);
-            specs.add(ConnectionSpec.CLEARTEXT);
-
-    
-                OkHttpClient client = new OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
-                        .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
-                        .sslSocketFactory(factory)
-                        .connectionSpecs(specs)
-                        .build();
-                
-                Request.Builder request = new Request.Builder()
-                        .url(url)
-                        .post(body);
-                        Response response = client.newCall(request.build()).execute();
-                        return response.body().string();
-                }
-                catch( IOException e){
-                        StringWriter sw = new StringWriter();  
-                        PrintWriter pw = new PrintWriter(sw);  
-                        e.printStackTrace(pw);  
-                        LogUtil.debugLog(sw.toString()); 
-                        return null;
-                }
-                catch (KeyManagementException e) {
-                       e.printStackTrace();
-                        return null;
-                } catch (NoSuchAlgorithmException e) {
-                     e.printStackTrace();
-                     return null;
-              }
-                
-        }
         //fuck 竟然不导包找不到个好的map转json的
         public String map2Json(Map<String,String> map){
                 String mapjson="";
@@ -134,7 +60,7 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
                         try{
                                 Log.d(TAG,"post task  url:"+url);
                                 Log.d(TAG,"post task postjson:"+postjson);
-                                String returnstr=httppost(url,postjson);
+                                String returnstr=netutil.httppost(url,postjson);
                                 resultstr[1]="true";
                                 resultstr[2]=returnstr;
                                 return resultstr;
@@ -144,7 +70,7 @@ public class PostTask extends AsyncTask<Map<String, String>, Void, String[]> {
                         try{
                                 Log.d(TAG,"post task  url:"+url);
                                 Log.d(TAG,"post task postjson:"+postjson);
-                                String returnstr=httpspost(url,postjson);
+                                String returnstr=netutil.httpspost(url,postjson);
                                 resultstr[1]="true";
                                 resultstr[2]=returnstr;
                                 return resultstr;

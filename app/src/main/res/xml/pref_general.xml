@@ -90,6 +90,11 @@
                         android:defaultValue=""
                         android:key="postrepeatnum"
                         android:title="推送失败重复次数" />
+                <CheckBoxPreference
+                    android:title="是否在推送时信任私有证书"
+                    android:defaultValue="false"
+                    android:summary="如果勾选，会信任所有证书"
+                    android:key="istrustallcertificates" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="record"
