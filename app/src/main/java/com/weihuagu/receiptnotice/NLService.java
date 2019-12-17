@@ -3,8 +3,8 @@ import android.content.Intent;
 import android.service.notification.NotificationListenerService;
 import android.app.Notification;
 import android.service.notification.StatusBarNotification;
-import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 import android.os.Bundle;
 import android.content.SharedPreferences;
@@ -12,7 +12,8 @@ import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void onNotificationPosted(StatusBarNotification sbn) {
                 //        super.onNotificationPosted(sbn);
                 //这里只是获取了包名和通知提示信息，其他数据可根据需求取，注意空指针就行
-                
+
                 if(getPostUrl()==null)
                         return;
 
@@ -52,17 +53,19 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 //接受推送处理
                 NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
-                            notihandle.setStatusBarNotification(sbn);
-                            notihandle.setActionStatusbar(this);
-                            notihandle.handleNotification();
-                            notihandle.removeNotification();
-                            return;
+                        notihandle.setStatusBarNotification(sbn);
+                        notihandle.setActionStatusbar(this);
+                        notihandle.printNotify();
+                        notihandle.handleNotification();
+                        notihandle.removeNotification();
+                        return;
                 }
                 LogUtil.debugLog("-----------------");
                 LogUtil.debugLog("接受到通知消息");
                 LogUtil.debugLog("这是检测之外的其它通知");
                 LogUtil.debugLog("包名是"+pkg);
-                printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
+                NotificationUtil.printNotify(notification);
+                //printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
                 LogUtil.debugLog("**********************");
 
 
@@ -73,24 +76,24 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 if (Build.VERSION.SDK_INT >19)
                         super.onNotificationRemoved(sbn);
         }
-        
+
         public void removeNotification(StatusBarNotification sbn){
-            PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-            if(preference.isRemoveNotification()){
-                if (Build.VERSION.SDK_INT >=21)
-                    cancelNotification(sbn.getKey());
-                else
-                    cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
-                sendToast("receiptnotice移除了包名为"+sbn.getPackageName()+"的通知");
-            }
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                if(preference.isRemoveNotification()){
+                        if (Build.VERSION.SDK_INT >=21)
+                                cancelNotification(sbn.getKey());
+                        else
+                                cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
+                        sendToast("receiptnotice移除了包名为"+sbn.getPackageName()+"的通知");
+                }
         }
 
         private void sendBroadcast(String msg) {
-                Intent intent = new Intent(getPackageName());
+               Intent intent = new Intent(getPackageName());
                 intent.putExtra("text", msg);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+              LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
-        
+
         private void sendToast(String msg){
                 Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         }
@@ -129,43 +132,20 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         public void doPost(Map<String, String> params){
                 if(this.posturl==null|params==null)
                         return;
-                LogUtil.debugLog("开始准备进行post"); 
+                LogUtil.debugLog("开始准备进行post");
                 if(params.get("repeatnum")!=null){
                         doPostTask(params,null);
                         return;
                 }
-                Map<String, String> postmap=params;
-                Map<String, String> recordmap=new HashMap<String,String>();
+
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-                
-                postmap.put("encrypt","0");
-                postmap.put("url",this.posturl);
-                String deviceid=preference.getDeviceid();
-                postmap.put("deviceid",(!deviceid.equals("")? deviceid:DeviceInfoUtil.getUniquePsuedoID()));
-                recordmap.putAll(postmap);
-                
-                if(preference.isEncrypt()){
-                        String encrypt_type=preference.getEncryptMethod();
-                        if(encrypt_type!=null){
-                                String key=preference.getPasswd();
-                                EncryptFactory encryptfactory=new EncryptFactory(key);
-                                Log.d(TAG,"加密方法"+encrypt_type);
-                                Log.d(TAG,"加密秘钥"+key);
-                                Encrypter encrypter=encryptfactory.getEncrypter(encrypt_type);
-                                if(encrypter!=null&&key!=null){
-                                        
-                                        postmap=encrypter.transferMapValue(postmap);
-                                        postmap.put("url",this.posturl);
-                                }
+		PostMapFilter mapfilter=new PostMapFilter(preference,params,this.posturl);
+                Map<String, String> recordmap=mapfilter.getLogMap();
+                Map<String, String> postmap=mapfilter.getPostMap();
 
-                        }
-                }
-
-                
-                recordmap.remove("encrypt");
                 doPostTask(postmap,recordmap);
-               
-                        
+
+
 
         }
 
@@ -175,9 +155,9 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 mtask.setRandomTaskNum(tasknum);
                 mtask.setOnAsyncResponse(this);
                 if(recordmap!=null)
-                    LogUtil.postRecordLog(tasknum,recordmap.toString());
+                        LogUtil.postRecordLog(tasknum,recordmap.toString());
                 else
-                    LogUtil.postRecordLog(tasknum,postmap.toString());
+                        LogUtil.postRecordLog(tasknum,postmap.toString());
 
                 mtask.execute(postmap);
 
@@ -192,6 +172,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
 
 
+
         }
         @Override
         public void onDataReceivedFailed(String[] returnstr,Map<String ,String> postedmap) {
@@ -200,12 +181,12 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 if(preference.isPostRepeat()){
-                    String repeatlimit=preference.getPostRepeatNum();
-                    int limitnum=Integer.parseInt(repeatlimit);
-                    String repeatnumstr=postedmap.get("repeatnum");
-                    int repeatnum=Integer.parseInt(repeatnumstr);
-                    if(repeatnum<=limitnum)
-                            doPost(postedmap);
+                        String repeatlimit=preference.getPostRepeatNum();
+                        int limitnum=Integer.parseInt(repeatlimit);
+                        String repeatnumstr=postedmap.get("repeatnum");
+                        int repeatnum=Integer.parseInt(repeatnumstr);
+                        if(repeatnum<=limitnum)
+                                doPost(postedmap);
                 }
 
         }

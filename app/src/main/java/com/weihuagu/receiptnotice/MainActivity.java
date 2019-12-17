@@ -1,28 +1,26 @@
 package com.weihuagu.receiptnotice;
 
-import android.support.v7.app.AppCompatActivity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
+import  java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.core.app.NotificationManagerCompat;
+
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.EditText;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
+import android.widget.AutoCompleteTextView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuInflater;
+import android.widget.ArrayAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.tao.admin.loglib.Logger;
 import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
 
@@ -30,9 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         private static final String TAG = "MainActivity";
         private Toolbar myToolbar;
+        private ViewPager2 viewpage;
         private Button btnsetposturl;
         private FloatingActionButton btnshowlog;
-        private EditText posturl;
+        private AutoCompleteTextView posturl;
         private SharedPreferences sp ;
 
 
@@ -41,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
                 initView();
+                posturlSuggestion();
+
         }
 
         private void initView() {
@@ -48,15 +49,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sp = getSharedPreferences("url", Context.MODE_PRIVATE);
                 myToolbar= (Toolbar) findViewById(R.id.my_toolbar);
                 setSupportActionBar(myToolbar);
+                ViewPager2 viewpage=findViewById(R.id.viewpager);
+                HomeFragmentsAdapter viewpageadapter = new HomeFragmentsAdapter(this);
+                viewpage.setAdapter(viewpageadapter);
                 btnsetposturl=(Button) findViewById(R.id.btnsetposturl);
                 btnsetposturl.setOnClickListener(this);
                 btnshowlog=(FloatingActionButton) findViewById(R.id.floatingshowlog);
                 btnshowlog.setOnClickListener(this);
-                posturl = (EditText) findViewById(R.id.posturl);
+                posturl = (AutoCompleteTextView) findViewById(R.id.posturl);
                 if(getPostUrl()!=null)
                         posturl.setHint(getPostUrl());
 
 
+
+        }
+
+        private void setListerner(){
 
         }
 
@@ -115,6 +123,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return null;
                 else
                         return posturlpath;
+        }
+
+        private void posturlSuggestion(){
+                String[] str = new String[2];
+                str[0] = "";
+                str[1] = getPostUrl();
+                posturl.setThreshold(0);
+                ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,str);
+                posturl.setAdapter(adapter);
+                posturl.setOnFocusChangeListener (new View.OnFocusChangeListener(){
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                                AutoCompleteTextView view = (AutoCompleteTextView) v;
+                                if (hasFocus) {
+                                        view.showDropDown ();
+                                }
+                        }
+
+                });
+                Toast.makeText(getApplicationContext(), str[0],Toast.LENGTH_SHORT).show();
         }
 
 
