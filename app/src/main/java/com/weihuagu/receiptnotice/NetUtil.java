@@ -110,6 +110,8 @@ public class NetUtil {
     private OkHttpClient getHttpsClientWithTrustAllCertificates() {
         OkHttpClient.Builder okhttpClient = new OkHttpClient().newBuilder();
         //信任所有服务器地址
+        okhttpClient. connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
+                .readTimeout(20, TimeUnit.SECONDS);//设置读取超时时间
         okhttpClient.hostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String s, SSLSession sslSession) {
