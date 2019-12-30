@@ -10,9 +10,11 @@
         <string name="buttontext_setposturl">set the post url</string>
         <string-array name="pref_entries_encryptmethod">
                 <item>des</item>
+                <item>md5</item>
         </string-array>
 
         <string-array name="pref_entryvalues_encryptmethod">
                 <item>des</item>
+                <item>md5</item>
         </string-array>
 </resources>

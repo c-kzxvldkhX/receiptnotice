@@ -5,6 +5,7 @@ protected String key;
 public Encrypter(String key){
 this.key=key;
 }
+public Encrypter(){}
 public abstract Map<String,String> transferMapValue(Map<String, String> params);
 
 
