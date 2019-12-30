@@ -40,6 +40,15 @@ public class IllustrateDecryptActivity extends AppCompatActivity {
                                 text_iv.setText("解密的初始化向量为:"+key);
                         }
                 }
+                if(encrypt_type.equals("md5")){
+
+                        text_method.setText("解密的方法为:"+"md5校验");
+                        String key=preference.getPasswd();
+                        if(key!=null){
+                                text_passwd.setText("md5加密方法为md5(md5(price + type) + secretkey)");
+
+                        }
+                }
 
         }
 }
