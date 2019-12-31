@@ -34,7 +34,7 @@ public class MD5 extends Encrypter {
             byte[] bytesOfMessage = str.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] thedigest = md.digest(bytesOfMessage);
-            return new String(thedigest,"UTF-8");
+            return ByteUtil.parseByte2HexStr(thedigest);
         } catch (java.io.UnsupportedEncodingException exception) {
             return null;
 
@@ -45,11 +45,14 @@ public class MD5 extends Encrypter {
     }
 
     public String getSignMd5(String type, String price) {
-        return getMd5String(getMd5String(type+price));
+        String md5str=getMd5String(getMd5String(type+price));
+        LogUtil.debugLog("md5 string: type is"+type+" price is "+ price + "   md5str:"+md5str);
+        return md5str;
     }
 
     public String getSignMd5WithSecretkey(String type, String price, String secretkey) {
-        return getMd5String(getMd5String(type+price)+secretkey);
+        String md5str=getMd5String(getMd5String(type+price)+secretkey);
+        return md5str;
     }
 
 
