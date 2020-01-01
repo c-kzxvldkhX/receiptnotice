@@ -44,3 +44,6 @@
 |-|-|
 |本软件从NLservice修改而来| [NLservice](https://github.com/WHD597312/NLservice)|
 |实时logcat | [Lynx](https://github.com/pedrovgs/Lynx) |
+
+##### 开源许可
+本项目使用标准的apache2.0许可
