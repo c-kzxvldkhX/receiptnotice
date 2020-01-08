@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pocketsphinx-android/pocketsphinx-android.iml" filepath="$PROJECT_DIR$/pocketsphinx-android/pocketsphinx-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pocketsphinx-android-models/pocketsphinx-android-models.iml" filepath="$PROJECT_DIR$/pocketsphinx-android-models/pocketsphinx-android-models.iml" />
       <module fileurl="file://$PROJECT_DIR$/receiptnotice.iml" filepath="$PROJECT_DIR$/receiptnotice.iml" />
     </modules>
   </component>

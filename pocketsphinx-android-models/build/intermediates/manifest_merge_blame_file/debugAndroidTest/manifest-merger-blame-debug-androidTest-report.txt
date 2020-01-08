@@ -1,0 +1,33 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="edu.cmu.pocketsphinx.models.test" >
+4
+5    <uses-sdk
+5-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:5:5-74
+6        android:minSdkVersion="14"
+6-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:5:15-41
+7        android:targetSdkVersion="26" />
+7-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:5:42-71
+8
+9    <instrumentation
+9-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:11:5-15:82
+10        android:name="android.test.InstrumentationTestRunner"
+10-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:11:22-75
+11        android:functionalTest="false"
+11-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:13:22-53
+13        android:label="Tests for edu.cmu.pocketsphinx.models.test"
+13-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:15:22-80
+14        android:targetPackage="edu.cmu.pocketsphinx.models.test" />
+14-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:12:22-78
+15
+16    <application android:debuggable="true" >
+16-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:7:5-9:19
+16-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:7:18-43
+17        <uses-library android:name="android.test.runner" />
+17-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:8:9-60
+17-->/home/happ/project/github/receiptnotice/pocketsphinx-android-models/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger5453757954999788852.xml:8:23-57
+18    </application>
+19
+20</manifest>

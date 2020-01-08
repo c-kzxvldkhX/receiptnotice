@@ -30,7 +30,10 @@ android {
                 abortOnError false
         }
 }
+
 dependencies {
+                implementation project(':pocketsphinx-android')
+                implementation project(':pocketsphinx-android-models')
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
                 implementation 'androidx.appcompat:appcompat:1.0.0'
                 implementation 'com.google.android.material:material:1.0.0'

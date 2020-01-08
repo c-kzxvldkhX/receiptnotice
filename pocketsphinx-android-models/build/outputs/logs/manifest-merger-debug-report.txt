@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+	package
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:2:5-42
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:1-3:12
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml:1:11-69
+uses-sdk
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		ADDED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
+		INJECTED from /home/happ/project/github/receiptnotice/pocketsphinx-android-models/src/main/AndroidManifest.xml
