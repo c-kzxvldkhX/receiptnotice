@@ -16,10 +16,14 @@ import android.os.PowerManager.WakeLock;
 import android.os.PowerManager;
 import io.socket.client.IO;
 import io.socket.client.Socket;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.lang.System;
@@ -78,7 +82,7 @@ public class NotificationCollectorMonitorService extends Service {
                 PowerManager pm = (PowerManager)getSystemService(
                                 Context.POWER_SERVICE);
                 wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                                "receiptnoticewakelock");
+                                "receiptnotice:NotificationCollectorMonitorServicewakelock");
                 wl.acquire();
 
         }
@@ -177,18 +181,28 @@ public class NotificationCollectorMonitorService extends Service {
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
                 Gson gson = new Gson();
                 if(preference. isEcho()&&(preference.getEchoServer()!=null)){
-                        Date date=new Date(System.currentTimeMillis());
-                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String time=format.format(date);
-                        DeviceBean device=new DeviceBean();
-                        String deviceid=preference.getDeviceid();
-                        deviceid=(!deviceid.equals("") ? deviceid:DeviceInfoUtil.getUniquePsuedoID());
-                        device.setDeviceid(deviceid);
-                        device.setTime(time);
-                        LogUtil.debugLog("start connect socketio");
-                        echoServerBySocketio(preference.getEchoServer(),gson.toJson(device));
-                        LogUtil.debugLog(gson.toJson(device));
-                        return true;
+
+                                Date date = new Date(System.currentTimeMillis());
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String time = format.format(date);
+                                DeviceBean device = new DeviceBean();
+                                String deviceid = preference.getDeviceid();
+                                deviceid = (!deviceid.equals("") ? deviceid : DeviceInfoUtil.getUniquePsuedoID());
+                                device.setDeviceid(deviceid);
+                                device.setTime(time);
+                                LogUtil.debugLog("start connect socketio");
+                                //////////////
+
+                                Map devicemap = DeviceBeanReflect(device);
+                                if (preference.getEchoCustomOption().equals("") == false) {
+                                        Map custompostoption = ExternalInfoUtil.getCustomOption(preference.getEchoCustomOption());
+                                        if (custompostoption != null)
+                                                devicemap.putAll(custompostoption);
+                                }
+                                echoServerBySocketio(preference.getEchoServer(), gson.toJson(devicemap));
+                                LogUtil.debugLog(gson.toJson(device));
+                                return true;
+
                 }
                 else
                         return false;
@@ -245,6 +259,23 @@ public class NotificationCollectorMonitorService extends Service {
                         this.connectedtime=time;
                 }
 
+        }
+        public Map DeviceBeanReflect(DeviceBean e){
+                Class cls = e.getClass();
+                Field[] fields = cls.getDeclaredFields();
+                Map<String, String> devicebeanmap = new HashMap<String, String>();
+                for(int i=0; i<fields.length; i++){
+                        Field f = fields[i];
+                        f.setAccessible(true);
+                        try {
+                                devicebeanmap.put((String) f.getName(), (String) f.get(e));
+                                System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(e));
+                        }catch (Exception ee){
+                                LogUtil.debugLogWithJava(ee.getStackTrace().toString());
+                                return null;
+                        }
+                }
+                return devicebeanmap;
         }
 
         public static class EchoSocket{

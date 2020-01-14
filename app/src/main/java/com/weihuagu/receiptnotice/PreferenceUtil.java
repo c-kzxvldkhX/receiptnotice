@@ -77,5 +77,8 @@ public class PreferenceUtil {
     public String getCustomOption() {
         return this.sharedPref.getString("custom_option", "");
     }
+    public String getEchoCustomOption() {
+        return this.sharedPref.getString("echo_custom_option", "");
+    }
 
 }
