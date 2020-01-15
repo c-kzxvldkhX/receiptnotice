@@ -194,13 +194,19 @@ public class NotificationCollectorMonitorService extends Service {
                                 //////////////
 
                                 Map devicemap = DeviceBeanReflect(device);
+                                if(devicemap==null)
+                                    return false;
                                 if (preference.getEchoCustomOption().equals("") == false) {
                                         Map custompostoption = ExternalInfoUtil.getCustomOption(preference.getEchoCustomOption());
-                                        if (custompostoption != null)
+                                        if (custompostoption != null) {
+
+                                            LogUtil.debugLogWithJava("echo custom option map"+custompostoption.toString());
+                                            if(custompostoption.size()>0)
                                                 devicemap.putAll(custompostoption);
+                                        }
                                 }
                                 echoServerBySocketio(preference.getEchoServer(), gson.toJson(devicemap));
-                                LogUtil.debugLog(gson.toJson(device));
+                                LogUtil.debugLog(gson.toJson(devicemap));
                                 return true;
 
                 }
@@ -271,8 +277,8 @@ public class NotificationCollectorMonitorService extends Service {
                                 devicebeanmap.put((String) f.getName(), (String) f.get(e));
                                 System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(e));
                         }catch (Exception ee){
-                                LogUtil.debugLogWithJava(ee.getStackTrace().toString());
-                                return null;
+                                //LogUtil.debugLogWithJava(ee.getStackTrace().toString());
+                                return devicebeanmap;
                         }
                 }
                 return devicebeanmap;
