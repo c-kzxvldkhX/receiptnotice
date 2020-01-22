@@ -275,7 +275,7 @@ public class NotificationCollectorMonitorService extends Service {
                         f.setAccessible(true);
                         try {
                                 devicebeanmap.put((String) f.getName(), (String) f.get(e));
-                                System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(e));
+                                //System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(e));
                         }catch (Exception ee){
                                 //LogUtil.debugLogWithJava(ee.getStackTrace().toString());
                                 return devicebeanmap;
