@@ -34,6 +34,10 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                 postmap.put("content",content);
                                 postmap.put("transferor",whoTransferred(content));
 
+
+                                //open notify
+                                this.openNotify();
+
                                 postpush.doPost(postmap);
                                 return ;
                         }

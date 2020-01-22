@@ -1,51 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.weihuagu.receiptnotice">
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.WAKE_LOCK"/>
-        <application
-                android:name=".MainApplication"
-                android:allowBackup="true"
-                android:icon="@mipmap/ic_launcher"
-                android:label="@string/app_name"
-                android:roundIcon="@mipmap/ic_launcher_round"
-                android:supportsRtl="true"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                android:networkSecurityConfig="@xml/network_security_config">
-                <activity android:name=".MainActivity">
-                        <intent-filter>
-                                <action android:name="android.intent.action.MAIN" />
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
-                </activity>
-                <activity android:name=".FileLogActivity"
-                android:label="@string/filelog_title">
-                         <intent-filter >
-                                <action android:name="com.weihuagu.receiptnotice.showfilelog"/>
-                        </intent-filter>
-                </activity>
-                <activity android:name=".IllustrateDecryptActivity"
-                android:label="@string/illustratedecrypt_title">
-                        <intent-filter>
-                                    <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod"/>
-                                    <category android:name="android.intent.category.DEFAULT"/>
-                         </intent-filter>  
-                </activity>
-                <activity android:name="com.github.pedrovgs.lynx.LynxActivity"/>
-                <activity android:name=".PreferenceActivity"/>
+    package="com.weihuagu.receiptnotice">
 
-                <service android:name=".NLService"
-                        android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-                        <intent-filter>
-                                <action android:name="android.service.notification.NotificationListenerService" />
-                        </intent-filter>
-                </service>
-                <service android:name=".NotificationCollectorMonitorService"/>
-                <uses-library
-                    android:name="org.apache.http.legacy"
-                    android:required="false" />
-        </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/receiptnoticeaccessibilityservice_config" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FileLogActivity"
+            android:label="@string/filelog_title">
+            <intent-filter>
+                <action android:name="com.weihuagu.receiptnotice.showfilelog" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".IllustrateDecryptActivity"
+            android:label="@string/illustratedecrypt_title">
+            <intent-filter>
+                <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.github.pedrovgs.lynx.LynxActivity" />
+        <activity android:name=".PreferenceActivity" />
+
+        <service
+            android:name=".NLService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:label="@string/accessibilityservicename"
+            android:name=".ReceiptnoticeAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVIC">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/receiptnoticeaccessibilityservice_config" />
+        </service>
+        <service android:name=".NotificationCollectorMonitorService" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+
 </manifest>
