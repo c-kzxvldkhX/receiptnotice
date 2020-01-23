@@ -6,6 +6,7 @@ import android.view.accessibility.AccessibilityEvent;
 public class ReceiptnoticeAccessibilityService extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        LogUtil.debugLogWithDeveloper( "onAccessibilityEvent: " + event.toString());
         final int eventType = event.getEventType();
         //根据事件回调类型进行处理
         switch (eventType) {
@@ -24,6 +25,10 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+
+    }
+
+    public void getAlipayTransferInfo(){
 
     }
 }
