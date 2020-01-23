@@ -45,6 +45,10 @@ public class PreferenceUtil {
     public boolean isTrustAllCertificates() {
         return this.sharedPref.getBoolean("istrustallcertificates", false);
     }
+    public boolean isAccessibilityService() {
+        return this.sharedPref.getBoolean("isaccessibilityservice", false);
+    }
+
 
     public String getEchoServer() {
         return this.sharedPref.getString("echoserver", null);

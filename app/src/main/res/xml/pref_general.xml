@@ -100,6 +100,11 @@
                     android:defaultValue="false"
                     android:summary="如果勾选，会信任所有证书"
                     android:key="istrustallcertificates" />
+                <CheckBoxPreference
+                    android:title="允许使用无障碍服务获取信息"
+                    android:defaultValue="false"
+                    android:summary="允许无障碍服务"
+                    android:key="isaccessibilityservice" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="record"
