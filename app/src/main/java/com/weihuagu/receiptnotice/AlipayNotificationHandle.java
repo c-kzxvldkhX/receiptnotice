@@ -1,5 +1,14 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
+import android.content.Intent;
+import android.provider.Settings;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
+
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -8,8 +17,10 @@ import java.util.regex.Pattern;
 
 
 public class AlipayNotificationHandle extends NotificationHandle{
+        Map<String,String> tmppostmap=new HashMap<String,String>();
         public AlipayNotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
                 super(pkgtype,notification,postpush);
+
         }
 
         public void handleNotification(){
@@ -34,9 +45,14 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                 postmap.put("content",content);
                                 postmap.put("transferor",whoTransferred(content));
 
-
-                                //open notify
-                                this.openNotify();
+                                //use acceesbility service to get info
+                                if (AuthorityUtil.isAccessibilitySettingsOn(MainApplication.getAppContext())) {
+                                        tmppostmap.putAll(postmap);
+                                        subMessage();
+                                        //open notify
+                                        this.openNotify();
+                                        return ;
+                                }
 
                                 postpush.doPost(postmap);
                                 return ;
@@ -60,14 +76,18 @@ public class AlipayNotificationHandle extends NotificationHandle{
         
         }
 
-
-
-
-
-
-
-
-
+        private void subMessage() {
+                LiveEventBus
+                        .get("get_alipay_transfer_money", String.class)
+                        .observeForever( new Observer<String>() {
+                                @Override
+                                public void onChanged(@Nullable String s) {
+                                        LogUtil.debugLog("收到订阅消息:get_alipay-transfer_money " + s);
+                                        tmppostmap.put("money",s);
+                                        postpush.doPost(tmppostmap);
+                                }
+                        });
+        }
 
 
 }

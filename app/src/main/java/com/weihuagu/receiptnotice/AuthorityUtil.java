@@ -7,7 +7,7 @@ import android.text.TextUtils;
 public class AuthorityUtil {
     public static boolean isAccessibilitySettingsOn(Context mContext) {
         int accessibilityEnabled = 0;
-        final String service = "com.weihuagu.receiptnotice.ReceiptnoticeAccessibilityService";
+        final String service = "com.weihuagu.receiptnotice/com.weihuagu.receiptnotice.ReceiptnoticeAccessibilityService";
         boolean accessibilityFound = false;
         try {
             accessibilityEnabled = Settings.Secure.getInt(

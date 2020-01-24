@@ -31,7 +31,7 @@ public class PreferenceActivity extends AppCompatActivity {
                 if (! AuthorityUtil.isAccessibilitySettingsOn(MainApplication.getAppContext()))
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
 
-                }
+            }
         }
 
         @Override

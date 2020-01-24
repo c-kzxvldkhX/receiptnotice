@@ -56,8 +56,8 @@
         </service>
         <service
             android:label="@string/accessibilityservicename"
-            android:name="com.weihuagu.receiptnotice.ReceiptnoticeAccessibilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVIC">
+            android:name=".ReceiptnoticeAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
