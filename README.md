@@ -33,6 +33,8 @@
 ##### Open source license
 The code, wiki and other resources of this project are released under a modified version of the apache2.0 license agreement, which means that you can copy and redistribute the content of this project, but you will have to:
 
-This project cannot be used for commercial purposes. Any profit-making activities are commercial purposes. In the extended code (modified and source code-derived code), the agreement, trademarks, patent notices, and other original author specifications need to be included in the original code.
+*This project cannot be used for commercial purposes. Any profit-making activities are commercial purposes.*
+
+ In the extended code (modified and source code-derived code), the agreement, trademarks, patent notices, and other original author specifications need to be included in the original code.
 
 ##### [Chinese README](https://github.com/WeihuaGu/receiptnotice/blob/master/README-zh.md)
