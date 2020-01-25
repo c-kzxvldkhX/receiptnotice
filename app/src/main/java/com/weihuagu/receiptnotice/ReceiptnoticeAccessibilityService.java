@@ -4,19 +4,31 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityWindowInfo;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.List;
 
 public class ReceiptnoticeAccessibilityService extends AccessibilityService {
-    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+    PowerManager pm=null;
+    String TAG="onAccessibilityEvent";
+    @Override
+    public void onServiceConnected(){
+        debugLogWithDeveloper("accessibility service connected");
+        subMessage();
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+    }
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        LogUtil.debugLogWithDeveloper( "onAccessibilityEvent: " + event.toString());
+        postMessageWithCommonAccessibilityEvent(event.toString());
+        debugLogWithDeveloper( event.toString());
         final int eventType = event.getEventType();
         //根据事件回调类型进行处理
         switch (eventType) {
@@ -37,7 +49,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        LogUtil.debugLogWithDeveloper( "onAccessibilityEvent: " + "oninterrupt");
+        debugLogWithDeveloper(  "oninterrupt");
     }
 
     public void postMessageWithget_alipay_transfer_money(String num){
@@ -46,10 +58,41 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                 .post(num);
     }
 
+    public void postMessageWithCommonAccessibilityEvent(String event){
+        LiveEventBus.get("get_new_accessibilityevent").post(event);
+    }
+
+    public void subMessage(){
+        LiveEventBus
+                .get("action_request_return", String.class)
+                .observeForever( new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        LogUtil.debugLog("收到订阅消息:action_request_return " + s);
+                        if(s.equals("return")){
+                            performGlobalAction(GLOBAL_ACTION_BACK);
+
+                        }
+                    }
+                });
+        LiveEventBus
+                .get("action_request_home", String.class)
+                .observeForever( new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        LogUtil.debugLog("收到订阅消息:action_request_home " + s);
+                        if(s.equals("home")){
+                            performGlobalAction(GLOBAL_ACTION_HOME);
+
+                        }
+                    }
+                });
+    }
+
     public void getAlipayTransferInfo(String classname){
 
         String transnumid="com.alipay.mobile.chatapp:id/biz_desc";
-        LogUtil.debugLogWithDeveloper( "onAccessibilityEvent:窗口状态改变,类名为"+classname);
+        debugLogWithDeveloper( ":窗口状态改变,类名为"+classname);
         if(classname.equals("com.alipay.mobile.chatapp.ui.PersonalChatMsgActivity_")){
             AccessibilityNodeInfo nodepersonalchat=null;
             AccessibilityWindowInfo windowInfopersonalchat=null;
@@ -67,9 +110,13 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
             // 找到领取红包的点击事件
             List<AccessibilityNodeInfo> list = nodepersonalchat.findAccessibilityNodeInfosByViewId(transnumid);
             String transnum=list.get(list.size()-1).getText().toString();
-            LogUtil.debugLogWithDeveloper( "onAccessibilityEvent:金额为"+transnum);
+            debugLogWithDeveloper( ":金额为"+transnum);
             postMessageWithget_alipay_transfer_money(transnum);
         }
 
+    }
+
+    public void debugLogWithDeveloper(String info){
+        Log.d(TAG,info);
     }
 }

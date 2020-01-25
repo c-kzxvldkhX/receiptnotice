@@ -76,6 +76,18 @@ public class AlipayNotificationHandle extends NotificationHandle{
         
         }
 
+        public void postActionRequestWithReturn(){
+                LiveEventBus
+                        .get("action_request_return")
+                        .post("return");
+        }
+
+        public void postActionRequestWithHome(){
+                LiveEventBus
+                        .get("action_request_home")
+                        .post("home");
+        }
+
         private void subMessage() {
                 LiveEventBus
                         .get("get_alipay_transfer_money", String.class)
@@ -83,6 +95,8 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                 @Override
                                 public void onChanged(@Nullable String s) {
                                         LogUtil.debugLog("收到订阅消息:get_alipay-transfer_money " + s);
+                                        postActionRequestWithReturn();
+                                        postActionRequestWithHome();
                                         tmppostmap.put("money",s);
                                         postpush.doPost(tmppostmap);
                                 }

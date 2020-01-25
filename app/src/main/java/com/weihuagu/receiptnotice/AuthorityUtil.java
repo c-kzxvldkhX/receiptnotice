@@ -31,9 +31,9 @@ public class AuthorityUtil {
                 while (splitter.hasNext()) {
                     String accessabilityService = splitter.next();
 
-                    LogUtil.debugLog("-------------- > accessabilityService :: " + accessabilityService);
+                    LogUtil.debugLog("绑定的accessabilityService :: " + accessabilityService);
                     if (accessabilityService.equalsIgnoreCase(service)) {
-                        LogUtil.debugLog("We've found the correct setting - accessibility is switched on!");
+                        LogUtil.debugLog("accessibility 被启用");
                         return true;
                     }
                 }
