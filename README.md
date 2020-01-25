@@ -2,17 +2,17 @@
 
 #### Software Principle
 
--Install an app on the phone, and then this service listens to the notifications received by the phone. If it receives a notification of receipt, it pushes the information to the specified URL.
+- Install an app on the phone, and then this service listens to the notifications received by the phone. If it receives a notification of receipt, it pushes the information to the specified URL.
 
 #### How to use this software
 
--Add the software to the system whitelist after installation, each Android method is different
+- Add the software to the system whitelist after installation, each Android method is different
 
--Open the software to automatically jump to the Get notification permission page, allowing the app to monitor notifications
+- Open the software to automatically jump to the Get notification permission page, allowing the app to monitor notifications
 
--Return to the software homepage, fill in the url you want to accept the payment information notification. After receiving the payment notification, the software will use the post method to send json information.
+- Return to the software homepage, fill in the url you want to accept the payment information notification. After receiving the payment notification, the software will use the post method to send json information.
 
--For detailed usage, refer to [wiki] (https://github.com/WeihuaGu/receiptnotice/wiki)
+- For detailed usage, refer to [wiki](https://github.com/WeihuaGu/receiptnotice/wiki)
 
 #### This works with server projects
 
@@ -31,6 +31,8 @@
 | Real-time logcat | [Lynx] (https://github.com/pedrovgs/Lynx) |
 
 ##### Open source license
-This project uses the standard Apache 2.0 license
+The code, wiki and other resources of this project are released under a modified version of the apache2.0 license agreement, which means that you can copy and redistribute the content of this project, but you will have to:
+
+This project cannot be used for commercial purposes. Any profit-making activities are commercial purposes. In the extended code (modified and source code-derived code), the agreement, trademarks, patent notices, and other original author specifications need to be included in the original code.
 
 ##### [Chinese README](https://github.com/WeihuaGu/receiptnotice/blob/master/README-zh.md)
