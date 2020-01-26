@@ -1,6 +1,7 @@
 package com.weihuagu.receiptnotice;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
@@ -19,15 +20,23 @@ import java.util.List;
 public class ReceiptnoticeAccessibilityService extends AccessibilityService {
     PowerManager pm=null;
     String TAG="onAccessibilityEvent";
+    private PowerManager.WakeLock mWakeLock = null;
+    private KeyguardManager mKeyguardManager;
+    private KeyguardManager.KeyguardLock kl;
     @Override
     public void onServiceConnected(){
         debugLogWithDeveloper("accessibility service connected");
         subMessage();
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        kl = mKeyguardManager.newKeyguardLock("myapp:kllock");
+
+
+
     }
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        postMessageWithCommonAccessibilityEvent(event.toString());
+
         debugLogWithDeveloper( event.toString());
         final int eventType = event.getEventType();
         //根据事件回调类型进行处理
@@ -40,7 +49,6 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 String className = event.getClassName().toString();
                 getAlipayTransferInfo(className);
-
                 break;
         }
 
@@ -87,6 +95,18 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                         }
                     }
                 });
+        LiveEventBus
+                .get("mesage_alipay_transfer", String.class)
+                .observeForever( new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        LogUtil.debugLog("收到订阅消息:mesage_alipay_transfer " + s);
+                        if(s.equals("arrive")){
+                            //解锁屏幕
+                            wakeAndUnlock(true);
+                        }
+                    }
+                });
     }
 
     public void getAlipayTransferInfo(String classname){
@@ -108,15 +128,48 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                 return;
             }
             // 找到领取红包的点击事件
-            List<AccessibilityNodeInfo> list = nodepersonalchat.findAccessibilityNodeInfosByViewId(transnumid);
-            String transnum=list.get(list.size()-1).getText().toString();
-            debugLogWithDeveloper( ":金额为"+transnum);
-            postMessageWithget_alipay_transfer_money(transnum);
+            try {
+                List<AccessibilityNodeInfo> list = nodepersonalchat.findAccessibilityNodeInfosByViewId(transnumid);
+                String transnum = list.get(list.size() - 1).getText().toString();
+                debugLogWithDeveloper(":金额为" + transnum);
+                postMessageWithget_alipay_transfer_money(transnum);
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }
         }
 
     }
 
     public void debugLogWithDeveloper(String info){
         Log.d(TAG,info);
+    }
+
+    /**
+     * 唤醒屏幕和解锁
+     * @param unLock 是否点亮屏幕
+     */
+    private void wakeAndUnlock(boolean unLock)
+    {
+        if(unLock)
+        {
+            //若为黑屏状态则唤醒屏幕
+            if(!pm.isScreenOn()) {
+                //获取电源管理器对象，ACQUIRE_CAUSES_WAKEUP这个参数能从黑屏唤醒屏幕
+                mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myapp:bright");
+                //点亮屏幕
+                mWakeLock.acquire();
+                kl.disableKeyguard();
+                Log.i("QHB", "亮屏");
+            }
+        }
+        else
+        {
+            //若之前唤醒过屏幕则释放使屏幕不保持常亮
+            if(mWakeLock != null) {
+                mWakeLock.release();
+                mWakeLock = null;
+                Log.i("QHB", "锁屏");
+            }
+        }
     }
 }

@@ -50,6 +50,7 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                         tmppostmap.putAll(postmap);
                                         subMessage();
                                         //open notify
+                                        postMessageWithReceiptAlipayTransfer();
                                         this.openNotify();
                                         return ;
                                 }
@@ -88,13 +89,19 @@ public class AlipayNotificationHandle extends NotificationHandle{
                         .post("home");
         }
 
+        public void postMessageWithReceiptAlipayTransfer(){
+                LiveEventBus
+                        .get("mesage_alipay_transfer")
+                        .post("arrive");
+        }
+
         private void subMessage() {
                 LiveEventBus
                         .get("get_alipay_transfer_money", String.class)
                         .observeForever( new Observer<String>() {
                                 @Override
                                 public void onChanged(@Nullable String s) {
-                                        LogUtil.debugLog("收到订阅消息:get_alipay-transfer_money " + s);
+                                        LogUtil.debugLog("收到订阅消息:get_alipay_transfer_money " + s);
                                         postActionRequestWithReturn();
                                         postActionRequestWithHome();
                                         tmppostmap.put("money",s);
