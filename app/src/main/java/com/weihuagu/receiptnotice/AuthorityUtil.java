@@ -13,10 +13,8 @@ public class AuthorityUtil {
             accessibilityEnabled = Settings.Secure.getInt(
                     mContext.getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-            LogUtil.debugLog("accessibilityEnabled = " + accessibilityEnabled);
         } catch (Settings.SettingNotFoundException e) {
-            LogUtil.debugLog("Error finding setting, default accessibility to not found: "
-                    + e.getMessage());
+
         }
         TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 
@@ -33,7 +31,6 @@ public class AuthorityUtil {
 
                     LogUtil.debugLog("绑定的accessabilityService :: " + accessabilityService);
                     if (accessabilityService.equalsIgnoreCase(service)) {
-                        LogUtil.debugLog("accessibility 被启用");
                         return true;
                     }
                 }
