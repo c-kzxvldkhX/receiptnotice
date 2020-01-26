@@ -48,6 +48,16 @@ public class PreferenceUtil {
     public boolean isAccessibilityService() {
         return this.sharedPref.getBoolean("isaccessibilityservice", false);
     }
+    public boolean isAgreeUserAgreement(){
+        return this.sharedPref.getBoolean("isagreeuseragreement", false);
+    }
+    public void setAgreeUserAgreement(boolean flag){
+        SharedPreferences.Editor edit = this.sharedPref.edit();
+        //通过editor对象写入数据
+        edit.putBoolean("isagreeuseragreement",flag);
+        //提交数据存入到xml文件中
+        edit.apply();
+    }
 
 
     public String getEchoServer() {
