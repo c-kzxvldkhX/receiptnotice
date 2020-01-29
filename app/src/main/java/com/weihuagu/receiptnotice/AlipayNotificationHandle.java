@@ -50,7 +50,7 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                         tmppostmap.putAll(postmap);
                                         subMessage();
                                         //open notify
-                                        postMessageWithReceiptAlipayTransfer();
+                                        postMessageWithReceiptAlipayTransfer(tmppostmap.get("time")+tmppostmap.get("content"));
                                         this.openNotify();
                                         return ;
                                 }
@@ -89,10 +89,14 @@ public class AlipayNotificationHandle extends NotificationHandle{
                         .post("home");
         }
 
-        public void postMessageWithReceiptAlipayTransfer(){
+        public void postMessageWithReceiptAlipayTransfer(String transferinfo){
                 LiveEventBus
-                        .get("mesage_alipay_transfer")
-                        .post("arrive");
+                        .get("message_noti_alipay_transfer_arrive")
+                        .post(transferinfo);
+        }
+
+        public void postMessageWithUpdateTheLastPostString(String str){
+                LiveEventBus.get("update_laststr").post(str);
         }
 
         private void subMessage() {
@@ -105,6 +109,7 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                         postActionRequestWithReturn();
                                         postActionRequestWithHome();
                                         tmppostmap.put("money",s);
+                                        postMessageWithUpdateTheLastPostString(tmppostmap.get("time")+tmppostmap.get("content"));
                                         postpush.doPost(tmppostmap);
                                 }
                         });

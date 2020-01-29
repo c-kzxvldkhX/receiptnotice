@@ -23,6 +23,15 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
     private PowerManager.WakeLock mWakeLock = null;
     private KeyguardManager mKeyguardManager;
     private KeyguardManager.KeyguardLock kl;
+    private String lastpoststr = "";
+    private String lastnotistr = "";
+    private void setLastPostStr(String str){
+        lastpoststr=str;
+    }
+
+    private void setLastNotiStr(String str){
+        lastnotistr=str;
+    }
     @Override
     public void onServiceConnected(){
         debugLogWithDeveloper("accessibility service connected");
@@ -96,17 +105,27 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                     }
                 });
         LiveEventBus
-                .get("mesage_alipay_transfer", String.class)
+                .get("message_noti_alipay_transfer_arrive", String.class)
                 .observeForever( new Observer<String>() {
                     @Override
                     public void onChanged(@Nullable String s) {
-                        LogUtil.debugLog("收到订阅消息:mesage_alipay_transfer " + s);
-                        if(s.equals("arrive")){
-                            //解锁屏幕
-                            wakeAndUnlock(true);
-                        }
+                        LogUtil.debugLog("收到订阅消息:message_noti_alipay_transfer_arrive " + s);
+                        wakeAndUnlock(true);
+                        setLastNotiStr(s);
+
                     }
                 });
+
+        LiveEventBus
+                .get("update_laststr", String.class)
+                .observeForever( new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        LogUtil.debugLog("收到订阅消息:update_laststr " + s);
+                        setLastPostStr(s);
+                    }
+                });
+
     }
 
     public void getAlipayTransferInfo(String classname){
@@ -132,6 +151,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                 List<AccessibilityNodeInfo> list = nodepersonalchat.findAccessibilityNodeInfosByViewId(transnumid);
                 String transnum = list.get(list.size() - 1).getText().toString();
                 debugLogWithDeveloper(":金额为" + transnum);
+                if(!lastpoststr.equals(lastnotistr))
                 postMessageWithget_alipay_transfer_money(transnum);
             }catch (ArrayIndexOutOfBoundsException e){
 
