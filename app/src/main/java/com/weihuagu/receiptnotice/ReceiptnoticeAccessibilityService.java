@@ -69,10 +69,10 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
         debugLogWithDeveloper(  "oninterrupt");
     }
 
-    public void postMessageWithget_alipay_transfer_money(String num){
+    public void postMessageWithget_alipay_transfer_money(AlipayTransferBean transferbean){
         LiveEventBus
                 .get("get_alipay_transfer_money")
-                .post(num);
+                .post(transferbean);
     }
 
     public void postMessageWithCommonAccessibilityEvent(String event){
@@ -131,6 +131,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
     public void getAlipayTransferInfo(String classname){
 
         String transnumid="com.alipay.mobile.chatapp:id/biz_desc";
+        String transremarkid="com.alipay.mobile.chatapp:id/biz_title";
         debugLogWithDeveloper( ":窗口状态改变,类名为"+classname);
         if(classname.equals("com.alipay.mobile.chatapp.ui.PersonalChatMsgActivity_")){
             AccessibilityNodeInfo nodepersonalchat=null;
@@ -149,10 +150,17 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
             // 找到领取红包的点击事件
             try {
                 List<AccessibilityNodeInfo> list = nodepersonalchat.findAccessibilityNodeInfosByViewId(transnumid);
-                String transnum = list.get(list.size() - 1).getText().toString();
+                AccessibilityNodeInfo thelastnode= list.get(list.size() - 1);
+                String transnum = thelastnode.getText().toString();
+                List<AccessibilityNodeInfo> remarklist=thelastnode.getParent().findAccessibilityNodeInfosByViewId(transremarkid);
+                String transremark=remarklist.get(remarklist.size()-1).getText().toString();
                 debugLogWithDeveloper(":金额为" + transnum);
+                debugLogWithDeveloper(":备注为" + transremark);
+                AlipayTransferBean transferbean=new AlipayTransferBean();
+                transferbean.setNum(transnum);
+                transferbean.setRemark(transremark);
                 if(!lastpoststr.equals(lastnotistr))
-                postMessageWithget_alipay_transfer_money(transnum);
+                postMessageWithget_alipay_transfer_money(transferbean);
             }catch (ArrayIndexOutOfBoundsException e){
 
             }

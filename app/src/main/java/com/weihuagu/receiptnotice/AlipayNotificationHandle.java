@@ -101,14 +101,15 @@ public class AlipayNotificationHandle extends NotificationHandle{
 
         private void subMessage() {
                 LiveEventBus
-                        .get("get_alipay_transfer_money", String.class)
-                        .observeForever( new Observer<String>() {
+                        .get("get_alipay_transfer_money", AlipayTransferBean.class)
+                        .observeForever( new Observer<AlipayTransferBean>() {
                                 @Override
-                                public void onChanged(@Nullable String s) {
-                                        LogUtil.debugLog("收到订阅消息:get_alipay_transfer_money " + s);
+                                public void onChanged(@Nullable AlipayTransferBean transfer) {
+                                        LogUtil.debugLog("收到订阅消息:get_alipay_transfer_money " + "money"+transfer.getNum()+"备注"+transfer.getRemark());
                                         postActionRequestWithReturn();
                                         postActionRequestWithHome();
-                                        tmppostmap.put("money",s);
+                                        tmppostmap.put("money",transfer.getNum());
+                                        tmppostmap.put("remark",transfer.getRemark());
                                         postMessageWithUpdateTheLastPostString(tmppostmap.get("time")+tmppostmap.get("content"));
                                         postpush.doPost(tmppostmap);
                                 }
