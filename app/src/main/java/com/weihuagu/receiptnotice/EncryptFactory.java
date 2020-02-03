@@ -9,6 +9,8 @@ public class EncryptFactory{
                         return new DES(key);
                 if(encrypt_type.equals("aes"))
                         return new AES(key);
+                if(encrypt_type.equals("md5"))
+                        return new MD5(key);
                 LogUtil.debugLog("没有匹配到合适的Encrypter");
                 return null;
 

@@ -86,6 +86,11 @@ public class ExternalInfoUtil {
                 return false;
         }
         public static Map getCustomPostOption(String custom){
+               return getCustomOption(custom);
+
+        }
+        
+        public static Map getCustomOption(String custom){
                 String s[] = custom.split(";");
                 Map customoption = new HashMap();
                 for(String x : s){
@@ -98,9 +103,6 @@ public class ExternalInfoUtil {
                         return customoption;
                 else
                         return null;
-
-
-
         }
 
        public static String[] getOneitemKeyandValue(String item){

@@ -8,4 +8,6 @@
         <string name="text_reverseshow">逆序显示</string>
         <string name="text_home_fragment_tip">愿你赚很多钱</string>
         <string name="text_home_fragment_nexttip">左滑切换到收款记录</string>
+        <string name="accessibilityservicename">receiptnotice 辅助功能</string>
+        <string name="accessibility_service_description">receiptnotice 需要使用此服务来获取必要的信息</string>
 </resources>

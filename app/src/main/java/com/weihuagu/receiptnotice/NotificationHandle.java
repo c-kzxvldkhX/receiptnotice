@@ -1,5 +1,6 @@
 package com.weihuagu.receiptnotice;
 
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.app.Notification;
 import android.service.notification.StatusBarNotification;
@@ -84,6 +85,15 @@ public abstract class NotificationHandle{
                 LogUtil.debugLog("**********************");
 
 
+        }
+
+        protected void openNotify(){
+                PendingIntent pendingIntent = notification.contentIntent;
+                try{
+                        pendingIntent.send();
+                }catch(PendingIntent.CanceledException e){
+
+                }
         }
 
 

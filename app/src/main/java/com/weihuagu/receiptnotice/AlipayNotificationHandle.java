@@ -1,5 +1,14 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
+import android.content.Intent;
+import android.provider.Settings;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
+
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -8,8 +17,10 @@ import java.util.regex.Pattern;
 
 
 public class AlipayNotificationHandle extends NotificationHandle{
+        Map<String,String> tmppostmap=new HashMap<String,String>();
         public AlipayNotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
                 super(pkgtype,notification,postpush);
+
         }
 
         public void handleNotification(){
@@ -34,6 +45,16 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                 postmap.put("content",content);
                                 postmap.put("transferor",whoTransferred(content));
 
+                                //use acceesbility service to get info
+                                if (AuthorityUtil.isAccessibilitySettingsOn(MainApplication.getAppContext())) {
+                                        tmppostmap.putAll(postmap);
+                                        subMessage();
+                                        //open notify
+                                        postMessageWithReceiptAlipayTransfer(tmppostmap.get("time")+tmppostmap.get("content"));
+                                        this.openNotify();
+                                        return ;
+                                }
+
                                 postpush.doPost(postmap);
                                 return ;
                         }
@@ -56,14 +77,44 @@ public class AlipayNotificationHandle extends NotificationHandle{
         
         }
 
+        public void postActionRequestWithReturn(){
+                LiveEventBus
+                        .get("action_request_return")
+                        .post("return");
+        }
 
+        public void postActionRequestWithHome(){
+                LiveEventBus
+                        .get("action_request_home")
+                        .post("home");
+        }
 
+        public void postMessageWithReceiptAlipayTransfer(String transferinfo){
+                LiveEventBus
+                        .get("message_noti_alipay_transfer_arrive")
+                        .post(transferinfo);
+        }
 
+        public void postMessageWithUpdateTheLastPostString(String str){
+                LiveEventBus.get("update_laststr").post(str);
+        }
 
-
-
-
-
+        private void subMessage() {
+                LiveEventBus
+                        .get("get_alipay_transfer_money", AlipayTransferBean.class)
+                        .observeForever( new Observer<AlipayTransferBean>() {
+                                @Override
+                                public void onChanged(@Nullable AlipayTransferBean transfer) {
+                                        LogUtil.debugLog("收到订阅消息:get_alipay_transfer_money " + "money"+transfer.getNum()+"备注"+transfer.getRemark());
+                                        postActionRequestWithReturn();
+                                        postActionRequestWithHome();
+                                        tmppostmap.put("money",transfer.getNum());
+                                        tmppostmap.put("remark",transfer.getRemark());
+                                        postMessageWithUpdateTheLastPostString(tmppostmap.get("time")+tmppostmap.get("content"));
+                                        postpush.doPost(tmppostmap);
+                                }
+                        });
+        }
 
 
 }

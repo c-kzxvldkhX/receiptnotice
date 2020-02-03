@@ -72,6 +72,11 @@
                         android:key="echointerval"
                         android:summary="echo 间隔(秒),建议设置为15秒以上，如设置过大（如10分钟以上时），导致server频繁接到disconnect事件可以调小到不会频繁断开为止。"
                         android:title="echo 间隔" />
+                <EditTextPreference
+                        android:defaultValue=""
+                        android:key="echo_custom_option"
+                        android:summary="用冒号区分键和值,多个使用分号"
+                        android:title="echo时要添加的自定义项" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="action"
@@ -95,6 +100,11 @@
                     android:defaultValue="false"
                     android:summary="如果勾选，会信任所有证书"
                     android:key="istrustallcertificates" />
+                <CheckBoxPreference
+                    android:title="允许使用无障碍服务获取信息"
+                    android:defaultValue="false"
+                    android:summary="允许无障碍服务"
+                    android:key="isaccessibilityservice" />
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="record"
