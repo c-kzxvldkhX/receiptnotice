@@ -160,7 +160,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                 transferbean.setNum(transnum);
                 transferbean.setRemark(transremark);
                 if(!lastpoststr.equals(lastnotistr))
-                postMessageWithget_alipay_transfer_money(transferbean);
+                postMessageWithget_alipay_transfer_money(transferbean                                                        );
             }catch (ArrayIndexOutOfBoundsException e){
 
             }
