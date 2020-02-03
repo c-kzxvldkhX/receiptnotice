@@ -1,6 +1,6 @@
 package com.weihuagu.receiptnotice;
 
-public class AlipayTransferBean {
+public class  AlipayTransferBean {
     public String getNum() {
         return num;
     }
