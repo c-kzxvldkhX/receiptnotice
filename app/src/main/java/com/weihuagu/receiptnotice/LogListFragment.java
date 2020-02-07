@@ -17,7 +17,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LogListFragment extends Fragment {
+public class LogListFragment extends Fragment implements MessageConsumer{
     private RecyclerView recyclerView;
     private LogListAdapter mAdapter;
     private ArrayList loglist;
@@ -70,7 +70,7 @@ public class LogListFragment extends Fragment {
         LogUtil.debugLog("更新Loglist in Fragment列表:");
     }
 
-    private void subMessage() {
+    public void subMessage() {
         LiveEventBus
                 .get("update_recordlist", String.class)
                 .observe(this, new Observer<String>() {

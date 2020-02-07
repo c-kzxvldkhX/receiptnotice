@@ -43,9 +43,7 @@ public class LogUtil {
                 Logger.i("返回内容",returnstr);
                 Logger.i("------------------------------------------");
 
-                LiveEventBus
-                        .get("update_recordlist")
-                        .post("update");
+                MessageSendBus.postInterfaceMessageWithUpdateTheRecordlist();
         }
 
 }
