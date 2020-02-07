@@ -3,9 +3,6 @@ import android.content.Intent;
 import android.service.notification.NotificationListenerService;
 import android.app.Notification;
 import android.service.notification.StatusBarNotification;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
@@ -19,10 +16,9 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification {
+public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification ,MessageConsumer{
         private String TAG="NLService";
         private String posturl=null;
         private Context context=null;
@@ -195,7 +191,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         }
 
-        private void subMessage() {
+        public void subMessage() {
 
 
         }
