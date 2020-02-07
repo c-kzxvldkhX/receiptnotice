@@ -25,17 +25,7 @@ public class AlipayNotificationHandle extends NotificationHandle{
 
         public void handleNotification(){
                 if(title.contains("支付宝")){
-                        if(content.contains("成功收款") | content.contains("向你付款")){
-                                Map<String,String> postmap=new HashMap<String,String>();
-                                postmap.put("type","alipay");
-                                postmap.put("time",notitime);
-                                postmap.put("title","支付宝支付");
-                                postmap.put("money",extractMoney(content));
-                                postmap.put("content",content);
 
-                                postpush.doPost(postmap);
-                                return ;
-                        }
                         if(content.contains("向你转了1笔钱")){
                                 Map<String,String> postmap=new HashMap<String,String>();
                                 postmap.put("type","alipay-transfer");
@@ -54,6 +44,18 @@ public class AlipayNotificationHandle extends NotificationHandle{
                                         this.openNotify();
                                         return ;
                                 }
+
+                                postpush.doPost(postmap);
+                                return ;
+                        }
+
+                        if(content.contains("成功收款") | content.contains("向你付款")){
+                                Map<String,String> postmap=new HashMap<String,String>();
+                                postmap.put("type","alipay");
+                                postmap.put("time",notitime);
+                                postmap.put("title","支付宝支付");
+                                postmap.put("money",extractMoney(content));
+                                postmap.put("content",content);
 
                                 postpush.doPost(postmap);
                                 return ;
