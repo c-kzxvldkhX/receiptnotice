@@ -20,7 +20,7 @@ public class AlipayNotificationHandle extends NotificationHandle implements Mess
         }
         public void handleNotification(){
                 if(title.contains("支付宝")){
-
+                        //不可将转账判断延后放，以防止通过昵称虚构金额
                         if(content.contains("向你转了1笔钱")){
                                 Map<String,String> postmap=new HashMap<String,String>();
                                 postmap.put("type","alipay-transfer");

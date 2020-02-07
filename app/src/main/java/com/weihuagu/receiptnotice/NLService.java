@@ -3,6 +3,9 @@ import android.content.Intent;
 import android.service.notification.NotificationListenerService;
 import android.app.Notification;
 import android.service.notification.StatusBarNotification;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
@@ -139,7 +142,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 }
 
                 PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-		PostMapFilter mapfilter=new PostMapFilter(preference,params,this.posturl);
+		        PostMapFilter mapfilter=new PostMapFilter(preference,params,this.posturl);
                 Map<String, String> recordmap=mapfilter.getLogMap();
                 Map<String, String> postmap=mapfilter.getPostMap();
 
@@ -192,7 +195,14 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         }
 
         public void subMessage() {
+                LiveEventBus
+                    .get("get_alipay_transfer_money", TestBeanWithPostFullInformationMap.class)
+                    .observeForever( new Observer<TestBeanWithPostFullInformationMap>() {
+                        @Override
+                        public void onChanged(@Nullable TestBeanWithPostFullInformationMap testpostbean) {
 
+                        }
+                    });
 
         }
 }

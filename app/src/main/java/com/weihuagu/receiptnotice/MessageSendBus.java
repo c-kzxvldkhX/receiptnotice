@@ -2,6 +2,8 @@ package com.weihuagu.receiptnotice;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
+import java.util.Map;
+
 public class MessageSendBus {
     //请求硬件模拟类
     public static void postActionRequestWithReturn(){
@@ -42,6 +44,13 @@ public class MessageSendBus {
         LiveEventBus
                 .get("update_recordlist")
                 .post("update");
+    }
+
+    //测试消息类
+    public static void  postTestMessageWithPostFullInformationMap(TestBeanWithPostFullInformationMap bean){
+        LiveEventBus
+                .get("testmessage_post_full_information_map")
+                .post(bean);
     }
 
 
