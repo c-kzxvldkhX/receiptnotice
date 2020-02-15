@@ -1,6 +1,15 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
 import android.provider.Telephony.Sms;
+
+import com.weihuagu.receiptnotice.pushclassification.payment.AlipayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.CashbarNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.IcbcelifeNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.MipushNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.UnionpayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.WechatNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.payment.XposedmoduleNotificationHandle;
+
 public  class NotificationHandleFactory{
     public NotificationHandle getNotificationHandle(String pkg,Notification notification,IDoPost postpush){
                 //mipush

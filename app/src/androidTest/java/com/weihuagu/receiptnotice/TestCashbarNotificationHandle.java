@@ -3,13 +3,15 @@ import android.app.Notification;
 import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.weihuagu.receiptnotice.pushclassification.payment.CashbarNotificationHandle;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.*;
-import org.mockito.ArgumentMatchers;
+
 import java.util.Map;
-import java.util.HashMap;
 
 @RunWith(AndroidJUnit4.class)
 public class TestCashbarNotificationHandle{

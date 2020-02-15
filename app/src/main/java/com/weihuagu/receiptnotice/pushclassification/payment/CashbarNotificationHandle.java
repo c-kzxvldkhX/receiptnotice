@@ -1,5 +1,8 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.pushclassification.payment;
 import android.app.Notification;
+
+import com.weihuagu.receiptnotice.IDoPost;
+import com.weihuagu.receiptnotice.NotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -7,8 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class CashbarNotificationHandle extends NotificationHandle{
-        public CashbarNotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
+public class CashbarNotificationHandle extends NotificationHandle {
+        public CashbarNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
                 super(pkgtype,notification,postpush);
         }
 
