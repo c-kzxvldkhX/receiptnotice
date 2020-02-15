@@ -1,15 +1,18 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.view;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.weihuagu.receiptnotice.PreferenceUtil;
+import com.weihuagu.receiptnotice.R;
+
 public class IllustrateDecryptActivity extends AppCompatActivity {
         private TextView text_method;
         private TextView text_passwd;
         private TextView text_iv;
-        private   PreferenceUtil preference;
+        private PreferenceUtil preference;
         private void initView() {
                 text_method = (TextView) findViewById(R.id.info_text_method);
                 text_passwd = (TextView) findViewById(R.id.info_text_passwd);

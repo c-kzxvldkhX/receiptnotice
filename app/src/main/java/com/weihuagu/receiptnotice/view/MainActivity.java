@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +29,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
+import com.weihuagu.receiptnotice.HomeFragmentsAdapter;
+import com.weihuagu.receiptnotice.PreferenceUtil;
+import com.weihuagu.receiptnotice.R;
+import com.weihuagu.receiptnotice.UserAgreementActiviy;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

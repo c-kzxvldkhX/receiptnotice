@@ -1,9 +1,17 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.pushclassification.payment;
 import android.app.Notification;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.AlipayTransferBean;
+import com.weihuagu.receiptnotice.AuthorityUtil;
+import com.weihuagu.receiptnotice.IDoPost;
+import com.weihuagu.receiptnotice.LogUtil;
+import com.weihuagu.receiptnotice.MainApplication;
+import com.weihuagu.receiptnotice.MessageConsumer;
+import com.weihuagu.receiptnotice.MessageSendBus;
+import com.weihuagu.receiptnotice.NotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -12,9 +20,9 @@ import java.util.regex.Pattern;
 
 
 
-public class AlipayNotificationHandle extends NotificationHandle implements MessageConsumer{
+public class AlipayNotificationHandle extends NotificationHandle implements MessageConsumer {
         Map<String,String> tmppostmap=new HashMap<String,String>();
-        public AlipayNotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
+        public AlipayNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
                 super(pkgtype,notification,postpush);
 
         }

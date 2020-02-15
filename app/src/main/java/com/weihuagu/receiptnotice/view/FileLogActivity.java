@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.view;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 import com.tao.admin.loglib.FileUtils;
+import com.weihuagu.receiptnotice.FileLogUtil;
+import com.weihuagu.receiptnotice.LogListAdapter;
+import com.weihuagu.receiptnotice.R;
 
 public class FileLogActivity extends AppCompatActivity {
         private RecyclerView recyclerView;
@@ -47,7 +50,7 @@ public class FileLogActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(layoutManager);
                 // specify an adapter (see also next example)
                 mAdapter = new LogListAdapter(getApplicationContext());
-                ArrayList loglist=FileLogUtil.getLogList();
+                ArrayList loglist= FileLogUtil.getLogList();
                 //LogUtil.debugLogWithDeveloper("打印通过filelogutil获取到的file log list");
                 if(loglist!=null&&loglist.size()>0){
                     loglist_is_a_wholetext=false;

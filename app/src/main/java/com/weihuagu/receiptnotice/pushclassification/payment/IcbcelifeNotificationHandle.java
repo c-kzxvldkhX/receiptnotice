@@ -1,5 +1,8 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.pushclassification.payment;
 import android.app.Notification;
+
+import com.weihuagu.receiptnotice.IDoPost;
+import com.weihuagu.receiptnotice.NotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -8,8 +11,8 @@ import java.util.regex.Pattern;
 
 
 
-public class IcbcelifeNotificationHandle extends NotificationHandle{
-        public IcbcelifeNotificationHandle(String pkgtype,Notification notification,IDoPost postpush){
+public class IcbcelifeNotificationHandle extends NotificationHandle {
+        public IcbcelifeNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
                 super(pkgtype,notification,postpush);
         }
 

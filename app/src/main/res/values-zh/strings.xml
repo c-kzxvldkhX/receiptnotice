@@ -1,5 +1,5 @@
 <resources>
-        <string name="app_name">收款推送</string>
+        <string name="app_name">接收推送</string>
         <string name="filelog_title">推送记录</string>
         <string name="illustratedecrypt_title">解密说明</string>
         <string name="buttontext_setposturl">设置post地址</string>

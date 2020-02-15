@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,11 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.weihuagu.receiptnotice.AuthorityUtil;
+import com.weihuagu.receiptnotice.MainApplication;
+import com.weihuagu.receiptnotice.R;
+
 public class PreferenceActivity extends AppCompatActivity {
 
     @Override

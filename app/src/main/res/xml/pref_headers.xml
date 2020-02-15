@@ -1,7 +1,7 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <!--启动指定PreferenceFragment-->
     <header
-        android:fragment="com.weihuagu.receiptnotice.PreferenceActivity$GeneralPreferenceFragment"
+        android:fragment="com.weihuagu.receiptnotice.view.PreferenceActivity$GeneralPreferenceFragment"
          />
 
 </preference-headers>
