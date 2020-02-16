@@ -19,6 +19,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.weihuagu.receiptnotice.action.ActionStatusBarNotification;
 import com.weihuagu.receiptnotice.action.IDoPost;
 import com.weihuagu.receiptnotice.action.PostTask;
+import com.weihuagu.receiptnotice.filteringmiddleware.PostMapFilter;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.NotificationUtil;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;

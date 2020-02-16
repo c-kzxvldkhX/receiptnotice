@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.filteringmiddleware;
 
 import com.weihuagu.receiptnotice.util.DeviceInfoUtil;
 import com.weihuagu.receiptnotice.util.ExternalInfoUtil;

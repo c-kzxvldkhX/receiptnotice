@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.filteringmiddleware.AlipayTransferBean;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.message.MessageConsumer;
 import com.weihuagu.receiptnotice.util.message.MessageSendBus;

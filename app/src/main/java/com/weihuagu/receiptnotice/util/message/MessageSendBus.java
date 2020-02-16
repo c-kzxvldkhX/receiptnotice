@@ -1,10 +1,8 @@
 package com.weihuagu.receiptnotice.util.message;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.weihuagu.receiptnotice.AlipayTransferBean;
+import com.weihuagu.receiptnotice.filteringmiddleware.AlipayTransferBean;
 import com.weihuagu.receiptnotice.TestBeanWithPostFullInformationMap;
-
-import java.util.Map;
 
 public class MessageSendBus {
     //请求硬件模拟类
