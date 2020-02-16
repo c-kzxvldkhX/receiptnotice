@@ -13,9 +13,8 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
-import com.tao.admin.loglib.FileUtils;
-import com.weihuagu.receiptnotice.FileLogUtil;
-import com.weihuagu.receiptnotice.LogListAdapter;
+
+import com.weihuagu.receiptnotice.util.FileLogUtil;
 import com.weihuagu.receiptnotice.R;
 
 public class FileLogActivity extends AppCompatActivity {

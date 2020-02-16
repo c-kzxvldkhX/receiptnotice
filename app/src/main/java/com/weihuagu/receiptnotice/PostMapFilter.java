@@ -1,5 +1,13 @@
 package com.weihuagu.receiptnotice;
 
+import com.weihuagu.receiptnotice.util.DeviceInfoUtil;
+import com.weihuagu.receiptnotice.util.ExternalInfoUtil;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.PreferenceUtil;
+import com.weihuagu.receiptnotice.util.encrypt.EncryptFactory;
+import com.weihuagu.receiptnotice.util.encrypt.Encrypter;
+import com.weihuagu.receiptnotice.util.encrypt.MD5;
+
 import java.util.HashMap;
 import java.util.Map;
 

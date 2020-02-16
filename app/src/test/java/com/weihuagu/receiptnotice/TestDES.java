@@ -1,8 +1,10 @@
 package com.weihuagu.receiptnotice;
+import com.weihuagu.receiptnotice.util.encrypt.DES;
+
 import junit.framework.TestCase;
-import org.junit.Assert;
+
 import org.junit.Test;
-import org.mockito.Mockito;
+
 import java.util.Map;
 import java.util.HashMap;
 public class TestDES extends TestCase{

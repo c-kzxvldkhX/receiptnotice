@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.weihuagu.receiptnotice.PreferenceUtil;
+import com.weihuagu.receiptnotice.util.PreferenceUtil;
 import com.weihuagu.receiptnotice.R;
 
 public class IllustrateDecryptActivity extends AppCompatActivity {

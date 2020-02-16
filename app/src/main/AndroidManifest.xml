@@ -47,7 +47,7 @@
         </activity>
         <activity android:name="com.github.pedrovgs.lynx.LynxActivity" />
         <activity android:name=".view.PreferenceActivity" />
-        <activity android:name=".UserAgreementActiviy" />
+        <activity android:name=".view.UserAgreementActiviy" />
 
         <service
             android:name=".NLService"

@@ -2,16 +2,18 @@ package com.weihuagu.receiptnotice;
 import android.app.Notification;
 import android.provider.Telephony.Sms;
 
-import com.weihuagu.receiptnotice.pushclassification.payment.AlipayNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.CashbarNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.IcbcelifeNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.MipushNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.UnionpayNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.WechatNotificationHandle;
-import com.weihuagu.receiptnotice.pushclassification.payment.XposedmoduleNotificationHandle;
+import com.weihuagu.receiptnotice.action.IDoPost;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.AlipayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.BanksProxy;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.CashbarNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.IcbcelifeNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.MipushNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.UnionpayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.WechatNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.XposedmoduleNotificationHandle;
 
 public  class NotificationHandleFactory{
-    public NotificationHandle getNotificationHandle(String pkg,Notification notification,IDoPost postpush){
+    public NotificationHandle getNotificationHandle(String pkg, Notification notification, IDoPost postpush){
                 //mipush
                 if("com.xiaomi.xmsf".equals(pkg)){
                         return  new MipushNotificationHandle("com.xiaomi.xmsf",notification,postpush);
