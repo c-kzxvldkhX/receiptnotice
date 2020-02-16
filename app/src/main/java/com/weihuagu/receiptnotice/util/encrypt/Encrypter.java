@@ -1,5 +1,4 @@
 package com.weihuagu.receiptnotice.util.encrypt;
-import com.weihuagu.receiptnotice.IDataTrans;
 
 import java.util.Map;
 public abstract class Encrypter implements IDataTrans {

@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.filteringmiddleware;
 
 public class  AlipayTransferBean {
     public String getNum() {
