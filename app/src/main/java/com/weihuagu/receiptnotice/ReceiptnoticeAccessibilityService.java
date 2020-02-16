@@ -14,10 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.message.MessageConsumer;
+import com.weihuagu.receiptnotice.util.message.MessageSendBus;
 
 import java.util.List;
 
-public class ReceiptnoticeAccessibilityService extends AccessibilityService implements MessageConsumer{
+public class ReceiptnoticeAccessibilityService extends AccessibilityService implements MessageConsumer {
     PowerManager pm=null;
     String TAG="onAccessibilityEvent";
     private PowerManager.WakeLock mWakeLock = null;

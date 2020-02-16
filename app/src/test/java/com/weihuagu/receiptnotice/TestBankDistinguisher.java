@@ -1,8 +1,10 @@
 package com.weihuagu.receiptnotice;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.BankDistinguisher;
+
 import junit.framework.TestCase;
-import org.junit.Assert;
+
 import org.junit.Test;
-import org.mockito.Mockito;
+
 public class TestBankDistinguisher extends TestCase{
         BankDistinguisher onedistinguisher=null;
         protected void setUp() throws Exception {

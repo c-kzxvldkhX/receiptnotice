@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.weihuagu.receiptnotice.pushclassification.payment.CashbarNotificationHandle;
+import com.weihuagu.receiptnotice.action.IDoPost;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.CashbarNotificationHandle;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

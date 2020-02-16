@@ -29,10 +29,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
-import com.weihuagu.receiptnotice.HomeFragmentsAdapter;
-import com.weihuagu.receiptnotice.PreferenceUtil;
+import com.weihuagu.receiptnotice.util.PreferenceUtil;
 import com.weihuagu.receiptnotice.R;
-import com.weihuagu.receiptnotice.UserAgreementActiviy;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

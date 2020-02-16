@@ -1,10 +1,10 @@
 package com.weihuagu.receiptnotice;
+import com.weihuagu.receiptnotice.util.OneFileUtil;
+
 import junit.framework.TestCase;
-import org.junit.Assert;
+
 import org.junit.Test;
-import org.mockito.Mockito;
-import java.util.ArrayList;
-import java.io.File;
+
 public class TestOneFileUtil extends TestCase{
     OneFileUtil onefile=null;
     protected void setUp() throws Exception {

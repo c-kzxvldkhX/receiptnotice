@@ -2,8 +2,6 @@ package com.weihuagu.receiptnotice;;
 
 import android.app.ActivityManager;
 import android.app.Service;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,31 +20,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.lang.System;
 import java.lang.Thread;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLSocketFactory;
 import com.google.gson.Gson;
+import com.weihuagu.receiptnotice.util.DeviceInfoUtil;
+import com.weihuagu.receiptnotice.util.ExternalInfoUtil;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.PreferenceUtil;
+import com.weihuagu.receiptnotice.util.SSLSocketFactoryCompat;
+
 import io.socket.emitter.Emitter;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import okhttp3.MediaType;
+
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.TlsVersion;
 import okhttp3.ConnectionSpec;
 

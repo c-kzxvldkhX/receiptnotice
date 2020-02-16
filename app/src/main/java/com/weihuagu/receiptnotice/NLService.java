@@ -16,12 +16,20 @@ import android.os.Build;
 import android.widget.Toast;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.action.ActionStatusBarNotification;
+import com.weihuagu.receiptnotice.action.IDoPost;
+import com.weihuagu.receiptnotice.action.PostTask;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.NotificationUtil;
+import com.weihuagu.receiptnotice.util.PreferenceUtil;
+import com.weihuagu.receiptnotice.util.RandomUtil;
+import com.weihuagu.receiptnotice.util.message.MessageConsumer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification ,MessageConsumer{
+public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification, MessageConsumer {
         private String TAG="NLService";
         private String posturl=null;
         private Context context=null;
@@ -154,7 +162,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
 
         private void doPostTask(Map<String, String> postmap,Map<String, String> recordmap){
                 PostTask mtask = new PostTask();
-                String tasknum=RandomUtil.getRandomTaskNum();
+                String tasknum= RandomUtil.getRandomTaskNum();
                 mtask.setRandomTaskNum(tasknum);
                 mtask.setOnAsyncResponse(this);
                 if(recordmap!=null)
