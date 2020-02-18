@@ -2,13 +2,13 @@ package com.weihuagu.receiptnotice.pushclassification.pmentay;
 import android.app.Notification;
 
 import com.weihuagu.receiptnotice.action.IDoPost;
-import com.weihuagu.receiptnotice.NotificationHandle;
+import com.weihuagu.receiptnotice.PmentayNotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
 
 
-public class BanksProxy extends NotificationHandle {
+public class BanksProxy extends PmentayNotificationHandle {
         private BankDistinguisher onedistinguisher=new BankDistinguisher();
 
         public BanksProxy(String pkgtype, Notification notification, IDoPost postpush){

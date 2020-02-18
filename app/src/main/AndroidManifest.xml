@@ -48,6 +48,7 @@
         <activity android:name="com.github.pedrovgs.lynx.LynxActivity" />
         <activity android:name=".view.PreferenceActivity" />
         <activity android:name=".view.UserAgreementActiviy" />
+        <activity android:name=".view.FollowThirdAppActivity" />
 
         <service
             android:name=".NLService"

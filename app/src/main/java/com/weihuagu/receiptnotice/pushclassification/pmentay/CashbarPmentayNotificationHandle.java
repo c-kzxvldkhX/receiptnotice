@@ -2,7 +2,7 @@ package com.weihuagu.receiptnotice.pushclassification.pmentay;
 import android.app.Notification;
 
 import com.weihuagu.receiptnotice.action.IDoPost;
-import com.weihuagu.receiptnotice.NotificationHandle;
+import com.weihuagu.receiptnotice.PmentayNotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class CashbarNotificationHandle extends NotificationHandle {
-        public CashbarNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
+public class CashbarPmentayNotificationHandle extends PmentayNotificationHandle {
+        public CashbarPmentayNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
                 super(pkgtype,notification,postpush);
         }
 
