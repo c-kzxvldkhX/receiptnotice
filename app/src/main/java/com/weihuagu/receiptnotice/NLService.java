@@ -63,7 +63,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         return;
 
                 //接受推送处理
-                NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
+                PmentayNotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
                         notihandle.setStatusBarNotification(sbn);
                         notihandle.setActionStatusbar(this);
@@ -77,7 +77,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 LogUtil.debugLog("这是检测之外的其它通知");
                 LogUtil.debugLog("包名是"+pkg);
                 NotificationUtil.printNotify(notification);
-                //printNotify(getNotitime(notification),getNotiTitle(extras),getNotiContent(extras));
+
                 LogUtil.debugLog("**********************");
 
 
@@ -110,35 +110,6 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                 Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         }
 
-        private String getNotitime(Notification notification){
-
-                long when=notification.when;
-                Date date=new Date(when);
-                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                String notitime=format.format(date);
-                return notitime;
-
-        }
-
-        private String getNotiTitle(Bundle extras){
-                String title=null;
-                // 获取通知标题
-                title = extras.getString(Notification.EXTRA_TITLE, "");
-                return title;
-        }
-
-        private String getNotiContent(Bundle extras){
-                String content=null;
-                // 获取通知内容
-                content = extras.getString(Notification.EXTRA_TEXT, "");
-                return content;
-        }
-
-        private void printNotify(String notitime,String title,String content){
-                Log.d(TAG,notitime);
-                Log.d(TAG,title);
-                Log.d(TAG,content);
-        }
 
 
         public void doPost(Map<String, String> params){

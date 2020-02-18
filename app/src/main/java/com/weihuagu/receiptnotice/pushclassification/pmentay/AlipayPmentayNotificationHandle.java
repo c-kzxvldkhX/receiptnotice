@@ -11,7 +11,7 @@ import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.MainApplication;
 import com.weihuagu.receiptnotice.util.message.MessageConsumer;
 import com.weihuagu.receiptnotice.util.message.MessageSendBus;
-import com.weihuagu.receiptnotice.NotificationHandle;
+import com.weihuagu.receiptnotice.PmentayNotificationHandle;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -20,9 +20,9 @@ import java.util.regex.Pattern;
 
 
 
-public class AlipayNotificationHandle extends NotificationHandle implements MessageConsumer {
+public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle implements MessageConsumer {
         Map<String,String> tmppostmap=new HashMap<String,String>();
-        public AlipayNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
+        public AlipayPmentayNotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
                 super(pkgtype,notification,postpush);
 
         }

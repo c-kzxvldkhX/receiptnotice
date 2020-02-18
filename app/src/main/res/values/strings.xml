@@ -10,6 +10,7 @@
         <string name="buttontext_setposturl">set the post url</string>
         <string name="accessibilityservicename">receiptnotice accessibility</string>
         <string name="accessibility_service_description">receiptnotice find info by this server</string>
+        <string name="btnsetthirdapp" >set the third follow app </string>
         <string-array name="pref_entries_encryptmethod">
                 <item>des</item>
                 <item>md5</item>
