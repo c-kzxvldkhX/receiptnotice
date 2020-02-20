@@ -105,6 +105,13 @@
                     android:defaultValue="false"
                     android:summary="允许无障碍服务"
                     android:key="isaccessibilityservice" />
+                <Preference
+                    android:title="关注自定义app通知">
+                        <intent
+                            android:action="com.weihuagu.receiptnotice.followthirdapp"
+                            android:targetClass="com.weihuagu.receiptnotice.view.FollowThirdAppActivity"
+                            android:targetPackage="com.weihuagu.receiptnotice"/>
+                </Preference>
         </PreferenceCategory>
         <PreferenceCategory
                 android:key="record"
@@ -114,7 +121,7 @@
                         android:title="推送记录">
                         <intent
                                 android:action="com.weihuagu.receiptnotice.showfilelog"
-                                android:targetClass="com.weihuagu.receiptnotice.FileLogActivity"
+                                android:targetClass="com.weihuagu.receiptnotice.view.FileLogActivity"
                                 android:targetPackage="com.weihuagu.receiptnotice"/>
                 </Preference>
         </PreferenceCategory>

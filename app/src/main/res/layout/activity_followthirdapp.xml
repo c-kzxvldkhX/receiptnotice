@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.weihuagu.receiptnotice.view.MainActivity">
+    tools:context="com.weihuagu.receiptnotice.view.FollowThirdAppActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -25,17 +25,35 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/my_toolbar">
+
+            <TextView
+                android:id="@+id/tip_pkg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用包名" />
             <EditText
                 android:id="@+id/pkg"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/tip_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通知中的关键字" />
             <EditText
                 android:id="@+id/keyword"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:inputType="text"
                 app:layout_constraintTop_toBottomOf="@id/pkg"/>
+
+            <TextView
+                android:id="@+id/tip_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平台名称" />
             <EditText
                 android:id="@+id/type"
                 android:layout_height="wrap_content"

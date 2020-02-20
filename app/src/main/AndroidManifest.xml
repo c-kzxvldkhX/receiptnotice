@@ -48,7 +48,11 @@
         <activity android:name="com.github.pedrovgs.lynx.LynxActivity" />
         <activity android:name=".view.PreferenceActivity" />
         <activity android:name=".view.UserAgreementActiviy" />
-        <activity android:name=".view.FollowThirdAppActivity" />
+        <activity android:name=".view.FollowThirdAppActivity">
+        <intent-filter>
+            <action android:name="com.weihuagu.receiptnotice.followthirdapp" />
+        </intent-filter>
+        </activity>
 
         <service
             android:name=".NLService"
