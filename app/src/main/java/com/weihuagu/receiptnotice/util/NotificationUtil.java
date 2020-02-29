@@ -41,6 +41,11 @@ public class NotificationUtil {
         }
 
         public static void printNotify(Notification notification){
+                if(notification==null){
+                        LogUtil.debugLog("notificationutil report: notification is null");
+                        return;
+                }
+
                 LogUtil.debugLog(getNotitime(notification));
                 LogUtil.debugLog(getNotiTitle(notification.extras));
                 LogUtil.debugLog(getNotiContent(notification.extras));
