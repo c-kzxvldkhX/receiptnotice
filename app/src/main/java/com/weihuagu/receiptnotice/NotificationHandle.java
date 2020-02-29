@@ -12,8 +12,6 @@ import com.weihuagu.receiptnotice.util.NotificationUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public abstract class NotificationHandle {
@@ -26,12 +24,12 @@ public abstract class NotificationHandle {
         protected IDoPost postpush;
         protected ActionStatusBarNotification actionstatusbar;
         public StatusBarNotification sbn;
-        public NotificationHandle(String pkgtype, Notification notification, IDoPost postpush){
-                this.pkgtype=pkgtype;
-                this.notification=notification;
-                this.postpush=postpush;
+        public NotificationHandle(String rawpkgtype, Notification rawnotification, IDoPost rawpostpush){
+                pkgtype=rawpkgtype;
+                notification=rawnotification;
+                postpush=rawpostpush;
 
-                this.extras=notification.extras;
+                extras=notification.extras;
                 // 获取通知标题
                 title = extras.getString(Notification.EXTRA_TITLE, "");
                 // 获取通知内容

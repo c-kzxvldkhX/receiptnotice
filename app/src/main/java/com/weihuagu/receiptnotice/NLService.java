@@ -63,7 +63,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         return;
 
                 //接受推送处理
-                PmentayNotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
+                NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
                 if(notihandle!=null){
                         notihandle.setStatusBarNotification(sbn);
                         notihandle.setActionStatusbar(this);
