@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.util.Log;
+
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.content.Context;
@@ -17,20 +17,15 @@ import android.widget.Toast;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.weihuagu.receiptnotice.action.ActionStatusBarNotification;
-import com.weihuagu.receiptnotice.action.IDoPost;
-import com.weihuagu.receiptnotice.action.PostTask;
-import com.weihuagu.receiptnotice.filteringmiddleware.PostMapFilter;
+import com.weihuagu.receiptnotice.action.HandlePost;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.NotificationUtil;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
-import com.weihuagu.receiptnotice.util.RandomUtil;
 import com.weihuagu.receiptnotice.util.message.MessageConsumer;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
-public class NLService extends NotificationListenerService implements AsyncResponse, IDoPost, ActionStatusBarNotification, MessageConsumer {
+
+public class NLService extends NotificationListenerService implements  ActionStatusBarNotification, MessageConsumer {
         private String TAG="NLService";
         private String posturl=null;
         private Context context=null;
@@ -63,7 +58,7 @@ public class NLService extends NotificationListenerService implements AsyncRespo
                         return;
 
                 //接受推送处理
-                NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,this);
+                NotificationHandle notihandle =new NotificationHandleFactory().getNotificationHandle(pkg,notification,new HandlePost());
                 if(notihandle!=null){
                         notihandle.setStatusBarNotification(sbn);
                         notihandle.setActionStatusbar(this);
@@ -111,68 +106,6 @@ public class NLService extends NotificationListenerService implements AsyncRespo
         }
 
 
-
-        public void doPost(Map<String, String> params){
-                if(this.posturl==null|params==null)
-                        return;
-                LogUtil.debugLog("开始准备进行post");
-                if(params.get("repeatnum")!=null){
-                        doPostTask(params,null);
-                        return;
-                }
-
-                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-		        PostMapFilter mapfilter=new PostMapFilter(preference,params,this.posturl);
-                Map<String, String> recordmap=mapfilter.getLogMap();
-                Map<String, String> postmap=mapfilter.getPostMap();
-
-                doPostTask(postmap,recordmap);
-
-
-
-        }
-
-        private void doPostTask(Map<String, String> postmap,Map<String, String> recordmap){
-                PostTask mtask = new PostTask();
-                String tasknum= RandomUtil.getRandomTaskNum();
-                mtask.setRandomTaskNum(tasknum);
-                mtask.setOnAsyncResponse(this);
-                if(recordmap!=null)
-                        LogUtil.postRecordLog(tasknum,recordmap.toString());
-                else
-                        LogUtil.postRecordLog(tasknum,postmap.toString());
-
-                mtask.execute(postmap);
-
-
-        }
-
-
-        @Override
-        public void onDataReceivedSuccess(String[] returnstr) {
-                Log.d(TAG,"Post Receive-returned post string");
-                Log.d(TAG,returnstr[2]);
-                LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
-
-
-
-        }
-        @Override
-        public void onDataReceivedFailed(String[] returnstr,Map<String ,String> postedmap) {
-                // TODO Auto-generated method stub
-                Log.d(TAG,"Post Receive-post error");
-                LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
-                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-                if(preference.isPostRepeat()){
-                        String repeatlimit=preference.getPostRepeatNum();
-                        int limitnum=Integer.parseInt(repeatlimit);
-                        String repeatnumstr=postedmap.get("repeatnum");
-                        int repeatnum=Integer.parseInt(repeatnumstr);
-                        if(repeatnum<=limitnum)
-                                doPost(postedmap);
-                }
-
-        }
 
         public void subMessage() {
                 LiveEventBus

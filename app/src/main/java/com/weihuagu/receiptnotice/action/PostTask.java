@@ -9,7 +9,6 @@ import okhttp3.OkHttpClient;
 import java.util.Iterator;
 import android.util.Log;
 
-import com.weihuagu.receiptnotice.AsyncResponse;
 import com.weihuagu.receiptnotice.util.NetUtil;
 import com.weihuagu.receiptnotice.util.UrlUtil;
 

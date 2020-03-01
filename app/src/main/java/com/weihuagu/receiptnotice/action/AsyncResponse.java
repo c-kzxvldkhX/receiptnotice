@@ -1,4 +1,4 @@
-package com.weihuagu.receiptnotice;
+package com.weihuagu.receiptnotice.action;
 
 import java.util.List;
 import java.util.Map;
