@@ -21,7 +21,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/receiptnoticeaccessibilityservice_config" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -30,14 +30,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FileLogActivity"
+            android:name=".view.FileLogActivity"
             android:label="@string/filelog_title">
             <intent-filter>
                 <action android:name="com.weihuagu.receiptnotice.showfilelog" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".IllustrateDecryptActivity"
+            android:name=".view.IllustrateDecryptActivity"
             android:label="@string/illustratedecrypt_title">
             <intent-filter>
                 <action android:name="com.weihuagu.receiptnotice.illustratedecryptmethod" />
@@ -46,8 +46,13 @@
             </intent-filter>
         </activity>
         <activity android:name="com.github.pedrovgs.lynx.LynxActivity" />
-        <activity android:name=".PreferenceActivity" />
-        <activity android:name=".UserAgreementActiviy" />
+        <activity android:name=".view.PreferenceActivity" />
+        <activity android:name=".view.UserAgreementActiviy" />
+        <activity android:name=".view.FollowThirdAppActivity">
+        <intent-filter>
+            <action android:name="com.weihuagu.receiptnotice.followthirdapp" />
+        </intent-filter>
+        </activity>
 
         <service
             android:name=".NLService"

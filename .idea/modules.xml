@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/receiptnotice.iml" filepath="$PROJECT_DIR$/receiptnotice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="receiptnotice/app" />
+      <module fileurl="file://$PROJECT_DIR$/receiptnotice.iml" filepath="$PROJECT_DIR$/receiptnotice.iml" group="receiptnotice" />
     </modules>
   </component>
 </project>

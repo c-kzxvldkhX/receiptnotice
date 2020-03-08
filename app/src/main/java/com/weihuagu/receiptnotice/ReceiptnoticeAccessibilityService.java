@@ -14,10 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.filteringmiddleware.AlipayTransferBean;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.message.MessageConsumer;
+import com.weihuagu.receiptnotice.util.message.MessageSendBus;
 
 import java.util.List;
 
-public class ReceiptnoticeAccessibilityService extends AccessibilityService {
+public class ReceiptnoticeAccessibilityService extends AccessibilityService implements MessageConsumer {
     PowerManager pm=null;
     String TAG="onAccessibilityEvent";
     private PowerManager.WakeLock mWakeLock = null;
@@ -69,15 +73,6 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
         debugLogWithDeveloper(  "oninterrupt");
     }
 
-    public void postMessageWithget_alipay_transfer_money(AlipayTransferBean transferbean){
-        LiveEventBus
-                .get("get_alipay_transfer_money")
-                .post(transferbean);
-    }
-
-    public void postMessageWithCommonAccessibilityEvent(String event){
-        LiveEventBus.get("get_new_accessibilityevent").post(event);
-    }
 
     public void subMessage(){
         LiveEventBus
@@ -160,7 +155,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService {
                 transferbean.setNum(transnum);
                 transferbean.setRemark(transremark);
                 if(!lastpoststr.equals(lastnotistr))
-                postMessageWithget_alipay_transfer_money(transferbean                                                        );
+                MessageSendBus.postMessageWithget_alipay_transfer_money(transferbean                                                        );
             }catch (ArrayIndexOutOfBoundsException e){
 
             }

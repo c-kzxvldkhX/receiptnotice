@@ -1,36 +1,47 @@
 package com.weihuagu.receiptnotice;
 import android.app.Notification;
 import android.provider.Telephony.Sms;
+
+import com.weihuagu.receiptnotice.action.IDoPost;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.AlipayPmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.BanksProxy;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.CashbarPmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.IcbcelifePmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.MipushPmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.UnionpayPmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.WechatPmentayNotificationHandle;
+import com.weihuagu.receiptnotice.pushclassification.pmentay.XposedmodulePmentayNotificationHandle;
+
 public  class NotificationHandleFactory{
-    public NotificationHandle getNotificationHandle(String pkg,Notification notification,IDoPost postpush){
+    public PmentayNotificationHandle getNotificationHandle(String pkg, Notification notification, IDoPost postpush){
                 //mipush
                 if("com.xiaomi.xmsf".equals(pkg)){
-                        return  new MipushNotificationHandle("com.xiaomi.xmsf",notification,postpush);
+                        return  new MipushPmentayNotificationHandle("com.xiaomi.xmsf",notification,postpush);
                 }
                 //支付宝
                 if("com.eg.android.AlipayGphone".equals(pkg)){
-                        return new AlipayNotificationHandle("com.eg.android.AlipayGphone",notification,postpush);
+                        return new AlipayPmentayNotificationHandle("com.eg.android.AlipayGphone",notification,postpush);
                 }
 
                 //应用管理GCM代收
                 if("android".equals(pkg)){
-                        return new XposedmoduleNotificationHandle("github.tornaco.xposedmoduletest",notification,postpush);
+                        return new XposedmodulePmentayNotificationHandle("github.tornaco.xposedmoduletest",notification,postpush);
                 }
                 //微信
                 if("com.tencent.mm".equals(pkg)){
-                        return new WechatNotificationHandle("com.tencent.mm",notification,postpush);
+                        return new WechatPmentayNotificationHandle("com.tencent.mm",notification,postpush);
                 }
                 //收钱吧
                 if("com.wosai.cashbar".equals(pkg)){
-                        return new CashbarNotificationHandle("com.wosai.cashbar",notification,postpush);
+                        return new CashbarPmentayNotificationHandle("com.wosai.cashbar",notification,postpush);
                 }
                 //云闪付
                 if("com.unionpay".equals(pkg)){
-                        return new UnionpayNotificationHandle("com.unionpay",notification,postpush);
+                        return new UnionpayPmentayNotificationHandle("com.unionpay",notification,postpush);
                 }
                 //工银商户之家
                 if("com.icbc.biz.elife".equals(pkg)){
-                        return new IcbcelifeNotificationHandle("com.icbc.biz.elife",notification,postpush);
+                        return new IcbcelifePmentayNotificationHandle("com.icbc.biz.elife",notification,postpush);
                 }
                 //接到短信
                 if(getMessageAppPkg().equals(pkg)){
