@@ -8,6 +8,8 @@ import com.weihuagu.receiptnotice.action.IDoPost;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.NotificationUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,8 +32,13 @@ public abstract class PmentayNotificationHandle extends NotificationHandle{
         protected  String extractMoney(String content){
                 Pattern pattern = Pattern.compile("(收款|收款￥|向你付款|向您付款|入账|到帐)(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?元");
                 Matcher matcher = pattern.matcher(content);
-                if(matcher.find()){
-                        String tmp=matcher.group();
+                List<String> list = new ArrayList<>();
+                while(matcher.find()){
+                        list.add(matcher.group());
+                }
+                if(list.size()>0){
+                        String tmp=list.get(list.size()-1);
+                        System.out.println(tmp);
                         Pattern patternnum = Pattern.compile("(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?");
                         Matcher matchernum = patternnum.matcher(tmp);
                         if(matchernum.find())
