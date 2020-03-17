@@ -27,7 +27,7 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
 
         }
         public void handleNotification(){
-                if(title.contains("支付宝") | title.contains("收钱码")){
+                if(title.contains("支付宝") | title.contains("收钱码") | title.contains("收款通知")){
                         //不可将转账判断延后放，以防止通过昵称虚构金额
                         if(content.contains("向你转了1笔钱")){
                                 Map<String,String> postmap=new HashMap<String,String>();
