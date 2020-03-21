@@ -155,7 +155,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
                 transferbean.setNum(transnum);
                 transferbean.setRemark(transremark);
                 if(!lastpoststr.equals(lastnotistr))
-                MessageSendBus.postMessageWithget_alipay_transfer_money(transferbean                                                        );
+                MessageSendBus.postMessageWithget_alipay_transfer_money(transferbean);
             }catch (ArrayIndexOutOfBoundsException e){
 
             }

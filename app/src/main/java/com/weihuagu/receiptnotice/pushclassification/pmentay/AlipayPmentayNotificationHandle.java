@@ -88,6 +88,8 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
                         .observeForever( new Observer<AlipayTransferBean>() {
                                 @Override
                                 public void onChanged(@Nullable AlipayTransferBean transfer) {
+                                        if(tmppostmap.size()==0)
+                                                return;
                                         LogUtil.debugLog("收到订阅消息:get_alipay_transfer_money " + "money"+transfer.getNum()+"备注"+transfer.getRemark());
                                         MessageSendBus.postActionRequestWithReturn();
                                         MessageSendBus.postActionRequestWithHome();
@@ -95,6 +97,8 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
                                         tmppostmap.put("remark",transfer.getRemark());
                                         MessageSendBus.postMessageWithUpdateTheLastPostString(tmppostmap.get("time")+tmppostmap.get("content"));
                                         postpush.doPost(tmppostmap);
+                                        tmppostmap=new HashMap<String,String>();
+                                        return;
                                 }
                         });
         }
