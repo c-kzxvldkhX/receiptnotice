@@ -1,5 +1,10 @@
 # receiptnotice
 
+*This software is open source and not profitable software. There is no so-called customized version.There are no paid QQ groups, hope you know
+*
+
+
+
 #### Application range and specifications
 - The scope of the software is limited to helping individual users to obtain and collect their own collection information, which is equivalent to your manual acquisition process.
 - If you do not have the above-mentioned manual permission, you will not be able to use the software.
