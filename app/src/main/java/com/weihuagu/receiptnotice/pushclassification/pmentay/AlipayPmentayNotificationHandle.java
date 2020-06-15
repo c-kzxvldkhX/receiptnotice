@@ -73,7 +73,7 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
 		
 	}
 	
-	private void collectioncodePush(boolen isinfoincontent){
+	private void collectioncodePush(boolean isinfoincontent){
 		  Map<String,String> postmap=new HashMap<String,String>();
                   postmap.put("type","alipay");
                   postmap.put("time",notitime);
@@ -92,7 +92,7 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
 	}
 	
 	private boolen isInfoHideInTitle(){
-		if(title.contains("成功收款")&&content.contains("查看余额"))
+		if(title.contains("成功收款")&&content.contains("立即查看"))
 			return true;
 		return false;
 			
