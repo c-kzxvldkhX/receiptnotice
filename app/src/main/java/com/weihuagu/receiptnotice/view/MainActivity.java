@@ -31,6 +31,7 @@ import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
 import com.weihuagu.receiptnotice.R;
+import com.weihuagu.receiptnotice.util.message.MessageSendBus;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -122,12 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setPostUrl() {
-        SharedPreferences.Editor edit = sp.edit();
-        //通过editor对象写入数据
-        edit.putString("posturl", posturl.getText().toString());
-        //提交数据存入到xml文件中
-        edit.apply();
-        Toast.makeText(getApplicationContext(), "已经设置posturl为：" + posturl.getText().toString(),
+        PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+        preference.setPostUrl(posturl.getText().toString());
+        MessageSendBus.userMessageWithSetPostUrl(posturl.getText().toString());
+        Toast.makeText(getApplicationContext(), "已经设置posturl为：" + preference.getPostUrl(),
                 Toast.LENGTH_SHORT).show();
     }
 

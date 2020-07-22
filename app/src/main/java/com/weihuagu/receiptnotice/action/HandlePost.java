@@ -8,6 +8,7 @@ import com.weihuagu.receiptnotice.filteringmiddleware.PostMapFilter;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
 import com.weihuagu.receiptnotice.util.RandomUtil;
+import com.weihuagu.receiptnotice.util.message.MessageSendBus;
 
 import java.util.Map;
 
@@ -20,12 +21,9 @@ public class HandlePost implements IDoPost, AsyncResponse {
     }
 
     protected String getPostUrl(){
-        SharedPreferences sp= MainApplication.getAppContext().getSharedPreferences("url", 0);
-        this.posturl =sp.getString("posturl", "");
-        if (posturl==null)
-            return null;
-        else
-            return posturl;
+        PreferenceUtil preference=new PreferenceUtil(MainApplication.getAppContext());
+        posturl=preference.getPostUrl();
+        return posturl;
     }
     @Override
     public void doPost(Map<String, String> params) {
@@ -67,6 +65,7 @@ public class HandlePost implements IDoPost, AsyncResponse {
         LogUtil.debugLog("Post Receive-returned post string");
         LogUtil.debugLog(returnstr[2]);
         LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
+        MessageSendBus.postMessageWithFinishedonePost(returnstr);
 
     }
 

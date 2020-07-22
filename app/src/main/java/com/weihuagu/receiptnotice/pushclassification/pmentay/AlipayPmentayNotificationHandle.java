@@ -91,7 +91,7 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
                   return ;
 	}
 	
-	private boolen isInfoHideInTitle(){
+	private boolean isInfoHideInTitle(){
 		if(title.contains("成功收款")&&content.contains("立即查看"))
 			return true;
 		return false;

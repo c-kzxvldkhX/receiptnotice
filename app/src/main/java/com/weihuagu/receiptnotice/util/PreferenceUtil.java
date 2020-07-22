@@ -3,6 +3,7 @@ package com.weihuagu.receiptnotice.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class PreferenceUtil {
     SharedPreferences sharedPref = null;
@@ -58,8 +59,30 @@ public class PreferenceUtil {
         //提交数据存入到xml文件中
         edit.apply();
     }
+    public void setNumOfPush(String op){
+        SharedPreferences.Editor edit = this.sharedPref.edit();
+        if(op.equals("add")){
+            int currentnum=getNumOfPush();
+            edit.putInt("numofpush",currentnum++);
+            //提交数据存入到xml文件中
+            edit.apply();
+        }
 
 
+    }
+    public void setPostUrl(String url) {
+        SharedPreferences.Editor edit = this.sharedPref.edit();
+        edit.putString("posturl", url);
+        //提交数据存入到xml文件中
+        edit.apply();
+    }
+
+    public  String getPostUrl(){
+        return this.sharedPref.getString("posturl",null);
+    }
+    public int getNumOfPush(){
+        return this.sharedPref.getInt("numofpush",0);
+    }
     public String getEchoServer() {
         return this.sharedPref.getString("echoserver", null);
     }

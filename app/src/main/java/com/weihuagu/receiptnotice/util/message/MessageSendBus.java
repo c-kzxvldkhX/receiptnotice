@@ -23,6 +23,11 @@ public class MessageSendBus {
     }
 
     //消息发送类
+    public static void postMessageWithFinishedonePost(String[] returnstr){
+        LiveEventBus
+                .get("message_finished_one_post")
+                .post(returnstr);
+    }
     public static void postMessageWithReceiptAlipayTransfer(String transferinfo){
         LiveEventBus
                 .get("message_noti_alipay_transfer_arrive")
@@ -46,11 +51,27 @@ public class MessageSendBus {
                 .post("update");
     }
 
+    //用户点击类消息
+    public static void userMessageWithSetPostUrl(String url){
+        LiveEventBus
+                .get("user_set_posturl")
+                .post(url);
+    }
+
     //测试消息类
     public static void  postTestMessageWithPostFullInformationMap(TestBeanWithPostFullInformationMap bean){
         LiveEventBus
                 .get("testmessage_post_full_information_map")
                 .post(bean);
+    }
+
+    //时间心跳类
+
+    //默认以一定时间发送一次的时间间隔消息
+    public static void postBaseTimeInterval(){
+       LiveEventBus
+	       .get("time_interval")
+	       .post("base_time_interval");
     }
 
 
