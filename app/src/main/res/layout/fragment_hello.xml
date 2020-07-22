@@ -38,6 +38,21 @@
                 app:layout_constraintAngle="170"
                 app:layout_constraintCircle="@+id/text_view"
                 app:layout_constraintCircleRadius="150dp" />
+	    <TextView
+                android:id="@+id/numofpush"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text=""/>
+	    <TextView
+                android:id="@+id/posturl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text=""
+                android:textIsSelectable="true" />
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

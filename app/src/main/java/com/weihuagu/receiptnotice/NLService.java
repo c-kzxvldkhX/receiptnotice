@@ -30,12 +30,8 @@ public class NLService extends NotificationListenerService implements  ActionSta
         private String posturl=null;
         private Context context=null;
         private String getPostUrl(){
-                SharedPreferences sp=getSharedPreferences("url", 0);
-                this.posturl =sp.getString("posturl", "");
-                if (posturl==null)
-                        return null;
-                else
-                        return posturl;
+                PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                return preference.getPostUrl();
         }
 
 
@@ -106,7 +102,7 @@ public class NLService extends NotificationListenerService implements  ActionSta
         }
 
 
-
+        //因为通知监听服务会长期一直运行，借助它进行一些消息的监听
         public void subMessage() {
                 LiveEventBus
                     .get("get_alipay_transfer_money", TestBeanWithPostFullInformationMap.class)
@@ -116,6 +112,16 @@ public class NLService extends NotificationListenerService implements  ActionSta
 
                         }
                     });
+                LiveEventBus
+                        .get("message_finished_one_post",String[].class)
+                        .observeForever(new Observer<String[]>() {
+                                @Override
+                                public void onChanged(@Nullable String[] testpostbean) {
+                                        PreferenceUtil preference=new PreferenceUtil(getBaseContext());
+                                        preference.setNumOfPush("add");
+                                }
+                        });
+
 
         }
 }
