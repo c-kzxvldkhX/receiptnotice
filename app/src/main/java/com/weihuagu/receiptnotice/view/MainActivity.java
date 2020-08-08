@@ -29,6 +29,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.pedrovgs.lynx.LynxConfig;
 import com.github.pedrovgs.lynx.LynxActivity;
+import com.weihuagu.receiptnotice.MainApplication;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
 import com.weihuagu.receiptnotice.R;
 import com.weihuagu.receiptnotice.util.message.MessageSendBus;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager2 viewpage;
     private Button btnsetposturl;
     private FloatingActionButton btnshowlog;
-    private AutoCompleteTextView posturl;
+    private AutoCompleteTextView posturltextview;
     private SharedPreferences sp;
     public PreferenceUtil preference ;
 
@@ -67,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnsetposturl.setOnClickListener(this);
         btnshowlog = (FloatingActionButton) findViewById(R.id.floatingshowlog);
         btnshowlog.setOnClickListener(this);
-        posturl = (AutoCompleteTextView) findViewById(R.id.posturl);
+        posturltextview = (AutoCompleteTextView) findViewById(R.id.posturl);
         if (getPostUrl() != null)
-            posturl.setHint(getPostUrl());
+            posturltextview.setHint(getPostUrl());
 
 
     }
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnsetposturl:
-                posturl.setHint(null);
+                posturltextview.setHint(null);
                 setPostUrl();
                 break;
             case R.id.floatingshowlog:
@@ -124,19 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setPostUrl() {
         PreferenceUtil preference=new PreferenceUtil(getBaseContext());
-        preference.setPostUrl(posturl.getText().toString());
-        MessageSendBus.userMessageWithSetPostUrl(posturl.getText().toString());
+        preference.setPostUrl(posturltextview.getText().toString());
+        MessageSendBus.userMessageWithSetPostUrl(posturltextview.getText().toString());
         Toast.makeText(getApplicationContext(), "已经设置posturl为：" + preference.getPostUrl(),
                 Toast.LENGTH_SHORT).show();
     }
 
     private String getPostUrl() {
-        String posturlpath;
-        posturlpath = sp.getString("posturl", "");
-        if (posturlpath == null)
-            return null;
-        else
-            return posturlpath;
+        PreferenceUtil preference=new PreferenceUtil(MainApplication.getAppContext());
+        return preference.getPostUrl();
     }
 
     private void jumpUserAgreement() {
@@ -149,10 +146,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] str = new String[2];
         str[0] = "";
         str[1] = getPostUrl();
-        posturl.setThreshold(0);
+        posturltextview.setThreshold(0);
         ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, str);
-        posturl.setAdapter(adapter);
-        posturl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        posturltextview.setAdapter(adapter);
+        posturltextview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 AutoCompleteTextView view = (AutoCompleteTextView) v;
