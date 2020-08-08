@@ -67,7 +67,7 @@ public class MessageSendBus {
 
     //时间心跳类
 
-    //默认以一定时间发送一次的时间间隔消息
+    //默认以一定时间发送一次的时间间隔消息.时间间隔是一分钟.
     public static void postBaseTimeInterval(){
        LiveEventBus
 	       .get("time_interval")

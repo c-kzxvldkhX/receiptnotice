@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.weihuagu.receiptnotice.MainApplication;
 import com.weihuagu.receiptnotice.R;
+import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
 
 public class HelloFragment extends Fragment {
@@ -74,6 +77,9 @@ public class HelloFragment extends Fragment {
                 .observeForever(new Observer<String>() {
                     @Override
                     public void onChanged(@Nullable String baseinterval) {
+                        Toast.makeText(MainApplication.getAppContext(), "接受到一分钟间隔事件，更新推送次数",
+                                Toast.LENGTH_SHORT).show();
+                        LogUtil.debugLog("接受到一分钟一次的时间间隔事件");
                         resetText();
                     }
                 });
