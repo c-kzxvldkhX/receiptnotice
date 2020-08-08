@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         posturlSuggestion();
 
+
     }
 
     private void initView() {
@@ -145,7 +146,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void posturlSuggestion() {
         String[] str = new String[2];
         str[0] = "";
-        str[1] = getPostUrl();
+        if(getPostUrl()!=null)
+            str[1] = getPostUrl();
+        else str[1] = "";
         posturltextview.setThreshold(0);
         ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, str);
         posturltextview.setAdapter(adapter);
@@ -154,12 +157,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFocusChange(View v, boolean hasFocus) {
                 AutoCompleteTextView view = (AutoCompleteTextView) v;
                 if (hasFocus) {
-                    view.showDropDown();
+                        view.showDropDown();
+
                 }
             }
 
         });
-        Toast.makeText(getApplicationContext(), str[0], Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), str[0], Toast.LENGTH_SHORT).show();
     }
 
 

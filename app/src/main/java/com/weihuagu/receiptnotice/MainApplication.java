@@ -2,12 +2,18 @@ package com.weihuagu.receiptnotice;
 import android.app.Application;
 import android.content.Intent;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.content.BroadcastReceiver;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.tao.admin.loglib.TLogApplication;
 import com.tao.admin.loglib.IConfig;
+import com.weihuagu.receiptnotice.util.LogUtil;
+import com.weihuagu.receiptnotice.util.message.MessageSendBus;
+
 public class MainApplication extends Application {
         public static Context mContext;
+        private BroadcastReceiver timereceiver;
 
         @Override
         public void onCreate() {
@@ -16,6 +22,8 @@ public class MainApplication extends Application {
                 initLogConfig();
                 setSomeGlobal();
                 setMessageBus();
+                setSomeThingWaitMessage();
+
         }
 
         private void initLogConfig(){
@@ -39,5 +47,25 @@ public class MainApplication extends Application {
         public static Context getAppContext(){
                 return mContext;
         }
+        public void timeInterval(){
+            IntentFilter filter=new IntentFilter();
+            filter.addAction(Intent.ACTION_TIME_TICK);
+            registerReceiver(timereceiver,filter);
+        }
+
+        public void setSomeThingWaitMessage(){
+            timeInterval();
+            timereceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    if (action.equals(Intent.ACTION_TIME_TICK)) {
+                        LogUtil.debugLog("接受到一分钟广播action_time_tick事件");
+                        MessageSendBus.postBaseTimeInterval();
+                    }
+                }
+            };
+        }
+
 
 }
