@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 
 import com.weihuagu.receiptnotice.MainApplication;
+import com.weihuagu.receiptnotice.OnlyWriteToDateBase;
 import com.weihuagu.receiptnotice.filteringmiddleware.PostMapFilter;
 import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.PreferenceUtil;
@@ -66,6 +67,7 @@ public class HandlePost implements IDoPost, AsyncResponse {
         LogUtil.debugLog(returnstr[2]);
         LogUtil.postResultLog(returnstr[0],returnstr[1],returnstr[2]);
         MessageSendBus.postMessageWithFinishedonePost(returnstr);
+        new OnlyWriteToDateBase().onePostWriteToDateBase(returnstr[2]);
 
     }
 

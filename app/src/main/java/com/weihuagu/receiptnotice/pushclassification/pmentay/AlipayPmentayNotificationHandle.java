@@ -50,7 +50,7 @@ public class AlipayPmentayNotificationHandle extends PmentayNotificationHandle i
         }
 
 	private void transfercodePush(){
-		                Map<String,String> postmap=new HashMap<String,String>();
+		                        Map<String,String> postmap=new HashMap<String,String>();
                                 postmap.put("type","alipay-transfer");
                                 postmap.put("time",notitime);
                                 postmap.put("title","转账");

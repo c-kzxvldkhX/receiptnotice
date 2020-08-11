@@ -16,8 +16,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table plat(id integer primary key autoincrement,name varchar(64),address varchar(64))";
-        db.execSQL(sql);
+        String plat = "create table plat(id integer primary key autoincrement,name varchar(64),address varchar(64))";
+        String pushrecord = "create table pushrecord(id integer primary key autoincrement,type varchar(64),time varchar(64),title varchar(64),money varchar(64),content varchar(64))";
+
+        db.execSQL(plat);
+        db.execSQL(pushrecord);
 
     }
 
