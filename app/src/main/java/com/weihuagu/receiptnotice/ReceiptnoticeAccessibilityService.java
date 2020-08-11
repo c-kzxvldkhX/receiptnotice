@@ -1,11 +1,15 @@
 package com.weihuagu.receiptnotice;
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.GestureDescription;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.graphics.Path;
 import android.os.Build;
 import android.os.PowerManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityWindowInfo;
@@ -19,7 +23,9 @@ import com.weihuagu.receiptnotice.util.LogUtil;
 import com.weihuagu.receiptnotice.util.message.MessageConsumer;
 import com.weihuagu.receiptnotice.util.message.MessageSendBus;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class ReceiptnoticeAccessibilityService extends AccessibilityService implements MessageConsumer {
     PowerManager pm=null;
@@ -29,6 +35,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
     private KeyguardManager.KeyguardLock kl;
     private String lastpoststr = "";
     private String lastnotistr = "";
+    private Queue<String> poststrqueue = new LinkedList<String>();
     private void setLastPostStr(String str){
         lastpoststr=str;
     }
@@ -71,6 +78,44 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
     @Override
     public void onInterrupt() {
         debugLogWithDeveloper(  "oninterrupt");
+    }
+
+    private void mockSwipe(){
+        if(Build.VERSION.SDK_INT >= 24) {
+            //获取屏幕中心点坐标
+            WindowManager wm = (WindowManager) MainApplication.getAppContext()
+                    .getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics dm = new DisplayMetrics();
+            wm.getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+            int cx = width/2;
+            int cy = height / 2;
+            final Path path = new Path();
+
+            path.moveTo(cx, cy); //滑动的起始位置，例如屏幕的中心点X、Y
+            path.lineTo(cx, 0); //需要滑动的位置，如从中心点滑到屏幕的顶部
+            GestureDescription.Builder builder = new GestureDescription.Builder();
+            GestureDescription gestureDescription = builder.addStroke(
+                    new GestureDescription.StrokeDescription(path, 100, 400)
+            ).build(); //移动到中心点，100ms后开始滑动，滑动的时间持续400ms，可以调整
+            dispatchGesture(gestureDescription, new GestureResultCallback() {
+                @Override
+                //如果滑动成功，会回调如下函数，可以在下面记录是否滑动成功，滑动成功或失败都要关闭该路径笔画
+                public void onCompleted(GestureDescription gestureDescription) {
+                    super.onCompleted(gestureDescription);
+                    Log.d(TAG, "swipe  success.");
+                    path.close();
+                }
+
+                @Override
+                public void onCancelled(GestureDescription gestureDescription) {
+                    super.onCancelled(gestureDescription);
+                    Log.d(TAG, " swipe  fail.");
+                    path.close();
+                }
+            },null);
+        }
     }
 
 
@@ -117,6 +162,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
                     @Override
                     public void onChanged(@Nullable String s) {
                         LogUtil.debugLog("收到订阅消息:update_laststr " + s);
+                        poststrqueue.offer(s);
                         setLastPostStr(s);
                     }
                 });
@@ -129,6 +175,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
         String transremarkid="com.alipay.mobile.chatapp:id/biz_title";
         debugLogWithDeveloper( ":窗口状态改变,类名为"+classname);
         if(classname.equals("com.alipay.mobile.chatapp.ui.PersonalChatMsgActivity_")){
+            mockSwipe();
             AccessibilityNodeInfo nodepersonalchat=null;
             AccessibilityWindowInfo windowInfopersonalchat=null;
             if(pm.isScreenOn()) {
@@ -154,7 +201,7 @@ public class ReceiptnoticeAccessibilityService extends AccessibilityService impl
                 AlipayTransferBean transferbean=new AlipayTransferBean();
                 transferbean.setNum(transnum);
                 transferbean.setRemark(transremark);
-                if(!lastpoststr.equals(lastnotistr))
+                if(!poststrqueue.poll().equals(lastnotistr))
                 MessageSendBus.postMessageWithget_alipay_transfer_money(transferbean);
             }catch (ArrayIndexOutOfBoundsException e){
 
